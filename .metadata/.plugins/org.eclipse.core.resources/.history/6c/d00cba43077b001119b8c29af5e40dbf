@@ -1,0 +1,7 @@
+package com.bookmypro.identity_service.feature.auth.dto.response;
+
+public class CreateCredentialResponse {
+	private String credentialId;
+	private String status;
+	private String message;
+}

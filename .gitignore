@@ -1,0 +1,140 @@
+# ==========================
+# Java
+# ==========================
+*.class
+*.jar
+*.war
+*.ear
+
+# ==========================
+# Maven
+# ==========================
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+
+# Maven Wrapper
+.mvn/wrapper/maven-wrapper.jar
+
+# ==========================
+# Gradle
+# ==========================
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# ==========================
+# Spring Boot
+# ==========================
+*.log
+spring.log
+application-local.properties
+application-dev.properties
+application-test.properties
+application-prod.properties
+
+# ==========================
+# IDE - IntelliJ IDEA
+# ==========================
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# ==========================
+# IDE - Eclipse / STS
+# ==========================
+.classpath
+.project
+.settings/
+.factorypath
+
+# ==========================
+# VS Code
+# ==========================
+.vscode/
+
+# ==========================
+# OS Generated Files
+# ==========================
+.DS_Store
+Thumbs.db
+
+# ==========================
+# Environment Variables
+# ==========================
+.env
+.env.*
+*.env
+
+# ==========================
+# Docker
+# ==========================
+docker-compose.override.yml
+
+# ==========================
+# Database Files
+# ==========================
+*.db
+*.sqlite
+*.sqlite3
+
+# ==========================
+# PostgreSQL Local Data
+# ==========================
+postgres-data/
+pgdata/
+
+# ==========================
+# Redis
+# ==========================
+redis-data/
+
+# ==========================
+# JWT / Security Secrets
+# ==========================
+*.pem
+*.key
+*.crt
+
+# ==========================
+# Logs
+# ==========================
+logs/
+*.log.*
+
+# ==========================
+# Temporary Files
+# ==========================
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+
+# ==========================
+# Coverage Reports
+# ==========================
+coverage/
+*.exec
+
+# ==========================
+# Test Reports
+# ==========================
+surefire-reports/
+failsafe-reports/
+
+# ==========================
+# Build Output
+# ==========================
+dist/
+generated/
+
+# ==========================
+# Local Configuration
+# ==========================
+application.properties.local
+bootstrap.properties.local

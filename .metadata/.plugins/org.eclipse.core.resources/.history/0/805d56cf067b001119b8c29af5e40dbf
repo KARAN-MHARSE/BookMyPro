@@ -1,0 +1,5 @@
+package com.bookmypro.identity_service.feature.auth.service;
+
+public class CreateCredentialService {
+
+}

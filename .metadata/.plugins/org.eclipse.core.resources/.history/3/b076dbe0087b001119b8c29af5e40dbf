@@ -1,0 +1,11 @@
+package com.bookmypro.identity_service.feature.auth.repository;
+
+import java.util.UUID;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bookmypro.identity_service.entity.Credential;
+
+public interface CredentialRepository extends JpaRepository<Credential, UUID> {
+
+}
