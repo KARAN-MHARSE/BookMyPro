@@ -1,0 +1,41 @@
+package com.bookmypro.identity_service.model;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
+@Table(name = "otp")
+@Getter
+@Setter
+public class Otp {
+
+    @Id
+    private UUID otpId;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "credential_id")
+    private Credential credential;
+
+
+    private String purpose;
+
+    private String otpCode;
+
+    private LocalDateTime expiresAt;
+
+    private Boolean verified;
+
+    private Integer attemptCount;
+
+    private LocalDateTime createdAt;
+}

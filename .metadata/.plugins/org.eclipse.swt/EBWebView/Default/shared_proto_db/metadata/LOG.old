@@ -1,2 +1,3 @@
-2026/07/09-00:37:36.509 72b4 Creating DB D:\Karan\BookMyPro\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\shared_proto_db\metadata since it was missing.
-2026/07/09-00:37:36.519 72b4 Reusing MANIFEST D:\Karan\BookMyPro\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\shared_proto_db\metadata/MANIFEST-000001
+2026/07/09-14:01:04.213 12a0 Reusing MANIFEST D:\Karan\BookMyPro\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\shared_proto_db\metadata/MANIFEST-000001
+2026/07/09-14:01:04.213 12a0 Recovering log #3
+2026/07/09-14:01:04.214 12a0 Reusing old log D:\Karan\BookMyPro\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\shared_proto_db\metadata/000003.log 

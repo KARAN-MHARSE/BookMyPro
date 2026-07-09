@@ -1,0 +1,24 @@
+package com.bookmypro.identity_service.exception;
+
+import org.springframework.http.ProblemDetail;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+	@ExceptionHandler(BusinessException.class)
+	public ProblemDetail handlBusinessException(BusinessException ex) {
+
+		ErrorCode errorCode = ex.getErrorCode();
+
+		ProblemDetail problemDetail = ProblemDetail.forStatus(errorCode.getHttpStatus());
+
+		problemDetail.setTitle("Business Exception");
+		problemDetail.setDetail(errorCode.getMessage());
+
+		problemDetail.setProperty("code", errorCode.getCode());
+
+		return problemDetail;
+	}
+}

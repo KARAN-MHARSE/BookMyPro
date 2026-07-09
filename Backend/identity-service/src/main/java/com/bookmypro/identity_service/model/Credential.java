@@ -3,10 +3,17 @@ package com.bookmypro.identity_service.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.bookmypro.identity_service.common.enums.CredentialStatus;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,10 +21,12 @@ import lombok.Setter;
 @Table(name = "credentials")
 @Getter
 @Setter
+@Builder
 public class Credential extends BaseEntity {
 
     @Id
     @Column(name = "credential_id")
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID credentialId;
 
     private String username;
@@ -29,7 +38,8 @@ public class Credential extends BaseEntity {
 
     private String password;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private CredentialStatus status;
 
     @Column(name = "is_email_verified")
     private Boolean emailVerified;

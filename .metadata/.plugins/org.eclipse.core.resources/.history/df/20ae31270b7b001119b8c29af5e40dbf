@@ -1,0 +1,14 @@
+package com.bookmypro.identity_service.common.service;
+
+public class PasswordService {
+	String encode(String rawPassword) {
+		return "";
+	}
+
+	boolean matches(String rawPassword, String encodedPassword) {
+		return true;
+	}
+
+	void validate(String rawPassword) {
+	}
+}

@@ -1,5 +1,38 @@
 package com.bookmypro.identity_service.common.service;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
+
+import com.bookmypro.identity_service.dto.request.EmailRequest;
+
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+@RequiredArgsConstructor
+@Slf4j
 public class EmailService {
+	private final JavaMailSender mailSender;
+	
+	@Value("${SPRING_MAIL_USERNAME}")
+	private String fromAddress;
+	
+	public void sendEmail(EmailRequest emailRequest) {
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setFrom(fromAddress);
+		message.setTo(emailRequest.getTo());
+		message.setSubject(emailRequest.getSubject());
+		message.setText(emailRequest.getBody());
+		
+		try {
+			mailSender.send(message);
+            log.info("Email sent successfully to {}", emailRequest.getTo());
+		}catch (Exception e) {
+            log.info("Email sent successfully to {}", emailRequest.getTo());
+		}
+	}
 
 }

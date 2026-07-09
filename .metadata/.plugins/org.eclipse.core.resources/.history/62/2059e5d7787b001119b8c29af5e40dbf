@@ -1,0 +1,41 @@
+package com.bookmypro.identity_service.common.service;
+
+import java.security.SecureRandom;
+import java.time.LocalDateTime;
+
+import org.springframework.stereotype.Service;
+
+import com.bookmypro.identity_service.common.enums.OtpPurpose;
+import com.bookmypro.identity_service.model.Credential;
+import com.bookmypro.identity_service.model.Otp;
+import com.bookmypro.identity_service.repositories.OtpRepository;
+
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class OtpService {
+    private static final SecureRandom RANDOM = new SecureRandom();
+	private final OtpRepository otpRepository;
+
+	@Transactional
+	public Otp createVerificationOtp(Credential credential) {
+		otpRepository.deleteByCredentialAndPurpose(credential, OtpPurpose.EMAIL_VERIFICATION.toString());
+
+		String otpCode = generateOtp();
+
+		Otp otp = Otp.builder().credential(credential).purpose(OtpPurpose.EMAIL_VERIFICATION)
+				.otpCode(otpCode).attemptCount(0).expiresAt(LocalDateTime.now().plusMinutes(5)).build();
+
+		return otpRepository.save(otp);
+	}
+
+	private String generateOtp() {
+
+		int value = 100000 + RANDOM.nextInt(900000);
+
+		return String.valueOf(value);
+	}
+}

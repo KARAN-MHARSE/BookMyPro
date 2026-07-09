@@ -1,0 +1,15 @@
+package com.bookmypro.identity_service.feature.auth.verifyotp;
+
+import org.springframework.stereotype.Service;
+
+import jakarta.validation.Valid;
+
+@Service
+public class VerifyOtpService {
+
+	public VerifyOtpResponse validateOtp(@Valid VerifyOtpRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

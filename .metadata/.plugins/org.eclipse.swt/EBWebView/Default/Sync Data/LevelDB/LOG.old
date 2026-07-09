@@ -1,2 +1,3 @@
-2026/07/09-00:37:36.481 64c4 Creating DB D:\Karan\BookMyPro\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Sync Data\LevelDB since it was missing.
-2026/07/09-00:37:36.497 64c4 Reusing MANIFEST D:\Karan\BookMyPro\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Sync Data\LevelDB/MANIFEST-000001
+2026/07/09-14:01:04.189 ab78 Reusing MANIFEST D:\Karan\BookMyPro\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Sync Data\LevelDB/MANIFEST-000001
+2026/07/09-14:01:04.190 ab78 Recovering log #3
+2026/07/09-14:01:04.191 ab78 Reusing old log D:\Karan\BookMyPro\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Sync Data\LevelDB/000003.log 

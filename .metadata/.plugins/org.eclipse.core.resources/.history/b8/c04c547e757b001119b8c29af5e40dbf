@@ -1,0 +1,8 @@
+package com.bookmypro.identity_service.feature.auth.verifyotp;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class VerifyOtpService {
+
+}

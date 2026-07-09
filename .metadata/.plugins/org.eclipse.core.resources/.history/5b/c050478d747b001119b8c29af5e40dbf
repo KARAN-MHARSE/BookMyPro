@@ -1,0 +1,87 @@
+package com.bookmypro.identity_service.feature.auth.createcredential;
+
+import org.springframework.stereotype.Service;
+
+import com.bookmypro.identity_service.common.enums.CredentialStatus;
+import com.bookmypro.identity_service.common.service.EmailService;
+import com.bookmypro.identity_service.common.service.OtpService;
+import com.bookmypro.identity_service.common.service.PasswordService;
+import com.bookmypro.identity_service.dto.request.EmailRequest;
+import com.bookmypro.identity_service.exception.BusinessException;
+import com.bookmypro.identity_service.exception.ErrorCode;
+import com.bookmypro.identity_service.model.Credential;
+import com.bookmypro.identity_service.model.Otp;
+import com.bookmypro.identity_service.repositories.CredentialRepository;
+
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+@RequiredArgsConstructor
+@Slf4j
+public class CreateCredentialService {
+	private final CredentialRepository credentialRepository;
+	private final OtpService otpService;
+	private final EmailService emailService;
+	private final PasswordService passwordService;
+
+	@Transactional()
+	public CreateCredentialResponse createCredential(CreateCredentialRequest request) {
+		log.info("Creating credential for email={}", request.getEmail());
+		passwordService.validate(request.getPassword());
+		
+		if (credentialRepository.existsByEmail(request.getEmail())) {
+		    throw new BusinessException(ErrorCode.EMAIL_ALREADY_EXISTS);
+		}
+
+		String encodePassword = passwordService.encode(request.getPassword());
+
+		Credential credential = Credential.builder().email(request.getEmail()).username(request.getUserName())
+				.password(encodePassword).status(CredentialStatus.PENDING_VERIFICATION)
+				.emailVerified(false).phoneVerified(false).build();
+
+		Credential savedCredential = credentialRepository.save(credential);
+		log.info("Credential created successfully. credentialId={}",
+		        savedCredential.getCredentialId());
+
+		Otp otp = otpService.createVerificationOtp(savedCredential);
+
+		sendVerificationOtpEmail(request.getEmail(), otp.getOtpCode());
+
+		CreateCredentialResponse response = new CreateCredentialResponse();
+		response.setCredentialId(savedCredential.getCredentialId().toString());
+		response.setMessage("Credentials created successfully");
+		response.setStatus("PENDING_VERIFICATION");
+		
+		
+
+		return response;
+
+	}
+
+	private void sendVerificationOtpEmail(String email, String otp) {
+		String subject = "Verify your email";
+
+		String body = """
+				Welcome to BookMyPro!
+
+				Your email verification OTP is: %s
+
+				This OTP is valid for 5 minutes.
+
+				If you did not create this account, please ignore this email.
+				""".formatted(otp);
+
+		EmailRequest emailRequest = new EmailRequest(email, subject, body);
+		emailService.sendEmail(emailRequest);
+
+	}
+
+	public Boolean validateOtp(@Valid ValidateOtpRequest request) {
+		return otpService.validateOtp(request);
+		
+	}
+
+}

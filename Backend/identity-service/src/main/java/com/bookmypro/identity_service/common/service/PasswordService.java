@@ -1,5 +1,50 @@
-package com.bookmypro.identity_service.common.service;
+	package com.bookmypro.identity_service.common.service;
+	
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
-public class PasswordService {
+import com.bookmypro.identity_service.exception.BusinessException;
+import com.bookmypro.identity_service.exception.ErrorCode;
 
-}
+import lombok.RequiredArgsConstructor;
+	
+	@Service
+	@RequiredArgsConstructor
+	public class PasswordService {
+		private final PasswordEncoder passwordEncoder;
+		
+		public String encode(String rawPassword) {
+	        validate(rawPassword);
+			return passwordEncoder.encode(rawPassword);
+		}
+	
+		public boolean matches(String rawPassword, String encodedPassword) {
+			return passwordEncoder.matches(rawPassword, encodedPassword);
+		}
+	
+		public void validate(String rawPassword) {
+			 if (rawPassword == null || rawPassword.isBlank()) {
+			        throw new BusinessException(ErrorCode.INVALID_PASSWORD);
+			    }
+	
+			    if (rawPassword.length() < 8) {
+			        throw new BusinessException(ErrorCode.INVALID_PASSWORD);
+			    }
+	
+			    if (!rawPassword.matches(".*[A-Z].*")) {
+			        throw new BusinessException(ErrorCode.INVALID_PASSWORD);
+			    }
+	
+			    if (!rawPassword.matches(".*[a-z].*")) {
+			        throw new BusinessException(ErrorCode.INVALID_PASSWORD);
+			    }
+	
+			    if (!rawPassword.matches(".*\\d.*")) {
+			        throw new BusinessException(ErrorCode.INVALID_PASSWORD);
+			    }
+	
+			    if (!rawPassword.matches(".*[@#$%^&+=!].*")) {
+			        throw new BusinessException(ErrorCode.INVALID_PASSWORD);
+			    }
+		}
+	}

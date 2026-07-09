@@ -1,5 +1,18 @@
 package com.bookmypro.identity_service.repositories;
 
-public class OtpRepository {
+import java.util.Optional;
+import java.util.UUID;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bookmypro.identity_service.common.enums.OtpPurpose;
+import com.bookmypro.identity_service.model.Credential;
+import com.bookmypro.identity_service.model.Otp;
+
+public interface OtpRepository extends JpaRepository<Otp, UUID> {
+
+	void deleteByCredentialAndPurpose(Credential credential, OtpPurpose emailVerification);
+
+	Optional<Otp> findByCredentialAndPurpose(Credential credential,OtpPurpose purpose);
 
 }

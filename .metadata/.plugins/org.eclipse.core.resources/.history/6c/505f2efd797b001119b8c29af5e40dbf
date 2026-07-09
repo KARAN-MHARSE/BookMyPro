@@ -1,0 +1,23 @@
+package com.bookmypro.identity_service.feature.auth.verifyotp;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.bookmypro.identity_service.model.Otp;
+import com.bookmypro.identity_service.repositories.OtpRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class OtpAttemptService {
+	private final OtpRepository otpRepository;
+
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public void incrementAttemptCount(Otp otp) {
+		otp.setAttemptCount(otp.getAttemptCount() + 1);
+		otpRepository.save(otp);
+	}
+
+}

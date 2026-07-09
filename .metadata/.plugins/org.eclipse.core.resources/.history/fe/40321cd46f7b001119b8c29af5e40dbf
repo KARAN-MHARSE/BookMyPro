@@ -1,0 +1,20 @@
+package com.bookmypro.identity_service.feature.auth.createcredential;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@RequiredArgsConstructor
+public class ValidateOtpRequest {
+	@NotBlank
+	@Email
+	private String email;
+	
+	@NotBlank
+	private String otpCode;
+
+}

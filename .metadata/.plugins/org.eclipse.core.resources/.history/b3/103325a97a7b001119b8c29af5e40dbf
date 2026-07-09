@@ -1,0 +1,81 @@
+package com.bookmypro.identity_service.common.service;
+
+import java.security.SecureRandom;
+import java.time.LocalDateTime;
+
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+
+import com.bookmypro.identity_service.common.enums.OtpPurpose;
+import com.bookmypro.identity_service.exception.BusinessException;
+import com.bookmypro.identity_service.exception.ErrorCode;
+import com.bookmypro.identity_service.model.Credential;
+import com.bookmypro.identity_service.model.Otp;
+import com.bookmypro.identity_service.repositories.OtpRepository;
+
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class OtpService {
+	private static final SecureRandom RANDOM = new SecureRandom();
+	private final OtpRepository otpRepository;
+	@Lazy
+	private final OtpService self;
+	private  int MAX_ATTEMPT = 5;
+
+	@Transactional
+	public Otp createVerificationOtp(Credential credential) {
+		otpRepository.deleteByCredentialAndPurpose(credential, OtpPurpose.EMAIL_VERIFICATION);
+
+		String otpCode = generateOtp();
+
+		Otp otp = Otp.builder().credential(credential).purpose(OtpPurpose.EMAIL_VERIFICATION).otpCode(otpCode)
+				.attemptCount(0).expiresAt(LocalDateTime.now().plusMinutes(5)).build();
+
+		return otpRepository.save(otp);
+	}
+
+	private String generateOtp() {
+
+		int value = 100000 + RANDOM.nextInt(900000);
+
+		return String.valueOf(value);
+	}
+
+	@Transactional
+	public void verifyEmailVerificationOtp(Credential credential, String otpCode) {
+		Otp otp = otpRepository.findByCredentialAndPurpose(credential, OtpPurpose.EMAIL_VERIFICATION)
+                .orElseThrow(() -> new BusinessException(ErrorCode.OTP_NOT_FOUND));
+ 
+        if (otp.getExpiresAt().isBefore(LocalDateTime.now())) {
+            throw new BusinessException(ErrorCode.OTP_EXPIRED);
+        }
+ 
+        if (otp.getAttemptCount() >= MAX_ATTEMPTS) {
+            throw new BusinessException(ErrorCode.OTP_MULTIPLE_ATTEMPT);
+        }
+ 
+        if (!otp.getOtpCode().equals(otpCode)) {
+            // Runs in its own transaction (via proxy) - commits immediately,
+            // survives regardless of the exception thrown right after.
+            int attemptsAfterThis = self.incrementAttempt(otp);
+ 
+            if (attemptsAfterThis >= MAX_ATTEMPTS) {
+                throw new BusinessException(ErrorCode.OTP_MULTIPLE_ATTEMPT);
+            }
+            throw new BusinessException(ErrorCode.INVALID_OTP);
+        }
+ 
+        otpRepository.delete(otp);
+    }	}
+	
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+    public int incrementAttempt(Otp otp) {
+        otp.setAttemptCount(otp.getAttemptCount() + 1);
+        Otp saved = otpRepository.save(otp);
+        return saved.getAttemptCount();
+    }
+}
