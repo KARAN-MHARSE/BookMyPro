@@ -1,5 +1,6 @@
 package com.bookmypro.identity_service.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -10,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +19,7 @@ import lombok.Setter;
 @Table(name = "refresh_token")
 @Getter
 @Setter
+@Builder
 public class RefreshToken {
 
     @Id
@@ -32,7 +35,7 @@ public class RefreshToken {
     private String token;
 
 
-    private LocalDateTime expiresAt;
+    private LocalDate expiresAt;
 
     private Boolean revoked;
 

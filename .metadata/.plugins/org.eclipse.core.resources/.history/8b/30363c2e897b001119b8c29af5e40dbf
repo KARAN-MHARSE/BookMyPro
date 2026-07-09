@@ -1,0 +1,14 @@
+package com.bookmypro.identity_service.repositories;
+
+import java.util.UUID;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bookmypro.identity_service.model.RefreshToken;
+
+
+
+public interface RefreshTokenRepository  extends JpaRepository<RefreshToken, UUID>{
+	
+
+}

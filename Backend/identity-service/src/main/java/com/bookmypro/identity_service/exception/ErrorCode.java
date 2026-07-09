@@ -4,40 +4,101 @@ import org.springframework.http.HttpStatus;
 
 public enum ErrorCode {
 
-	EMAIL_ALREADY_EXISTS("AUTH_001", HttpStatus.CONFLICT, "Email is already registered."),
+    EMAIL_ALREADY_EXISTS(
+            "AUTH_001",
+            HttpStatus.CONFLICT,
+            "Email is already registered."
+    ),
 
-	INVALID_PASSWORD("AUTH_002", HttpStatus.BAD_REQUEST, "Password does not satisfy security policy."),
+    INVALID_PASSWORD(
+            "AUTH_002",
+            HttpStatus.BAD_REQUEST,
+            "Invalid password."
+    ),
 
-	OTP_EXPIRED("AUTH_003", HttpStatus.BAD_REQUEST, "OTP has expired."),
+    OTP_EXPIRED(
+            "AUTH_003",
+            HttpStatus.BAD_REQUEST,
+            "OTP has expired."
+    ),
 
-	CREDENTIAL_NOT_FOUND("AUTH_004", HttpStatus.BAD_REQUEST, "Credential not found."),
-	
-	OTP_NOT_FOUND("AUTH_005", HttpStatus.BAD_REQUEST, "Otp not found."),
-	
-	OTP_MULTIPLE_ATTEMPT("AUTH_006", HttpStatus.BAD_REQUEST, "Otp Trails reached.")
-	
-	INVALID_OTP("AUTH_006", HttpStatus.BAD_REQUEST, "Invalid Otp.");
+    CREDENTIAL_NOT_FOUND(
+            "AUTH_004",
+            HttpStatus.NOT_FOUND,
+            "Credential not found."
+    ),
 
-	private final String code;
-	private final HttpStatus httpStatus;
-	private final String message;
+    OTP_NOT_FOUND(
+            "AUTH_005",
+            HttpStatus.NOT_FOUND,
+            "OTP not found."
+    ),
 
-	ErrorCode(String code, HttpStatus httpStatus, String message) {
-		this.code = code;
-		this.httpStatus = httpStatus;
-		this.message = message;
-	}
+    OTP_MULTIPLE_ATTEMPT(
+            "AUTH_006",
+            HttpStatus.TOO_MANY_REQUESTS,
+            "Maximum OTP attempts reached."
+    ),
 
-	public String getCode() {
-		return code;
-	}
+    INVALID_OTP(
+            "AUTH_007",
+            HttpStatus.BAD_REQUEST,
+            "Invalid OTP."
+    ),
 
-	public HttpStatus getHttpStatus() {
-		return httpStatus;
-	}
+    EMAIL_NOT_VERIFIED(
+            "AUTH_008",
+            HttpStatus.FORBIDDEN,
+            "Email is not verified."
+    ),
 
-	public String getMessage() {
-		return message;
-	}
+    ACCOUNT_LOCKED(
+            "AUTH_009",
+            HttpStatus.LOCKED,
+            "Account is locked."
+    ),
 
+    SESSION_LIMIT_EXCEEDED(
+            "AUTH_010",
+            HttpStatus.TOO_MANY_REQUESTS,
+            "Maximum active sessions exceeded."
+    ),
+	INVALID_REFRESH_TOKEN(
+            "AUTH_010",
+            HttpStatus.TOO_MANY_REQUESTS,
+            "Maximum active sessions exceeded."
+    );
+
+
+    private final String code;
+
+    private final HttpStatus httpStatus;
+
+    private final String message;
+
+
+    ErrorCode(
+            String code,
+            HttpStatus httpStatus,
+            String message
+    ) {
+        this.code = code;
+        this.httpStatus = httpStatus;
+        this.message = message;
+    }
+
+
+    public String getCode() {
+        return code;
+    }
+
+
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
+
+
+    public String getMessage() {
+        return message;
+    }
 }

@@ -1,0 +1,10 @@
+package com.bookmypro.identity_service.feature.auth.login;
+
+public class LoginService {
+
+	public LoginResponse loginUser(LoginRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

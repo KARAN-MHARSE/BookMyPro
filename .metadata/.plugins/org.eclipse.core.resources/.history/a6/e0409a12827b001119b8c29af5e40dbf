@@ -1,0 +1,67 @@
+package com.bookmypro.identity_service.feature.auth.login;
+
+import java.nio.file.attribute.UserDefinedFileAttributeView;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+
+import com.bookmypro.identity_service.common.enums.CredentialStatus;
+import com.bookmypro.identity_service.common.service.JwtService;
+import com.bookmypro.identity_service.common.service.PasswordService;
+import com.bookmypro.identity_service.exception.BusinessException;
+import com.bookmypro.identity_service.exception.ErrorCode;
+import com.bookmypro.identity_service.feature.auth.createcredential.CreateCredentialService;
+import com.bookmypro.identity_service.model.Credential;
+import com.bookmypro.identity_service.model.RefreshToken;
+import com.bookmypro.identity_service.repositories.CredentialRepository;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+@RequiredArgsConstructor
+@Slf4j
+public class LoginService {
+	private final CredentialRepository credentialRepository;
+	private final PasswordService passwordService;
+	private final JwtService jwtService;
+
+	public LoginResponse loginUser(LoginRequest request) {
+		LoginResponse response = new LoginResponse();
+		Credential credential = credentialRepository.findByEmail(request.getEmail())
+				.orElseThrow(()-> new BusinessException(ErrorCode.CREDENTIAL_NOT_FOUND));
+		
+		boolean isMatch  = passwordService.matches(request.getPassword(), credential.getPassword());
+		
+		if(!isMatch) {
+			throw new BusinessException(ErrorCode.INVALID_PASSWORD);
+		}
+		
+		CustomUserDetails customUserDetails = new CustomUserDetails(credential);
+		
+		String refreshToken = jwtService.generateAccessToken(customUserDetails);
+		String accessToken = jwtService.generateRefreshToken(customUserDetails);
+		
+		response.setAccessToken(accessToken);
+		
+		RefreshToken token = RefreshToken.builder()
+				.credential(credential)
+				.createdAt(LocalDateTime.now())
+				.expiresAt(jwtService.extractExpiredAt(refreshToken).toInstant()
+				        .atZone(ZoneId.systemDefault())
+				        .toLocalDate())
+				.token(refreshToken)
+				.revoked(false)
+				.buld();
+				
+				
+		
+		
+
+		
+		
+	}
+
+}

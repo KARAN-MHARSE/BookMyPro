@@ -1,6 +1,5 @@
 package com.bookmypro.identity_service.feature.auth.verifyotp;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;

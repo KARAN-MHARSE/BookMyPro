@@ -1,0 +1,27 @@
+package com.bookmypro.identity_service.repositories;
+
+import java.util.Optional;
+import java.util.UUID;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+
+import com.bookmypro.identity_service.model.Credential;
+import com.bookmypro.identity_service.model.RefreshToken;
+
+public interface RefreshTokenRepository extends JpaRepository<RefreshToken, UUID> {
+	Optional<RefreshToken> findByToken(String token);
+
+	Optional<RefreshToken> findByTokenAndCredential(String token, Credential credential);
+
+	@Modifying
+	@Query("""
+			    UPDATE RefreshToken r
+			    SET r.revoked = true
+			    WHERE r.credential = :credential
+			    AND r.revoked = false
+			""")
+	void revokeAllByCredential(Credential credential);
+
+}
