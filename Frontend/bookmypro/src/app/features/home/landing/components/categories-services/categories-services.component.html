@@ -1,0 +1,18 @@
+<section class="section">
+    <div class="container">
+        <div class="row-between mb-8">
+            <div>
+                <span class="eyebrow">Explore</span>
+                <h2>Popular Categories</h2>
+            </div>
+            <button class="btn btn-outline">View All</button>
+        </div>
+
+        <div class="grid grid-6">
+            <app-category-card
+                *ngFor="let category of categories"
+                [category]="category">
+            </app-category-card>
+        </div>
+    </div>
+</section>

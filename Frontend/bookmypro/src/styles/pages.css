@@ -1,0 +1,19 @@
+/* Page-specific tweaks */
+.landing .category-tile { padding: var(--space-6); border-radius: var(--radius-lg); background: var(--color-surface); border: 1px solid var(--color-border); text-align: center; transition: all var(--dur); }
+.landing .category-tile:hover { border-color: var(--color-primary); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.landing .category-tile .ico { width: 56px; height: 56px; border-radius: var(--radius-md); background: var(--color-primary-50); color: var(--color-primary); display: grid; place-items: center; margin: 0 auto var(--space-4); font-size: 24px; }
+.landing .how { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-8); }
+.landing .how .step .num { width: 44px; height: 44px; border-radius: var(--radius-md); background: var(--color-secondary); color: #fff; display: grid; place-items: center; font-weight: 800; margin-bottom: var(--space-4); }
+.landing .testimonial { padding: var(--space-6); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+.landing .cta-band { padding: var(--space-16); border-radius: var(--radius-2xl); background: linear-gradient(135deg, var(--color-primary) 0%, #7C3AED 100%); color: #fff; text-align: center; }
+.landing .cta-band h2 { color: #fff; }
+
+.service-details .gallery { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: var(--space-3); aspect-ratio: 16/9; }
+.service-details .gallery .g { border-radius: var(--radius-md); background: linear-gradient(135deg,#DBEAFE,#EDE9FE); }
+.service-details .gallery .g:first-child { grid-row: span 2; }
+
+.checkout-grid { display: grid; grid-template-columns: 1fr 400px; gap: var(--space-8); align-items: start; }
+@media (max-width: 900px){ .checkout-grid { grid-template-columns: 1fr; } .service-details .gallery { grid-template-columns: 1fr; aspect-ratio: auto; } .service-details .gallery .g { aspect-ratio: 16/9; } }
+
+.err-page { text-align: center; padding: var(--space-16); }
+.err-page .code { font-size: 8rem; font-weight: 900; letter-spacing: -0.05em; background: linear-gradient(135deg, var(--color-primary), #7C3AED); -webkit-background-clip: text; background-clip: text; color: transparent; line-height: 1; }

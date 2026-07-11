@@ -1,0 +1,21 @@
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); color: var(--color-secondary); line-height: 1.2; font-weight: var(--fw-bold); letter-spacing: -0.02em; }
+h1 { font-size: var(--fs-4xl); }
+h2 { font-size: var(--fs-3xl); }
+h3 { font-size: var(--fs-2xl); }
+h4 { font-size: var(--fs-xl); }
+h5 { font-size: var(--fs-lg); }
+h6 { font-size: var(--fs-md); }
+p { color: var(--color-text-muted); }
+small, .text-sm { font-size: var(--fs-sm); }
+.text-xs { font-size: var(--fs-xs); }
+.text-muted { color: var(--color-text-muted); }
+.text-subtle { color: var(--color-text-subtle); }
+.text-primary { color: var(--color-primary); }
+.text-accent { color: var(--color-accent); }
+.text-danger { color: var(--color-danger); }
+.text-center { text-align: center; }
+.font-medium { font-weight: var(--fw-medium); }
+.font-semibold { font-weight: var(--fw-semibold); }
+.font-bold { font-weight: var(--fw-bold); }
+.eyebrow { text-transform: uppercase; letter-spacing: 0.14em; font-size: var(--fs-xs); font-weight: var(--fw-semibold); color: var(--color-primary); }
+.lead { font-size: var(--fs-md); color: var(--color-text-muted); line-height: 1.6; }

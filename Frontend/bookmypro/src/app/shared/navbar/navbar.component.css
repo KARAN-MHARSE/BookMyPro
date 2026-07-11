@@ -1,0 +1,22 @@
+:host {
+  display: block;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+}
+
+.nav a.active {
+  color: var(--color-primary);
+}
+
+.brand {
+  cursor: pointer;
+}

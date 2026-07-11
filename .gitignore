@@ -69,6 +69,8 @@ Thumbs.db
 .env
 .env.*
 *.env
+**/.env
+**/.env.*
 
 # ==========================
 # Docker
@@ -138,3 +140,4 @@ generated/
 # ==========================
 application.properties.local
 bootstrap.properties.local
+/.metadata/

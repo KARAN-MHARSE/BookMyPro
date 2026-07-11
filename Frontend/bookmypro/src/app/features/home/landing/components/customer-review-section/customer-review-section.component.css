@@ -1,0 +1,37 @@
+.customer-review-section{
+    padding:90px 0;
+    background:#f8fafc;
+}
+
+.section-header{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.eyebrow{
+    display:block;
+    color:#2563eb;
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    margin-bottom:10px;
+}
+
+.section-header h2{
+    margin:0 0 16px;
+    font-size:38px;
+}
+
+.section-header p{
+    color:#6b7280;
+    max-width:600px;
+    margin:auto;
+    line-height:1.7;
+}
+
+.review-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:28px;
+}

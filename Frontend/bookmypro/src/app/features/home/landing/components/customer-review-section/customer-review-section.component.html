@@ -1,0 +1,26 @@
+<p>customer-review-section works!</p>
+<section class="customer-review-section">
+    <div class="container">
+
+        <div class="section-header">
+            <span class="eyebrow">Real Customers</span>
+            <h2>Loved In Your Neighborhood</h2>
+            <p>Thousands of happy customers trust ServeHub every day.</p>
+        </div>
+
+        <div class="review-grid">
+
+            <app-customer-rating-card
+                *ngFor="let review of reviews"
+                [customerName]="review.customerName"
+                [location]="review.location"
+                [avatar]="review.avatar"
+                [avatarGradient]="review.avatarGradient"
+                [rating]="review.rating"
+                [review]="review.review">
+            </app-customer-rating-card>
+
+        </div>
+
+    </div>
+</section>

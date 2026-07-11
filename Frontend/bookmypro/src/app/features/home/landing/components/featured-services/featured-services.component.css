@@ -1,0 +1,40 @@
+.featured-services{
+    padding:80px 0;
+    background:#f8fafc;
+}
+
+.section-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:40px;
+}
+
+.eyebrow{
+    display:block;
+    color:#2563eb;
+    font-weight:600;
+    margin-bottom:8px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    font-size:13px;
+}
+
+.section-header h2{
+    margin:0;
+    font-size:34px;
+}
+
+.service-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:24px;
+}
+
+@media(max-width:768px){
+    .section-header{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:20px;
+    }
+}

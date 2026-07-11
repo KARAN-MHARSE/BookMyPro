@@ -1,0 +1,32 @@
+<section class="section featured-services">
+    <div class="container">
+
+        <div class="section-header">
+            <div>
+                <span class="eyebrow">Featured</span>
+                <h2>Top Services This Week</h2>
+            </div>
+
+            <button class="btn btn-ghost">
+                View All →
+            </button>
+        </div>
+
+        <div class="service-grid">
+
+            <app-service-card
+                *ngFor="let service of services"
+                [title]="service.title"
+                [icon]="service.icon"
+                [thumbGradient]="service.thumbGradient"
+                [badgeText]="service.badgeText"
+                [badgeVariant]="service.badgeVariant"
+                [rating]="service.rating"
+                [reviewCount]="service.reviewCount"
+                [priceFrom]="service.priceFrom">
+            </app-service-card>
+
+        </div>
+
+    </div>
+</section>

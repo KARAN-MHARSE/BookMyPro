@@ -1,0 +1,13 @@
+<div class="provider-card">
+  <div class="row">
+    <div class="avatar-sm" [style.background]="avatarGradient">{{ initials }}</div>
+    <div class="info">
+      <div class="name">{{ name }}</div>
+      <small class="text-muted">{{ category }} &middot; {{ location }}</small>
+    </div>
+  </div>
+  <div class="right" *ngIf="value">
+    <div class="amount">{{ value }}</div>
+    <small class="text-muted">{{ rating | number: '1.2-2' }} &#9733;</small>
+  </div>
+</div>

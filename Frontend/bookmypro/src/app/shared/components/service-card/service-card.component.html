@@ -1,0 +1,19 @@
+<!-- <a class="service-card" [routerLink]="routerLink"> -->
+    <a class="service-card">
+
+  <div class="thumb" [style.background]="thumbGradient">{{ icon }}</div>
+  <div class="body">
+    <span *ngIf="badgeText" class="badge" [ngClass]="'badge-' + badgeVariant">{{
+      badgeText
+    }}</span>
+    <div class="title">{{ title }}</div>
+    <div class="stars">
+      {{ starString }}
+      <span class="text-muted text-sm">{{ rating | number: '1.1-1' }} ({{ reviewCount | number }})</span>
+    </div>
+    <div class="meta">
+      <span class="text-muted text-sm">From</span>
+      <span class="price">${{ priceFrom }}</span>
+    </div>
+  </div>
+</a>

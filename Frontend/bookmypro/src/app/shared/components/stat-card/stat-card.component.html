@@ -1,0 +1,16 @@
+<div class="stat-card">
+  <div class="label">{{ label }}</div>
+  <div class="value">{{ value }}</div>
+  <span
+    *ngIf="deltaLabel"
+    class="delta"
+    [class.up]="deltaDirection === 'up'"
+    [class.down]="deltaDirection === 'down'"
+  >
+    <ng-container [ngSwitch]="deltaDirection">
+      <ng-container *ngSwitchCase="'up'">&uarr; </ng-container>
+      <ng-container *ngSwitchCase="'down'">&darr; </ng-container>
+    </ng-container
+    >{{ deltaLabel }}
+  </span>
+</div>

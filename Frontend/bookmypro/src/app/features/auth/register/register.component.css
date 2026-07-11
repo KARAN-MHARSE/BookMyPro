@@ -1,0 +1,260 @@
+/* ==========================================================
+   SIGNUP COMPONENT
+========================================================== */
+
+/* ===========================
+   Brand Panel
+=========================== */
+
+.brand-panel .brand {
+  color: #fff;
+}
+
+.brand-panel .badge {
+  width: fit-content;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 0;
+}
+
+.brand-panel h2 {
+  color: #fff;
+}
+
+.brand-panel p {
+  color: #dbeafe;
+}
+
+.brand-panel small {
+  color: #93c5fd;
+}
+
+/* ===========================
+   Form
+=========================== */
+
+.form-inner {
+  width: 100%;
+  max-width: 420px;
+}
+
+.form-inner > p {
+  margin-top: var(--space-2);
+}
+
+.field {
+  position: relative;
+}
+
+.field .error {
+  display: block;
+  margin-top: var(--space-2);
+}
+
+.progress {
+  margin-top: var(--space-2);
+}
+
+.progress-fill {
+  width: 70%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    var(--color-accent),
+    var(--color-primary)
+  );
+}
+
+/* ===========================
+   Role Chips
+=========================== */
+
+.chip {
+  transition: all var(--dur) var(--ease);
+}
+
+.chip.active {
+  box-shadow: var(--shadow-md);
+}
+
+/* ===========================
+   Terms Links
+=========================== */
+
+.check a {
+  color: var(--color-primary);
+  font-weight: var(--fw-semibold);
+  transition: color var(--dur);
+}
+
+.check a:hover {
+  text-decoration: underline;
+}
+
+/* ===========================
+   OTP Modal
+=========================== */
+
+.otp-modal {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: var(--space-4);
+
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(6px);
+
+  z-index: 1000;
+
+  animation: otpFade .25s ease;
+}
+
+.otp-dialog {
+  position: relative;
+
+  width: 100%;
+  max-width: 460px;
+
+  padding: var(--space-8);
+
+  border-radius: var(--radius-xl);
+
+  background: var(--color-surface);
+
+  box-shadow: var(--shadow-xl);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+
+  animation: otpScale .25s ease;
+}
+
+.otp-close {
+  position: absolute;
+
+  top: var(--space-4);
+  right: var(--space-4);
+
+  width: 36px;
+  height: 36px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: #f1f5f9;
+
+  font-size: 20px;
+
+  transition: background var(--dur);
+}
+
+.otp-close:hover {
+  background: var(--color-border);
+}
+
+.otp-icon {
+  width: 64px;
+  height: 64px;
+
+  margin: 0 auto;
+
+  border-radius: 50%;
+
+  display: grid;
+  place-items: center;
+
+  background: var(--color-primary-50);
+
+  color: var(--color-primary);
+
+  font-size: 30px;
+}
+
+.otp-dialog h2,
+.otp-dialog p {
+  text-align: center;
+}
+
+.otp {
+  justify-content: center;
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.otp input {
+  transition:
+    border-color var(--dur),
+    box-shadow var(--dur),
+    transform var(--dur);
+}
+
+.otp input:focus {
+  transform: translateY(-2px);
+}
+
+/* ===========================
+   Animations
+=========================== */
+
+@keyframes otpFade {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+
+}
+
+@keyframes otpScale {
+
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width: 768px) {
+
+  .form-inner {
+    max-width: 100%;
+  }
+
+  .otp-dialog {
+    padding: var(--space-6);
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .otp-dialog {
+    padding: var(--space-5);
+  }
+
+  .otp input {
+    width: 46px;
+    height: 56px;
+  }
+
+}

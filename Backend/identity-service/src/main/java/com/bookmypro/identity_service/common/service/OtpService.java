@@ -79,4 +79,12 @@ public class OtpService {
 		Otp saved = otpRepository.save(otp);
 		return saved.getAttemptCount();
 	}
+	
+	public void deleteVerificationOtp(Credential credential) {
+		 otpRepository.deleteByCredentialAndPurpose(
+		            credential,
+		            OtpPurpose.EMAIL_VERIFICATION
+		    );
+		
+	}
 }

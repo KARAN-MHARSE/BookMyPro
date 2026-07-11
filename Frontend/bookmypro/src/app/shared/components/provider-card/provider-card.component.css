@@ -1,0 +1,41 @@
+:host {
+  display: block;
+}
+
+.provider-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3, 12px) 0;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 12px);
+}
+
+.avatar-sm {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.name {
+  font-weight: 600;
+  font-size: var(--fs-sm, 14px);
+}
+
+.right {
+  text-align: right;
+}
+
+.amount {
+  font-weight: 600;
+}

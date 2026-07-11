@@ -17,7 +17,7 @@ public class VerifyOtpController {
 	private final VerifyOtpService verifyOtpService;
 
 	
-	  @PostMapping("/otp//verify-otp")
+	  @PostMapping("/otp/verify-otp")
 	    public ResponseEntity<VerifyOtpResponse> validateOtp(@RequestBody @Valid VerifyOtpRequest request){
 		  VerifyOtpResponse response =verifyOtpService.validateOtp(request);
 	    	return ResponseEntity.ok(response);

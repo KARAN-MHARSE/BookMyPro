@@ -1,0 +1,36 @@
+:host {
+  display: block;
+}
+
+.category-tile {
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  text-align: center;
+  transition: all var(--dur);
+  cursor: pointer;
+}
+
+.category-tile:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.ico {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  background: var(--color-primary-50);
+  color: var(--color-primary);
+  display: grid;
+  place-items: center;
+  margin: 0 auto var(--space-4);
+  font-size: 24px;
+}
+
+.name {
+  font-weight: 600;
+  margin-bottom: var(--space-1);
+}

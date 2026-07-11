@@ -1,0 +1,32 @@
+<section class="how-it-works">
+    <div class="container">
+
+        <div class="section-title">
+            <span class="eyebrow">How It Works</span>
+            <h2>Book Help In Three Easy Steps</h2>
+        </div>
+
+        <div class="steps">
+
+            <div
+                class="step-card"
+                *ngFor="let step of steps">
+
+                <div class="step-number">
+                    {{step.number}}
+                </div>
+
+                <h3>
+                    {{step.title}}
+                </h3>
+
+                <p>
+                    {{step.description}}
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>

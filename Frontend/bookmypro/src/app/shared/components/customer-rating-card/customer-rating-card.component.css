@@ -1,0 +1,79 @@
+.testimonial{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:24px;
+
+    border:1px solid #e5e7eb;
+
+    transition:.25s;
+
+}
+
+.testimonial:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+
+}
+
+.review{
+
+    color:#374151;
+
+    line-height:1.7;
+
+}
+
+.customer{
+
+    display:flex;
+
+    gap:14px;
+
+    margin-top:20px;
+
+    align-items:center;
+
+}
+
+.avatar-sm{
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:white;
+
+    font-weight:600;
+
+}
+
+.name{
+
+    font-weight:600;
+
+}
+
+.location{
+
+    color:#6b7280;
+
+}
+
+.stars{
+
+    color:#F59E0B;
+
+}

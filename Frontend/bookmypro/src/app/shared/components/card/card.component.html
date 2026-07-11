@@ -1,0 +1,12 @@
+<p>card works!</p>
+<div class="card" [class.card-interactive]="interactive" [class.card-selected]="selected">
+  <div class="card-header">
+    <ng-content select="[card-header]"></ng-content>
+  </div>
+  <div class="card-body">
+    <ng-content></ng-content>
+  </div>
+  <div class="card-footer">
+    <ng-content select="[card-footer]"></ng-content>
+  </div>
+</div>

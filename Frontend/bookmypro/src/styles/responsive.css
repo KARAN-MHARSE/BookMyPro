@@ -1,0 +1,32 @@
+@media (max-width: 1024px) {
+  :root { --sidebar-w: 220px; }
+  .hero { padding: var(--space-16) 0 var(--space-12); }
+  .hero h1 { font-size: var(--fs-4xl); }
+  .hero-grid { grid-template-columns: 1fr; }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .auth { grid-template-columns: 1fr; }
+  .auth .brand-panel { display: none; }
+}
+@media (max-width: 768px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .app-content { padding: var(--space-5); }
+  .section { padding: var(--space-12) 0; }
+  h1 { font-size: var(--fs-3xl); }
+  h2 { font-size: var(--fs-2xl); }
+  .grid-2, .grid-3, .grid-4, .grid-6 { grid-template-columns: 1fr; }
+  .hero .search-bar { grid-template-columns: 1fr; }
+  .nav { display: none; }
+  .site-header .inner .nav-actions .btn:not(.btn-primary) { display: none; }
+  .card-body { padding: var(--space-5); }
+  .table-wrap { overflow-x: auto; }
+  .table { min-width: 720px; }
+  .otp input { width: 44px; height: 52px; font-size: var(--fs-lg); }
+  .hero .float { display: none; }
+  .container, .container-wide { padding: 0 var(--space-4); }
+}
+@media (max-width: 480px) {
+  .btn { padding: 0 var(--space-4); }
+  .site-footer .grid-4 { grid-template-columns: 1fr; gap: var(--space-8); }
+}

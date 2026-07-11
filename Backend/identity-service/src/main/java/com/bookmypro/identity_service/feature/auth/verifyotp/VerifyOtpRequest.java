@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class VerifyOtpRequest {
 	@NotBlank
-	private String CredentialId;
+	private String credentialId;
 	
 	@NotBlank
 	@Size(min = 6, max = 6)

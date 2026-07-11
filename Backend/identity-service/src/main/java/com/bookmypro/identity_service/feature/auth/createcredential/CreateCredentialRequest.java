@@ -12,8 +12,11 @@ public class CreateCredentialRequest {
 	@Email(message = "Invalid email format")
 	private String email;
 
-	@NotBlank(message = "Username is required")
+//	@NotBlank(message = "Username is required")
 	private String userName;
+	
+	@NotBlank(message = "roleId is required")
+	private String roleCode;
 
 	@NotBlank(message = "Password is required")
 	@Size(min = 8, max = 20, message = "Password must be between 8 and 20 characters")

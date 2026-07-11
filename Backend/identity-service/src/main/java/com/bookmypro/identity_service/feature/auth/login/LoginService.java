@@ -2,6 +2,9 @@ package com.bookmypro.identity_service.feature.auth.login;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,12 +19,16 @@ import com.bookmypro.identity_service.common.service.PasswordService;
 import com.bookmypro.identity_service.exception.BusinessException;
 import com.bookmypro.identity_service.exception.ErrorCode;
 import com.bookmypro.identity_service.model.Credential;
+import com.bookmypro.identity_service.model.CredentialRole;
 import com.bookmypro.identity_service.model.LoginHistory;
 import com.bookmypro.identity_service.model.RefreshToken;
+import com.bookmypro.identity_service.model.Role;
 import com.bookmypro.identity_service.model.Session;
 import com.bookmypro.identity_service.repositories.CredentialRepository;
+import com.bookmypro.identity_service.repositories.CredentialRoleRepository;
 import com.bookmypro.identity_service.repositories.LoginHistoryRepository;
 import com.bookmypro.identity_service.repositories.RefreshTokenRepository;
+import com.bookmypro.identity_service.repositories.RoleRepository;
 import com.bookmypro.identity_service.repositories.SessionRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -34,6 +41,8 @@ public class LoginService {
 	private final RefreshTokenRepository refreshTokenRepository;
 	private final CredentialRepository credentialRepository;
 	private final LoginHistoryRepository loginHistoryRepository;
+	private final RoleRepository roleRepository;
+	private final CredentialRoleRepository credentialRoleRepository;
 	private final SessionRepository sessionRepository;
 	private final PasswordService passwordService;
 	private final JwtService jwtService;
@@ -86,11 +95,11 @@ public class LoginService {
 
 		refreshTokenRepository.save(token);
 
-		Session session = Session.builder().credential(credential).device(request.getDeviceId())
-				.browser(request.getBrowser()).location(request.getLocation()).status("ACTIVE").createdAt(now)
-				.lastAccessed(now).build();
+		String deviceId = createOrUpdateSession(request, credential);
 
-		sessionRepository.save(session);
+//		Get role of user
+		List<String> roles = getCredentialRoles(credential.getCredentialId());
+		response.setRoles(roles);
 
 		LoginHistory loginHistory = LoginHistory.builder().credential(credential).loginTime(now)
 				.device(request.getDeviceId()).browser(request.getBrowser()).ipAddress(request.getIpAddress())
@@ -100,8 +109,48 @@ public class LoginService {
 
 		credential.setFailedLoginAttempts(0);
 
+		response.setDeviceId(deviceId);
 		response.setMessage("Login successful");
 		return response;
+
+	}
+
+	private List<String> getCredentialRoles(UUID credentialId) {
+		List<CredentialRole> credentialRoles = credentialRoleRepository.findAllByCredentialId(credentialId);
+
+		List<UUID> roleIds = credentialRoles.stream().map(CredentialRole::getRoleId).toList();
+
+		List<Role> roles = roleRepository.findByRoleIdIn(roleIds);
+
+		return roles.stream().map(Role::getRoleCode).toList();
+	}
+
+	private String createOrUpdateSession(LoginRequest request, Credential credential) {
+		String deviceId = request.getDeviceId();
+
+		if (deviceId == null || deviceId.equals("null") || deviceId.trim().isEmpty()) {
+			deviceId = UUID.randomUUID().toString();
+		}
+
+		Optional<Session> existingSessionOpt = sessionRepository.findByCredentialAndDeviceAndStatus(credential,
+				deviceId, "ACTIVE");
+
+		Session session;
+		LocalDateTime now = LocalDateTime.now();
+
+		if (existingSessionOpt.isPresent()) {
+			session = existingSessionOpt.get();
+			session.setLastAccessed(now);
+			session.setBrowser(request.getBrowser());
+			session.setLocation(request.getLocation());
+		} else {
+			session = Session.builder().credential(credential).device(deviceId).browser(request.getBrowser())
+					.location(request.getLocation()).status("ACTIVE").createdAt(now).lastAccessed(now).build();
+		}
+
+		sessionRepository.save(session);
+
+		return deviceId;
 
 	}
 

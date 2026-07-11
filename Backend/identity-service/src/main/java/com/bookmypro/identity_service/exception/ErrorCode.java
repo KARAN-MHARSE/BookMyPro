@@ -67,6 +67,11 @@ public enum ErrorCode {
             "AUTH_010",
             HttpStatus.TOO_MANY_REQUESTS,
             "Maximum active sessions exceeded."
+    ),
+	ROLE_NOT_FOUND(
+            "AUTH_011",
+            HttpStatus.BAD_REQUEST,
+            "Role not available."
     );
 
 
