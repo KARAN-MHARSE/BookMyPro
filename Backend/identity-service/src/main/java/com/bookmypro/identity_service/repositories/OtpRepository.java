@@ -1,5 +1,6 @@
 package com.bookmypro.identity_service.repositories;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -13,6 +14,14 @@ public interface OtpRepository extends JpaRepository<Otp, UUID> {
 
 	void deleteByCredentialAndPurpose(Credential credential, OtpPurpose emailVerification);
 
-	Optional<Otp> findByCredentialAndPurpose(Credential credential,OtpPurpose purpose);
-
+	Optional<Otp> findFirstByCredentialAndPurposeOrderByCreatedAtDesc(
+		    Credential credential,
+		    OtpPurpose purpose
+		);
+	long countByCredentialAndPurposeAndCreatedAtBetween(
+		    Credential credential,
+		    OtpPurpose purpose,
+		    LocalDateTime startTime,
+		    LocalDateTime endTime
+		);
 }

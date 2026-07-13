@@ -1,0 +1,95 @@
+<section class="pf-section">
+  <div class="row-between">
+    <div>
+      <h3>Addresses</h3>
+      <p class="sub">Manage your saved addresses.</p>
+    </div>
+
+    <button
+      type="button"
+      class="btn btn-primary btn-sm"
+      (click)="openManageAddresses()">
+      Manage Addresses
+    </button>
+  </div>
+
+  <div
+    class="selected-address mt-6"
+    *ngIf="defaultAddress"
+    (click)="editAddress(defaultAddress)"
+    >
+    <div class="address-icon">🏠</div>
+
+    <div class="address-content">
+      <div class="address-top">
+        <h5>{{ defaultAddress.addressName }}</h5>
+        <span class="badge badge-success">Default</span>
+      </div>
+
+      <p>{{ defaultAddress.addressLine1 }}</p>
+      <p>
+        {{ defaultAddress.city }},
+        {{ defaultAddress.state }}
+        {{ defaultAddress.postalCode }}
+      </p>
+      <p>{{ defaultAddress.country }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- Address Dialog -->
+
+<div
+  class="address-modal"
+  *ngIf="showAddressDialog">
+  <div class="address-dialog">
+    <div class="dialog-header">
+      <h3>My Addresses</h3>
+
+      <button
+        class="btn btn-icon"
+        (click)="closeDialog()">
+        ✕
+      </button>
+    </div>
+
+    <div class="address-items">
+      <div
+        class="address-item"
+        *ngFor="let address of addresses"
+         (click)="editAddress(address)"
+        >
+        <div class="left">
+          <div class="title">{{ address.addressName }}</div>
+          <div class="sub">{{ address.addressLine1 }}</div>
+          <div class="sub">
+            {{ address.city }},
+            {{ address.state }}
+          </div>
+        </div>
+
+        <div class="right">
+          <span
+            *ngIf="address.defaultAddress"
+            class="badge badge-success">
+            Default
+          </span>
+
+          <button
+            class="btn btn-outline btn-sm"
+            (click)="editAddress(address)">
+            Edit
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-footer">
+      <button
+        class="btn btn-primary"
+        (click)="addAddress()">
+        + Add Address
+      </button>
+    </div>
+  </div>
+</div>

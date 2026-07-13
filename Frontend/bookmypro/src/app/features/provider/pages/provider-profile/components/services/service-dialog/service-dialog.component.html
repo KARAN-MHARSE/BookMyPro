@@ -1,0 +1,101 @@
+<h2 mat-dialog-title>
+
+  {{data ? 'Edit Service' : 'Add Service'}}
+
+</h2>
+
+<div
+  mat-dialog-content
+  [formGroup]="form">
+
+  <div class="field">
+
+    <label>Service Name</label>
+
+    <input
+      class="input"
+      formControlName="serviceName">
+
+  </div>
+
+  <div class="field">
+
+    <label>Category</label>
+
+    <select
+      class="select"
+      formControlName="category">
+
+      <option
+        *ngFor="let category of categories"
+        [value]="category">
+
+        {{category}}
+
+      </option>
+
+    </select>
+
+  </div>
+
+  <div class="grid grid-2 gap-4">
+
+    <div class="field">
+
+      <label>Price</label>
+
+      <input
+        class="input"
+        type="number"
+        formControlName="price">
+
+    </div>
+
+    <div class="field">
+
+      <label>Duration (mins)</label>
+
+      <input
+        class="input"
+        type="number"
+        formControlName="duration">
+
+    </div>
+
+  </div>
+
+  <label class="check">
+
+    <input
+      type="checkbox"
+      formControlName="active">
+
+    Active
+
+  </label>
+
+</div>
+
+<div
+  mat-dialog-actions
+  align="end">
+
+  <button
+    class="btn btn-outline"
+    type="button"
+    (click)="close()">
+
+    Cancel
+
+  </button>
+
+  <button
+    class="btn btn-primary"
+    type="button"
+    (click)="save()">
+
+    Save
+
+  </button>
+
+</div>

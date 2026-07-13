@@ -1,0 +1,29 @@
+<aside class="pf-side">
+  <div class="pf-section pf-section--flush">
+    <h3>Why we ask</h3>
+
+    <ul class="pf-tips">
+      <li *ngFor="let tip of tips">
+        <span class="ico">{{ tip.icon }}</span>
+        <span>{{ tip.text }}</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="pf-section mt-4">
+    <h3>Profile completion</h3>
+
+    <div class="row row-between completion-meta">
+      <span class="text-sm text-muted">{{ completedFields }} of {{ totalFields }} fields</span>
+      <span class="text-sm font-semibold">{{ completionPercentage }}%</span>
+    </div>
+
+    <div class="progress">
+      <div [style.width.%]="completionPercentage"></div>
+    </div>
+
+    <small class="help mt-3 completion-help">
+      Complete your profile to unlock priority support and $10 credit.
+    </small>
+  </div>
+</aside>

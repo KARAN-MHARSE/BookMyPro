@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.bookmypro.identity_service.common.enums.CredentialStatus;
+import com.bookmypro.identity_service.common.enums.OtpPurpose;
 import com.bookmypro.identity_service.common.service.OtpService;
 import com.bookmypro.identity_service.exception.BusinessException;
 import com.bookmypro.identity_service.exception.ErrorCode;
@@ -25,7 +26,7 @@ public class VerifyOtpService {
 		Credential credential = credentialRepository.findByCredentialId(UUID.fromString(request.getCredentialId()))
 				.orElseThrow(() -> new BusinessException(ErrorCode.CREDENTIAL_NOT_FOUND));
 
-		otpService.verifyEmailVerificationOtp(credential, request.getOtpCode());
+		otpService.verifyEmailVerificationOtp(credential,OtpPurpose.EMAIL_VERIFICATION, request.getOtpCode());
 
 		credential.setEmailVerified(true);
 		credential.setStatus(CredentialStatus.ACTIVE);

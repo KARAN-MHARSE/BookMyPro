@@ -1,0 +1,135 @@
+<div class="dialog-header">
+
+    <div>
+
+        <h2 class="dialog-title">
+
+            Add Education
+
+        </h2>
+
+        <p class="dialog-subtitle">
+
+            Add your education or professional training.
+
+        </p>
+
+    </div>
+
+    <button class="close-btn" type="button" (click)="close()">
+
+        ✕
+
+    </button>
+
+</div>
+
+<form class="dialog-body" [formGroup]="form">
+
+    <div class="field">
+
+        <label>
+
+            Institution
+
+            <span class="req">*</span>
+
+        </label>
+
+        <input class="input" type="text" formControlName="institution">
+
+    </div>
+
+    <div class="field">
+
+        <label>
+
+            Degree / Course
+
+            <span class="req">*</span>
+
+        </label>
+
+        <input class="input" type="text" formControlName="degree">
+
+    </div>
+
+    <div class="field">
+
+        <label>
+
+            Specialization
+
+        </label>
+
+        <input class="input" type="text" formControlName="specialization">
+
+    </div>
+
+    <div class="grid grid-2 gap-4">
+
+        <div class="field">
+
+            <label>
+
+                Start Year
+
+            </label>
+
+            <input class="input" type="number" formControlName="startYear">
+
+        </div>
+
+        <div class="field">
+
+            <label>
+
+                End Year
+
+            </label>
+
+            <input class="input" type="number" formControlName="endYear">
+
+        </div>
+
+    </div>
+
+    <label class="check">
+
+        <input type="checkbox" formControlName="currentlyStudying">
+
+        Currently Studying
+
+    </label>
+
+    <div class="field">
+
+        <label>
+
+            Description
+
+        </label>
+
+        <textarea class="textarea" rows="4" formControlName="description">
+
+    </textarea>
+
+    </div>
+
+</form>
+
+<div class="dialog-footer">
+
+    <button class="btn btn-outline" type="button" (click)="close()">
+
+        Cancel
+
+    </button>
+
+    <button class="btn btn-primary" type="button" (click)="save()">
+
+        Save Education
+
+    </button>
+
+</div>

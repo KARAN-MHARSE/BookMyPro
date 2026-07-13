@@ -1,0 +1,299 @@
+/* ===========================
+   Provider Dialog
+   =========================== */
+
+:host {
+  display: block;
+}
+
+::ng-deep .mat-mdc-dialog-container {
+  padding: 0 !important;
+  border-radius: 20px !important;
+  overflow: hidden;
+}
+
+::ng-deep .mdc-dialog__surface {
+  border-radius: 20px !important;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, .18) !important;
+}
+
+/* ===========================
+   Header
+   =========================== */
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 24px 32px;
+
+  border-bottom: 1px solid #eef2f7;
+
+  background: #ffffff;
+}
+
+.dialog-title {
+  margin: 0;
+
+  font-size: 24px;
+  font-weight: 700;
+
+  color: #0f172a;
+}
+
+.dialog-subtitle {
+  margin-top: 6px;
+
+  color: #64748b;
+
+  font-size: 14px;
+}
+
+.close-btn {
+  width: 42px;
+  height: 42px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #f8fafc;
+
+  cursor: pointer;
+
+  transition: .25s;
+}
+
+.close-btn:hover {
+  background: #e2e8f0;
+}
+
+/* ===========================
+   Body
+   =========================== */
+
+.dialog-body {
+  padding: 30px 32px;
+
+  max-height: 65vh;
+
+  overflow-y: auto;
+}
+
+.dialog-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dialog-body::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+}
+
+/* ===========================
+   Form
+   =========================== */
+
+.field {
+  margin-bottom: 22px;
+}
+
+.field label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #334155;
+}
+
+.input,
+.select,
+.textarea {
+
+  width: 100%;
+
+  padding: 13px 16px;
+
+  border: 1px solid #dbe3ec;
+
+  border-radius: 12px;
+
+  background: #fff;
+
+  font-size: 15px;
+
+  transition: .25s;
+
+  box-sizing: border-box;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+
+  outline: none;
+
+  border-color: #2563eb;
+
+  box-shadow: 0 0 0 4px rgba(37,99,235,.12);
+
+}
+
+.textarea {
+
+  resize: vertical;
+
+  min-height: 120px;
+
+}
+
+.grid {
+
+  display: grid;
+
+  gap: 20px;
+
+}
+
+.grid-2 {
+
+  grid-template-columns: repeat(2,1fr);
+
+}
+
+.grid-3 {
+
+  grid-template-columns: repeat(3,1fr);
+
+}
+
+/* ===========================
+   Checkbox
+   =========================== */
+
+.check {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  cursor: pointer;
+
+  margin-top: 10px;
+
+}
+
+/* ===========================
+   Footer
+   =========================== */
+
+.dialog-footer {
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 12px;
+
+  padding: 24px 32px;
+
+  border-top: 1px solid #eef2f7;
+
+  background: #fafbfc;
+
+}
+
+.btn {
+
+  min-width: 120px;
+
+}
+
+/* ===========================
+   Buttons
+   =========================== */
+
+.btn-primary {
+
+  background: #2563eb;
+
+  color: white;
+
+  border: none;
+
+  transition: .25s;
+
+}
+
+.btn-primary:hover {
+
+  background: #1d4ed8;
+
+}
+
+.btn-outline {
+
+  background: white;
+
+  border: 1px solid #d1d5db;
+
+}
+
+.btn-outline:hover {
+
+  background: #f8fafc;
+
+}
+
+/* ===========================
+   Required
+   =========================== */
+
+.req {
+
+  color: #ef4444;
+
+  margin-left: 4px;
+
+}
+
+/* ===========================
+   Validation
+   =========================== */
+
+.error {
+
+  margin-top: 6px;
+
+  font-size: 13px;
+
+  color: #ef4444;
+
+}
+
+/* ===========================
+   Mobile
+   =========================== */
+
+@media(max-width:768px){
+
+  .dialog-header,
+  .dialog-body,
+  .dialog-footer{
+
+    padding:20px;
+
+  }
+
+  .grid-2,
+  .grid-3{
+
+    grid-template-columns:1fr;
+
+  }
+
+}

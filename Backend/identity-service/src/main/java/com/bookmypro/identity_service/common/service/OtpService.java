@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.web.cors.CorsConfigurationSource;
 import com.bookmypro.identity_service.common.enums.OtpPurpose;
 import com.bookmypro.identity_service.exception.BusinessException;
 import com.bookmypro.identity_service.exception.ErrorCode;
@@ -22,21 +22,22 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class OtpService {
+
 	private static final SecureRandom RANDOM = new SecureRandom();
 	private final OtpRepository otpRepository;
 	@Autowired
 	@Lazy
-	private  OtpService self;
+	private OtpService self;
 	private static final int MAX_ATTEMPTS = 5;
 
 	@Transactional
-	public Otp createVerificationOtp(Credential credential) {
-		otpRepository.deleteByCredentialAndPurpose(credential, OtpPurpose.EMAIL_VERIFICATION);
+	public Otp createAndSaveOtp(Credential credential, OtpPurpose purpose, Integer time) {
+//		otpRepository.deleteByCredentialAndPurpose(credential, purpose);
 
 		String otpCode = generateOtp();
 
-		Otp otp = Otp.builder().credential(credential).purpose(OtpPurpose.EMAIL_VERIFICATION).otpCode(otpCode)
-				.attemptCount(0).expiresAt(LocalDateTime.now().plusMinutes(5)).build();
+		Otp otp = Otp.builder().credential(credential).purpose(purpose).otpCode(otpCode).createdAt(LocalDateTime.now())
+				.attemptCount(0).expiresAt(LocalDateTime.now().plusMinutes(time)).build();
 
 		return otpRepository.save(otp);
 	}
@@ -49,8 +50,8 @@ public class OtpService {
 	}
 
 	@Transactional
-	public void verifyEmailVerificationOtp(Credential credential, String otpCode) {
-		Otp otp = otpRepository.findByCredentialAndPurpose(credential, OtpPurpose.EMAIL_VERIFICATION)
+	public void verifyEmailVerificationOtp(Credential credential, OtpPurpose purpose, String otpCode) {
+		Otp otp = otpRepository.findFirstByCredentialAndPurposeOrderByCreatedAtDesc(credential, purpose)
 				.orElseThrow(() -> new BusinessException(ErrorCode.OTP_NOT_FOUND));
 
 		if (otp.getExpiresAt().isBefore(LocalDateTime.now())) {
@@ -70,7 +71,7 @@ public class OtpService {
 			throw new BusinessException(ErrorCode.INVALID_OTP);
 		}
 
-		otpRepository.delete(otp);
+		otpRepository.deleteByCredentialAndPurpose(credential, purpose);
 	}
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -79,12 +80,9 @@ public class OtpService {
 		Otp saved = otpRepository.save(otp);
 		return saved.getAttemptCount();
 	}
-	
+
 	public void deleteVerificationOtp(Credential credential) {
-		 otpRepository.deleteByCredentialAndPurpose(
-		            credential,
-		            OtpPurpose.EMAIL_VERIFICATION
-		    );
-		
+		otpRepository.deleteByCredentialAndPurpose(credential, OtpPurpose.EMAIL_VERIFICATION);
+
 	}
 }

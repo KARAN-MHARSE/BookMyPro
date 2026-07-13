@@ -1,0 +1,129 @@
+<div class="dialog-header">
+
+    <div>
+
+        <h2 class="dialog-title">
+
+            Upload Document
+
+        </h2>
+
+        <p class="dialog-subtitle">
+
+            Upload documents for verification.
+
+        </p>
+
+    </div>
+
+    <button class="close-btn" type="button" (click)="close()">
+
+        ✕
+
+    </button>
+
+</div>
+
+<form class="dialog-body" [formGroup]="form">
+
+    <div class="field">
+
+        <label>
+
+            Document Type
+
+            <span class="req">*</span>
+
+        </label>
+
+        <select class="select" formControlName="documentType">
+
+            <option *ngFor="let type of documentTypes" [value]="type">
+
+                {{type}}
+
+            </option>
+
+        </select>
+
+    </div>
+
+    <div class="field">
+
+        <label>
+
+            Document Number
+
+            <span class="req">*</span>
+
+        </label>
+
+        <input class="input" type="text" formControlName="documentNumber">
+
+    </div>
+
+    <div class="grid grid-2 gap-4">
+
+        <div class="field">
+
+            <label>
+
+                Issue Date
+
+            </label>
+
+            <input class="input" type="date" formControlName="issueDate">
+
+        </div>
+
+        <div class="field">
+
+            <label>
+
+                Expiry Date
+
+            </label>
+
+            <input class="input" type="date" formControlName="expiryDate">
+
+        </div>
+
+    </div>
+
+    <div class="field">
+
+        <label>
+
+            Upload Document
+
+            <span class="req">*</span>
+
+        </label>
+
+        <input type="file" (change)="selectFile($event)">
+
+    </div>
+
+    <div class="preview" *ngIf="fileName">
+
+        📄 {{fileName}}
+
+    </div>
+
+</form>
+
+<div class="dialog-footer">
+
+    <button class="btn btn-outline" type="button" (click)="close()">
+
+        Cancel
+
+    </button>
+
+    <button class="btn btn-primary" type="button" (click)="save()">
+
+        Upload
+
+    </button>
+
+</div>

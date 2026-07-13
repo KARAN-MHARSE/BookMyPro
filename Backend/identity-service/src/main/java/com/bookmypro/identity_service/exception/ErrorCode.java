@@ -72,7 +72,17 @@ public enum ErrorCode {
             "AUTH_011",
             HttpStatus.BAD_REQUEST,
             "Role not available."
-    );
+    ),
+	OTP_REQUEST_LIMIT_EXCEEDED(
+            "AUTH_012",
+            HttpStatus.BAD_REQUEST,
+            "Otp limit exceed."
+    ),
+	ALREADY_USED_PASSWORD(
+			 "AUTH_013",
+	            HttpStatus.BAD_REQUEST,
+	            "Password already exist."
+			);
 
 
     private final String code;

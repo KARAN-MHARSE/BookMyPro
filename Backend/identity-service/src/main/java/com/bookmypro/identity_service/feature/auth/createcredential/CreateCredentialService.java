@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.bookmypro.identity_service.common.enums.CredentialStatus;
+import com.bookmypro.identity_service.common.enums.OtpPurpose;
 import com.bookmypro.identity_service.common.service.EmailService;
 import com.bookmypro.identity_service.common.service.OtpService;
 import com.bookmypro.identity_service.common.service.PasswordService;
@@ -57,7 +58,7 @@ public class CreateCredentialService {
 
 			otpService.deleteVerificationOtp(credential);
 
-			Otp otp = otpService.createVerificationOtp(credential);
+			Otp otp = otpService.createAndSaveOtp(credential,OtpPurpose.EMAIL_VERIFICATION,5);
 
 			sendVerificationOtpEmail(credential.getEmail(), otp.getOtpCode());
 
@@ -81,7 +82,7 @@ public class CreateCredentialService {
 
 		log.info("Credential created successfully. credentialId={}", savedCredential.getCredentialId());
 
-		Otp otp = otpService.createVerificationOtp(savedCredential);
+		Otp otp = otpService.createAndSaveOtp(savedCredential,OtpPurpose.EMAIL_VERIFICATION,5);
 
 		sendVerificationOtpEmail(savedCredential.getEmail(), otp.getOtpCode());
 

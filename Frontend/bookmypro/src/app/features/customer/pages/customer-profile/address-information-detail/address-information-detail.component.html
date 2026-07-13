@@ -1,0 +1,115 @@
+<section class="pf-section" [formGroup]="group">
+  <h3>Address</h3>
+  <p class="sub">We use this to match you with nearby professionals.</p>
+  <div class="field mt-4">
+    <label class="label">
+      Address type
+      <span class="req">*</span>
+    </label>
+    <div class="type-grid mt-2">
+      <label class="type-tile" *ngFor="let type of addressTypes">
+        <input type="radio" formControlName="addressType" [value]="type.value">
+        <div class="emoji">{{ type.icon }}</div>
+        <div class="lbl">{{ type.label }}</div>
+      </label>
+    </div>
+  </div>
+  <div class="grid grid-2 gap-4 mt-4">
+    <div class="field">
+      <label class="label">
+        Address name
+        <span class="req">*</span>
+      </label>
+      <input class="input" type="text" placeholder="Home, Office..." formControlName="addressName">
+    </div>
+    <div class="field">
+      <label class="label">Landmark</label>
+      <input class="input" type="text" placeholder="Near Landmark" formControlName="landmark">
+    </div>
+  </div>
+  <div class="field mt-4">
+    <label class="label">
+      Address line 1
+      <span class="req">*</span>
+    </label>
+    <input class="input" type="text" placeholder="Street Address" formControlName="addressLine1">
+  </div>
+  <div class="field mt-4">
+    <label class="label">Address line 2</label>
+    <input class="input" type="text" placeholder="Apartment, Suite" formControlName="addressLine2">
+  </div>
+  <div class="grid grid-3 gap-4 mt-4">
+    <div class="field">
+      <label class="label">
+        City
+        <span class="req">*</span>
+      </label>
+      <input class="input" type="text" formControlName="city">
+    </div>
+    <div class="field">
+      <label class="label">District</label>
+      <input class="input" type="text" formControlName="district">
+    </div>
+    <div class="field">
+      <label class="label">
+        State / Province
+        <span class="req">*</span>
+      </label>
+      <input class="input" type="text" formControlName="state">
+    </div>
+  </div>
+  <div class="grid grid-3 gap-4 mt-4">
+    <div class="field">
+      <label class="label">
+        Country
+        <span class="req">*</span>
+      </label>
+      <select class="select" formControlName="country">
+        <option *ngFor="let country of countries" [value]="country">
+          {{ country }}
+        </option>
+      </select>
+    </div>
+    <div class="field">
+      <label class="label">
+        Postal code
+        <span class="req">*</span>
+      </label>
+      <input class="input" type="text" formControlName="postalCode">
+    </div>
+    <div class="field">
+      <label class="label">Default address</label>
+      <label class="check mt-2 default-switch">
+        <span class="switch">
+          <input type="checkbox" formControlName="defaultAddress">
+          <span class="slider"></span>
+        </span>
+        <span>Set as default</span>
+      </label>
+    </div>
+  </div>
+  <div class="mt-6">
+    <div class="row row-between map-toolbar">
+      <label class="label map-label">Pin location on map</label>
+      <button type="button" class="btn btn-ghost btn-sm" (click)="useCurrentLocation()">
+        📍 Use my location
+      </button>
+    </div>
+    <div class="pf-map">
+      <span class="pin"></span>
+    </div>
+    <div class="grid grid-2 gap-4 mt-4">
+      <div class="field">
+        <label class="label">Latitude</label>
+        <input class="input" type="text" formControlName="latitude">
+      </div>
+      <div class="field">
+        <label class="label">Longitude</label>
+        <input class="input" type="text" formControlName="longitude">
+      </div>
+    </div>
+  </div>
+  <div>
+    <app-stepper-card (saveEvent)="saveAddressEvent()" (cancelEvent)="cancel()"></app-stepper-card>
+  </div>
+</section>

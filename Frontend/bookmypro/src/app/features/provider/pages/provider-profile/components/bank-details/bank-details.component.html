@@ -1,0 +1,222 @@
+<section class="pf-section">
+
+  <div class="section-header">
+
+    <div>
+
+      <h3>Bank Details</h3>
+
+      <p class="sub">
+        Add your payout account for receiving payments.
+      </p>
+
+    </div>
+
+    <span class="badge verified">
+
+      Verified
+
+    </span>
+
+  </div>
+
+  <form class="stack-5" [formGroup]="form" (ngSubmit)="save()">
+
+    <div class="grid grid-2 gap-4">
+
+      <div class="field">
+
+        <label>
+
+          Account Holder Name
+
+          <span class="req">*</span>
+
+        </label>
+
+        <input class="input" formControlName="accountHolderName"
+          [class.has-error]="form.get('accountHolderName')?.invalid && form.get('accountHolderName')?.touched">
+
+        <span class="error" *ngIf="form.get('accountHolderName')?.invalid && form.get('accountHolderName')?.touched">
+          Account holder name is required.
+        </span>
+
+      </div>
+
+      <div class="field">
+
+        <label>
+
+          Bank Name
+
+          <span class="req">*</span>
+
+        </label>
+
+        <input class="input" formControlName="bankName"
+          [class.has-error]="form.get('bankName')?.invalid && form.get('bankName')?.touched">
+
+        <span class="error" *ngIf="form.get('bankName')?.invalid && form.get('bankName')?.touched">
+          Bank name is required.
+        </span>
+
+      </div>
+
+    </div>
+
+    <div class="grid grid-2 gap-4">
+
+      <div class="field">
+
+        <label>
+
+          Account Number
+
+          <span class="req">*</span>
+
+        </label>
+
+        <input class="input" type="password" formControlName="accountNumber"
+          [class.has-error]="form.get('accountNumber')?.invalid && form.get('accountNumber')?.touched">
+
+        <span class="error" *ngIf="form.get('accountNumber')?.invalid && form.get('accountNumber')?.touched">
+          Account number is required.
+        </span>
+
+      </div>
+
+      <div class="field">
+
+        <label>
+
+          Confirm Account Number
+
+          <span class="req">*</span>
+
+        </label>
+
+        <input class="input" type="password" formControlName="confirmAccountNumber"
+          [class.has-error]="(form.get('confirmAccountNumber')?.invalid || form.hasError('mismatch')) && form.get('confirmAccountNumber')?.touched">
+
+        <span class="error"
+          *ngIf="form.get('confirmAccountNumber')?.hasError('required') && form.get('confirmAccountNumber')?.touched">
+          Confirming account number is required.
+        </span>
+
+        <span class="error"
+          *ngIf="!form.get('confirmAccountNumber')?.hasError('required') && form.hasError('mismatch') && form.get('confirmAccountNumber')?.touched">
+          Account numbers do not match.
+        </span>
+
+      </div>
+
+    </div>
+
+    <div class="grid grid-3 gap-4">
+
+      <div class="field">
+
+        <label>
+
+          IFSC Code
+
+          <span class="req">*</span>
+
+        </label>
+
+        <input class="input" formControlName="ifscCode"
+          [class.has-error]="form.get('ifscCode')?.invalid && form.get('ifscCode')?.touched">
+
+        <span class="error" *ngIf="form.get('ifscCode')?.hasError('required') && form.get('ifscCode')?.touched">
+          IFSC Code is required.
+        </span>
+
+        <span class="error" *ngIf="form.get('ifscCode')?.hasError('pattern') && form.get('ifscCode')?.touched">
+          Invalid IFSC code format (e.g. SBIN0001234).
+        </span>
+
+      </div>
+
+      <div class="field">
+
+        <label>
+
+          Branch Name
+
+        </label>
+
+        <input class="input" formControlName="branchName">
+
+      </div>
+
+      <div class="field">
+
+        <label>
+
+          Account Type
+
+        </label>
+
+        <select class="select" formControlName="accountType">
+
+          <option>SAVINGS</option>
+
+          <option>CURRENT</option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+    <div class="grid grid-2 gap-4">
+
+      <div class="field">
+
+        <label>
+
+          UPI ID
+
+        </label>
+
+        <input class="input" formControlName="upiId">
+
+      </div>
+
+      <div class="field">
+
+        <label>
+
+          PAN Number
+
+        </label>
+
+        <input class="input" formControlName="panNumber">
+
+      </div>
+
+    </div>
+
+    <div class="field">
+
+      <label>
+
+        GST Number
+
+      </label>
+
+      <input class="input" formControlName="gstNumber">
+
+    </div>
+
+    <label class="check font-medium">
+
+      <input type="checkbox" formControlName="primary">
+
+      Set as Primary Payout Account
+
+    </label>
+
+  </form>
+
+</section>

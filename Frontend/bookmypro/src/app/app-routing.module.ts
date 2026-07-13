@@ -4,8 +4,10 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () =>
-      import('./features/home/home.module').then((m) => m.HomeModule),
+    redirectTo:"provider",
+    pathMatch:"full"
+    // loadChildren: () =>
+    //   import('./features/home/home.module').then((m) => m.HomeModule),
   },
   {
     path: 'auth',
@@ -17,6 +19,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./features/customer/customer.module').then((m) => m.CustomerModule),
   },
+  {
+    path:"provider",
+    loadChildren:()=> import('./features/provider/provider.module').then(m=> m.ProviderModule)
+  }
 ];
 
 @NgModule({

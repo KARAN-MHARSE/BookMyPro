@@ -1,0 +1,123 @@
+<div class="dialog-header">
+
+    <div>
+
+        <h2 class="dialog-title">
+
+            Add Experience
+
+        </h2>
+
+        <p class="dialog-subtitle">
+
+            Tell customers about your professional experience.
+
+        </p>
+
+    </div>
+
+    <button class="close-btn" type="button" (click)="close()">
+
+        ✕
+
+    </button>
+
+</div>
+
+<form class="dialog-body" [formGroup]="form">
+
+    <div class="field">
+
+        <label>
+
+            Company Name
+
+            <span class="req">*</span>
+
+        </label>
+
+        <input class="input" type="text" formControlName="companyName">
+
+    </div>
+
+    <div class="field">
+
+        <label>
+
+            Designation
+
+            <span class="req">*</span>
+
+        </label>
+
+        <input class="input" type="text" formControlName="designation">
+
+    </div>
+
+    <div class="grid grid-2 gap-4">
+
+        <div class="field">
+
+            <label>
+
+                Start Date
+
+            </label>
+
+            <input class="input" type="date" formControlName="startDate">
+
+        </div>
+
+        <div class="field">
+
+            <label>
+
+                End Date
+
+            </label>
+
+            <input class="input" type="date" formControlName="endDate" [disabled]="form.get('currentlyWorking')?.value">
+
+        </div>
+
+    </div>
+
+    <label class="check">
+
+        <input type="checkbox" formControlName="currentlyWorking">
+
+        I currently work here
+
+    </label>
+
+    <div class="field">
+
+        <label>
+
+            Job Description
+
+        </label>
+
+        <textarea class="textarea" rows="5" formControlName="description">
+
+    </textarea>
+
+    </div>
+
+</form>
+
+<div class="dialog-footer">
+
+    <button class="btn btn-outline" type="button" (click)="close()">
+
+        Cancel
+
+    </button>
+
+    <button class="btn btn-primary" type="button" (click)="save()">
+
+        Save Experience
+
+    </button>
+
+</div>

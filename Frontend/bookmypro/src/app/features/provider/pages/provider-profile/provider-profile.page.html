@@ -1,0 +1,50 @@
+<div class="provider-profile">
+
+  <app-sidebar
+    class="profile-sidebar"
+    [activeSection]="activeSection"
+    (sectionChange)="changeSection($event)">
+  </app-sidebar>
+
+  <div class="profile-content">
+
+    <div class="scrollable-sections">
+      <app-personal-information
+        *ngIf="activeSection === 'personal'"
+        [group]="profileForm.controls.personalInfo">
+      </app-personal-information>
+
+      <app-professional-information
+        *ngIf="activeSection === 'professional'"
+        [group]="profileForm.controls.professionalInfo">
+      </app-professional-information>
+
+      <app-education *ngIf="activeSection === 'education'"></app-education>
+
+      <app-experience *ngIf="activeSection === 'experience'"></app-experience>
+
+      <app-documents *ngIf="activeSection === 'documents'"></app-documents>
+
+      <app-services *ngIf="activeSection === 'services'"></app-services>
+
+      <app-availability
+        *ngIf="activeSection === 'availability'"
+        #availabilitySection>
+      </app-availability>
+
+      <app-bank-details
+        *ngIf="activeSection === 'bank'"
+        #bankDetailsSection>
+      </app-bank-details>
+    </div>
+
+    <div class="stepper-footer">
+      <app-stepper-card
+        (saveEvent)="saveCurrentSection()"
+        (cancelEvent)="cancel()">
+      </app-stepper-card>
+    </div>
+
+  </div>
+
+</div>

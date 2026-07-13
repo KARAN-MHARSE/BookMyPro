@@ -2,6 +2,7 @@ package com.bookmypro.customer_service.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import com.bookmypro.customer_service.enums.AddressType;
 
@@ -27,32 +28,32 @@ import lombok.Setter;
 @Builder
 public class CustomerAddress {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private UUID addressId;
 
-    private Long customerId;
+	private UUID customerId;
 
-    @Enumerated(EnumType.STRING)
-    private AddressType addressType;
+	@Enumerated(EnumType.STRING)
+	private AddressType addressType;
 
-    private String addressName;
+	private String addressName;
 
-    private String line1;
-    private String line2;
-    private String landmark;
-    private String city;
-    private String district;
-    private String state;
-    private String country;
-    private String postalCode;
+	private String line1;
+	private String line2;
+	private String landmark;
+	private String city;
+	private String district;
+	private String state;
+	private String country;
+	private String postalCode;
 
-    private BigDecimal latitude;
-    private BigDecimal longitude;
+	private BigDecimal latitude;
+	private BigDecimal longitude;
 
-    private Boolean isDefault;
-    private Boolean isActive;
+	private Boolean isDefault;
+	private Boolean isActive;
 
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+	private LocalDateTime createdAt;
+	private LocalDateTime updatedAt;
 }

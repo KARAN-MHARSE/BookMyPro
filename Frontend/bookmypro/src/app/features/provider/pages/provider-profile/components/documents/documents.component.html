@@ -1,0 +1,130 @@
+<section
+  id="documents"
+  class="pf-section">
+
+  <div class="section-header">
+
+    <div>
+
+      <h3>Documents</h3>
+
+      <p class="sub">
+        Upload documents required for provider verification.
+      </p>
+
+    </div>
+
+    <button
+      class="btn btn-primary btn-sm"
+      type="button"
+      (click)="uploadDocument()">
+
+      + Upload Document
+
+    </button>
+
+  </div>
+
+  <table class="doc-table">
+
+    <thead>
+
+      <tr>
+
+        <th>Document</th>
+
+        <th>Number</th>
+
+        <th>Status</th>
+
+        <th>Uploaded</th>
+
+        <th></th>
+
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let document of documents">
+
+        <td>
+
+          {{document.documentType}}
+
+        </td>
+
+        <td>
+
+          {{document.documentNumber}}
+
+        </td>
+
+        <td>
+
+          <span
+            class="status"
+            [class.verified]="document.status==='VERIFIED'"
+            [class.pending]="document.status==='PENDING'"
+            [class.rejected]="document.status==='REJECTED'">
+
+            {{document.status}}
+
+          </span>
+
+        </td>
+
+        <td>
+
+          {{document.uploadDate}}
+
+        </td>
+
+        <td class="actions">
+
+          <button
+            class="btn btn-ghost btn-sm"
+            (click)="viewDocument(document)">
+
+            View
+
+          </button>
+
+          <button
+            class="btn btn-ghost btn-sm"
+            (click)="editDocument(document)">
+
+            Edit
+
+          </button>
+
+          <button
+            class="btn btn-ghost btn-sm danger"
+            (click)="deleteDocument(document)">
+
+            Delete
+
+          </button>
+
+        </td>
+
+      </tr>
+
+      <tr *ngIf="documents.length===0">
+
+        <td
+          colspan="5"
+          class="empty">
+
+          No documents uploaded.
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</section>

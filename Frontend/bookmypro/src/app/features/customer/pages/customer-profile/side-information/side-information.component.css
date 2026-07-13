@@ -1,0 +1,15 @@
+:host {
+  display: block;
+}
+
+.pf-section--flush {
+  margin: 0;
+}
+
+.completion-meta {
+  margin: var(--space-3) 0;
+}
+
+.completion-help {
+  display: block;
+}

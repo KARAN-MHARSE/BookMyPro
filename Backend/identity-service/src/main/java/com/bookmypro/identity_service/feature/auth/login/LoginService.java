@@ -109,6 +109,7 @@ public class LoginService {
 
 		credential.setFailedLoginAttempts(0);
 
+		response.setCredentialId(credential.getCredentialId().toString());
 		response.setDeviceId(deviceId);
 		response.setMessage("Login successful");
 		return response;

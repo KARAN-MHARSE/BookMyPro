@@ -1,0 +1,24 @@
+<main class="pf-wrap">
+  <div class="pf-head">
+    <div>
+      <h1>Complete your profile</h1>
+      <p class="text-muted mt-2">Help us personalize your BookMyPro experience.</p>
+    </div>
+
+    <div class="pf-steps">
+      <span class="pf-step active"><span class="n">1</span> Personal</span>
+      <span class="pf-step active"><span class="n">2</span> Address</span>
+      <span class="pf-step"><span class="n">3</span> Review</span>
+    </div>
+  </div>
+
+  <div class="pf-grid">
+    <div>
+      <app-personal-information [group]="profileForm.controls.personalInfo" [imagePreview]="profileImage"></app-personal-information>
+      <app-address (defaultAddressEvent)="onDefaultAddressChange($event)" [defaultAddress]="defaultAddress"></app-address>
+      <app-stepper-card (saveEvent)="saveProfile()" (cancelEvent)="cancel()"></app-stepper-card>
+    </div>
+
+    <app-side-information></app-side-information>
+  </div>
+</main>

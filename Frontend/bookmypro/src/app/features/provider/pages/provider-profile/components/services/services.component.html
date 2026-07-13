@@ -1,0 +1,128 @@
+<section
+  id="services"
+  class="pf-section">
+
+  <div class="section-header">
+
+    <div>
+
+      <h3>Services</h3>
+
+      <p class="sub">
+        Manage the services you offer to customers.
+      </p>
+
+    </div>
+
+    <button
+      class="btn btn-primary btn-sm"
+      type="button"
+      (click)="addService()">
+
+      + Add Service
+
+    </button>
+
+  </div>
+
+  <table class="service-table">
+
+    <thead>
+
+      <tr>
+
+        <th>Service</th>
+
+        <th>Category</th>
+
+        <th>Price</th>
+
+        <th>Duration</th>
+
+        <th>Status</th>
+
+        <th></th>
+
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let service of services">
+
+        <td>
+
+          {{service.serviceName}}
+
+        </td>
+
+        <td>
+
+          {{service.category}}
+
+        </td>
+
+        <td>
+
+          ₹ {{service.price}}
+
+        </td>
+
+        <td>
+
+          {{service.duration}} mins
+
+        </td>
+
+        <td>
+
+          <span
+            class="status"
+            [class.active]="service.active">
+
+            {{service.active ? 'Active' : 'Inactive'}}
+
+          </span>
+
+        </td>
+
+        <td class="actions">
+
+          <button
+            class="btn btn-ghost btn-sm"
+            (click)="editService(service)">
+
+            Edit
+
+          </button>
+
+          <button
+            class="btn btn-ghost btn-sm danger"
+            (click)="deleteService(service)">
+
+            Delete
+
+          </button>
+
+        </td>
+
+      </tr>
+
+      <tr *ngIf="services.length===0">
+
+        <td
+          colspan="6"
+          class="empty">
+
+          No services added.
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</section>

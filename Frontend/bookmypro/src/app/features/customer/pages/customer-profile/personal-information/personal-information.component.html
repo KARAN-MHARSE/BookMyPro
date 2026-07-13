@@ -1,0 +1,93 @@
+<section class="pf-section" [formGroup]="group">
+  <h3>Personal information</h3>
+  <p class="sub">This information appears on your bookings and receipts.</p>
+
+  <div class="pf-avatar-row mb-6">
+    <div class="profile-image">
+      <div class="pf-avatar" *ngIf="!imagePreview">
+        JD
+      </div>
+
+      <img *ngIf="imagePreview" [src]="imagePreview" alt="Profile" class="pf-avatar-img">
+
+      <input #fileInput type="file" accept="image/*" hidden (change)="onImageSelected($event)">
+    </div>
+
+    <div class="pf-upload">
+      <label class="label">Profile photo</label>
+
+      <div class="btns">
+        <button type="button" class="btn btn-outline btn-sm" (click)="fileInput.click()">
+          Upload Photo
+        </button>
+
+        <button *ngIf="imagePreview" type="button" class="btn btn-ghost btn-sm" (click)="removeImage()">
+          Remove
+        </button>
+      </div>
+
+      <small class="help">PNG or JPG, up to 5MB. Square images look best.</small>
+    </div>
+  </div>
+
+  <div class="grid grid-3 gap-4 mt-4">
+    <div class="field">
+      <label class="label">
+        First name <span class="req">*</span>
+      </label>
+      <input class="input" type="text" placeholder="First Name" formControlName="firstName">
+    </div>
+
+    <div class="field">
+      <label class="label">Middle name</label>
+      <input class="input" type="text" placeholder="Middle Name" formControlName="middleName">
+    </div>
+
+    <div class="field">
+      <label class="label">
+        Last name <span class="req">*</span>
+      </label>
+      <input class="input" type="text" placeholder="Last Name" formControlName="lastName">
+    </div>
+  </div>
+
+  <div class="grid grid-3 gap-4 mt-4">
+    <div class="field">
+      <label class="label">
+        Date of birth <span class="req">*</span>
+      </label>
+      <input class="input" type="date" formControlName="dob">
+    </div>
+
+    <div class="field">
+      <label class="label">Gender</label>
+      <select class="select" formControlName="gender">
+        <option *ngFor="let gender of genders" [value]="gender">
+          {{ gender }}
+        </option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label class="label">Preferred language</label>
+      <select class="select" formControlName="language">
+        <option *ngFor="let language of languages()" [value]="language.value">
+          {{ language.label }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="grid grid-2 gap-4 mt-4">
+    <div class="field">
+      <label class="label">Occupation</label>
+      <input class="input" type="text" placeholder="Occupation" formControlName="occupation">
+    </div>
+  </div>
+
+  <div class="field mt-4">
+    <label class="label">Short bio</label>
+    <textarea class="textarea" rows="4" maxlength="240" placeholder="Tell us something about yourself..." formControlName="bio"></textarea>
+    <small class="help">Up to 240 characters.</small>
+  </div>
+</section>

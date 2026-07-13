@@ -10,6 +10,9 @@ import { LoginStore } from './login/store/login-store';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { RegisterComponent } from './register/register.component';
+import { PasswordInputComponent } from './forgot-password/password-input/password-input.component';
+import { ForgotPasswordOtpVerificationComponent } from './forgot-password/forgot-password-otp-verification/forgot-password-otp-verification.component';
+import { ForgotPasswordMessageComponent } from './forgot-password/forgot-password-message/forgot-password-message.component';
 
 
 @NgModule({
@@ -18,7 +21,10 @@ import { RegisterComponent } from './register/register.component';
     CustomerRegisterComponent,
     ChangePasswordComponent,
     ForgotPasswordComponent,
-    RegisterComponent
+    RegisterComponent,
+    PasswordInputComponent,
+    ForgotPasswordOtpVerificationComponent,
+    ForgotPasswordMessageComponent
   ],
   imports: [
     CommonModule,

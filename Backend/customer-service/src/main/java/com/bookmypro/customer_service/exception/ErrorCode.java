@@ -56,7 +56,10 @@ public enum ErrorCode {
             "CUS_999",
             HttpStatus.INTERNAL_SERVER_ERROR,
             "Something went wrong."
-    );
+    ), ADDRESS_NOT_FOUND("CUS_999",
+    HttpStatus.INTERNAL_SERVER_ERROR,
+    "Address not wrong."
+);
 
     private final String code;
     private final HttpStatus httpStatus;

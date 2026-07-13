@@ -1,0 +1,94 @@
+<section
+  id="education"
+  class="pf-section">
+
+  <div class="section-header">
+
+    <div>
+
+      <h3>Education</h3>
+
+      <p class="sub">
+        Add your educational qualifications.
+      </p>
+
+    </div>
+
+    <button
+      class="btn btn-primary btn-sm"
+      type="button"
+      (click)="addEducation()">
+
+      + Add Education
+
+    </button>
+
+  </div>
+
+  <table class="edu-table">
+
+    <thead>
+
+      <tr>
+
+        <th>Degree</th>
+
+        <th>Institution</th>
+
+        <th>Year</th>
+
+        <th></th>
+
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let education of educations">
+
+        <td>{{education.degree}}</td>
+
+        <td>{{education.institution}}</td>
+
+        <td>{{education.year}}</td>
+
+        <td class="actions">
+
+          <button
+            class="btn btn-ghost btn-sm"
+            (click)="editEducation(education)">
+
+            Edit
+
+          </button>
+
+          <button
+            class="btn btn-ghost btn-sm danger"
+            (click)="deleteEducation(education)">
+
+            Delete
+
+          </button>
+
+        </td>
+
+      </tr>
+
+      <tr *ngIf="educations.length===0">
+
+        <td
+          colspan="4"
+          class="empty">
+
+          No education added.
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</section>

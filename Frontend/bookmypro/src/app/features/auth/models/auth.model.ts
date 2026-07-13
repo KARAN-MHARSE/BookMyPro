@@ -41,3 +41,18 @@ export interface VerifyOtpRequest {
 export interface VerifyOtpResponse {
   message: string;
 }
+
+export interface ForgotPasswordRequest {
+  email: string;
+  password: string;
+}
+
+export interface ForgotPasswordOtpVerifiedRequest {
+  email: string;
+  password: string;
+  otp: string;
+}
+
+export interface ForgotPasswordResponse {
+  message: string;
+}

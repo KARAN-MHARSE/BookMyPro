@@ -1,0 +1,193 @@
+<section
+  id="personal"
+  class="pf-section"
+  [formGroup]="group">
+
+  <div class="section-header">
+
+    <div>
+
+      <h3>Personal Information</h3>
+
+      <p class="sub">
+        This information is visible to customers.
+      </p>
+
+    </div>
+
+  </div>
+
+  <!-- Profile Photo -->
+
+  <div class="profile-photo">
+
+    <div class="avatar-wrapper">
+
+      <img
+        *ngIf="imagePreview"
+        [src]="imagePreview"
+        class="avatar">
+
+      <div
+        *ngIf="!imagePreview"
+        class="avatar">
+
+        JD
+
+      </div>
+
+      <input
+        #fileInput
+        hidden
+        type="file"
+        accept="image/*"
+        (change)="selectImage($event)">
+
+      <button
+        type="button"
+        class="btn btn-outline btn-sm upload-btn"
+        (click)="fileInput.click()">
+
+        Change Photo
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="grid grid-3 gap-4 mt-6">
+
+    <div class="field">
+
+      <label>First Name *</label>
+
+      <input
+        class="input"
+        formControlName="firstName">
+
+    </div>
+
+    <div class="field">
+
+      <label>Middle Name</label>
+
+      <input
+        class="input"
+        formControlName="middleName">
+
+    </div>
+
+    <div class="field">
+
+      <label>Last Name *</label>
+
+      <input
+        class="input"
+        formControlName="lastName">
+
+    </div>
+
+  </div>
+
+  <div class="grid grid-3 gap-4 mt-4">
+
+    <div class="field">
+
+      <label>Date of Birth</label>
+
+      <input
+        type="date"
+        class="input"
+        formControlName="dob">
+
+    </div>
+
+    <div class="field">
+
+      <label>Gender</label>
+
+      <select
+        class="select"
+        formControlName="gender">
+
+        <option
+          *ngFor="let gender of genders"
+          [value]="gender">
+
+          {{gender}}
+
+        </option>
+
+      </select>
+
+    </div>
+
+    <div class="field">
+
+      <label>Language</label>
+
+      <select
+        class="select"
+        formControlName="language">
+
+        <option
+          *ngFor="let language of languages"
+          [value]="language">
+
+          {{language}}
+
+        </option>
+
+      </select>
+
+    </div>
+
+  </div>
+
+  <div class="grid grid-2 gap-4 mt-4">
+
+    <div class="field">
+
+      <label>Phone Number</label>
+
+      <input
+        class="input"
+        formControlName="phoneNumber">
+
+    </div>
+
+    <div class="field">
+
+      <label>Email</label>
+
+      <input
+        class="input"
+        formControlName="email"
+        readonly>
+
+    </div>
+
+  </div>
+
+  <div class="field mt-4">
+
+    <label>Bio</label>
+
+    <textarea
+      class="textarea"
+      rows="4"
+      maxlength="300"
+      formControlName="bio">
+
+    </textarea>
+
+    <small>
+
+      Tell customers about yourself.
+
+    </small>
+
+  </div>
+
+</section>

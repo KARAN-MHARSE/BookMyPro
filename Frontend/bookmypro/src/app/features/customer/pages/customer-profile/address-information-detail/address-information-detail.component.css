@@ -1,0 +1,15 @@
+:host {
+  display: block;
+}
+
+.map-toolbar {
+  margin-bottom: var(--space-3);
+}
+
+.map-label {
+  margin: 0;
+}
+
+.default-switch {
+  height: 44px;
+}

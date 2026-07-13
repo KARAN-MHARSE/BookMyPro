@@ -1,0 +1,184 @@
+<section
+  id="professional"
+  class="pf-section"
+  [formGroup]="group">
+
+  <div class="section-header">
+
+    <div>
+
+      <h3>Professional Information</h3>
+
+      <p class="sub">
+        Tell customers about your professional background.
+      </p>
+
+    </div>
+
+  </div>
+
+  <div class="grid grid-2 gap-4">
+
+    <div class="field">
+
+      <label>
+        Professional Title
+        <span class="req">*</span>
+      </label>
+
+      <input
+        class="input"
+        formControlName="professionalTitle"
+        placeholder="Senior Electrician">
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        Provider Category
+        <span class="req">*</span>
+      </label>
+
+      <select
+        class="select"
+        formControlName="providerType">
+
+        <option
+          *ngFor="let provider of providerTypes"
+          [value]="provider">
+
+          {{provider}}
+
+        </option>
+
+      </select>
+
+    </div>
+
+  </div>
+
+  <div class="grid grid-3 gap-4 mt-4">
+
+    <div class="field">
+
+      <label>
+        Experience
+      </label>
+
+      <input
+        class="input"
+        type="number"
+        formControlName="experience"
+        placeholder="5">
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        Business Name
+      </label>
+
+      <input
+        class="input"
+        formControlName="businessName">
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        Working Since
+      </label>
+
+      <input
+        class="input"
+        type="date"
+        formControlName="workingSince">
+
+    </div>
+
+  </div>
+
+  <div class="grid grid-2 gap-4 mt-4">
+
+    <div class="field">
+
+      <label>
+        GST Number
+      </label>
+
+      <input
+        class="input"
+        formControlName="gstNumber">
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        PAN Number
+      </label>
+
+      <input
+        class="input"
+        formControlName="panNumber">
+
+    </div>
+
+  </div>
+
+  <div class="grid grid-2 gap-4 mt-4">
+
+    <div class="field">
+
+      <label>
+        Website
+      </label>
+
+      <input
+        class="input"
+        formControlName="website">
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        Portfolio URL
+      </label>
+
+      <input
+        class="input"
+        formControlName="portfolio">
+
+    </div>
+
+  </div>
+
+  <div class="field mt-4">
+
+    <label>
+
+      Professional Summary
+
+    </label>
+
+    <textarea
+      class="textarea"
+      rows="5"
+      formControlName="professionalSummary"
+      maxlength="500">
+
+    </textarea>
+
+    <small>
+
+      Explain your expertise and what makes you unique.
+
+    </small>
+
+  </div>
+
+</section>

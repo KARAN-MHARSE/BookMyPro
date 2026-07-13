@@ -269,7 +269,7 @@
 .login-btn {
   width: 100%;
   padding: 1rem;
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  background: black;
   color: white;
   border: none;
   border-radius: 12px;
@@ -343,4 +343,30 @@
   .login-card {
     padding: 2.5rem 2rem;
   }
+}
+
+.register-link {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.register-link span {
+  margin-right: 6px;
+}
+
+.register-link button {
+  border: none;
+  background: none;
+  color: #2563eb;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.register-link button:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
 }

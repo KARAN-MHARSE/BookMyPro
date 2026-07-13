@@ -1,0 +1,106 @@
+<section
+  id="availability"
+  class="pf-section"
+  [formGroup]="availabilityForm">
+
+  <div class="section-header">
+    <div>
+      <h3>Availability</h3>
+      <p class="sub">
+        Configure your working schedule and service preferences.
+      </p>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Working Days</label>
+
+    <div class="days" formArrayName="workingDays">
+      <label
+        class="day"
+        *ngFor="let day of weekDays; let i = index">
+        <input
+          type="checkbox"
+          [formControlName]="i">
+        {{ day.name }}
+      </label>
+    </div>
+  </div>
+
+  <div class="grid grid-2 gap-4 mt-5">
+    <div class="field">
+      <label>Start Time</label>
+      <input
+        class="input"
+        type="time"
+        formControlName="startTime">
+    </div>
+
+    <div class="field">
+      <label>End Time</label>
+      <input
+        class="input"
+        type="time"
+        formControlName="endTime">
+    </div>
+  </div>
+
+  <div class="grid grid-2 gap-4 mt-5">
+    <div class="field">
+      <label>Break Start</label>
+      <input
+        class="input"
+        type="time"
+        formControlName="breakStart">
+    </div>
+
+    <div class="field">
+      <label>Break End</label>
+      <input
+        class="input"
+        type="time"
+        formControlName="breakEnd">
+    </div>
+  </div>
+
+  <div class="grid grid-2 gap-4 mt-5">
+    <div class="field">
+      <label>Service Radius (KM)</label>
+      <input
+        class="input"
+        type="number"
+        formControlName="serviceRadius">
+    </div>
+
+    <div class="field">
+      <label>Maximum Bookings Per Day</label>
+      <input
+        class="input"
+        type="number"
+        formControlName="maxBookings">
+    </div>
+  </div>
+
+  <div class="options mt-5">
+    <label class="check">
+      <input
+        type="checkbox"
+        formControlName="homeService">
+      Home Visit Available
+    </label>
+
+    <label class="check">
+      <input
+        type="checkbox"
+        formControlName="emergencyService">
+      Emergency Service
+    </label>
+
+    <label class="check">
+      <input
+        type="checkbox"
+        formControlName="weekendAvailable">
+      Weekend Available
+    </label>
+  </div>
+</section>

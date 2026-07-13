@@ -1,0 +1,106 @@
+<section
+  id="experience"
+  class="pf-section">
+
+  <div class="section-header">
+
+    <div>
+
+      <h3>Experience</h3>
+
+      <p class="sub">
+        Showcase your professional experience to build customer trust.
+      </p>
+
+    </div>
+
+    <button
+      class="btn btn-primary btn-sm"
+      type="button"
+      (click)="addExperience()">
+
+      + Add Experience
+
+    </button>
+
+  </div>
+
+  <table class="exp-table">
+
+    <thead>
+
+      <tr>
+
+        <th>Company</th>
+
+        <th>Role</th>
+
+        <th>Duration</th>
+
+        <th></th>
+
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let experience of experiences">
+
+        <td>
+
+          {{experience.company}}
+
+        </td>
+
+        <td>
+
+          {{experience.designation}}
+
+        </td>
+
+        <td>
+
+          {{experience.startDate}} - {{experience.current ? 'Present' : experience.endDate}}
+
+        </td>
+
+        <td class="actions">
+
+          <button
+            class="btn btn-ghost btn-sm"
+            (click)="editExperience(experience)">
+
+            Edit
+
+          </button>
+
+          <button
+            class="btn btn-ghost btn-sm danger"
+            (click)="deleteExperience(experience)">
+
+            Delete
+
+          </button>
+
+        </td>
+
+      </tr>
+
+      <tr *ngIf="experiences.length===0">
+
+        <td
+          colspan="4"
+          class="empty">
+
+          No experience added.
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</section>
