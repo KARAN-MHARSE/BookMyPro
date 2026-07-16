@@ -1,34 +1,43 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ExperienceDialogComponent } from './experience-dialog/experience-dialog.component';
+import { ProviderProfileService } from '../../../../services/provider-profile.service';
+import { ExperienceResponse } from '../../../../model/provider-profile.model';
 
 @Component({
   selector: 'app-experience',
   templateUrl: './experience.component.html',
   styleUrl: './experience.component.css'
 })
-export class ExperienceComponent {
+export class ExperienceComponent implements OnInit {
+  @Input()
+  credentialId = '';
 
-  experiences: any[] = [
-    {
-      experienceId: 1,
-      company: 'Urban Company',
-      designation: 'Senior Electrician',
-      startDate: '2021-01-01',
-      endDate: '2024-02-28',
-      current: false
-    },
-    {
-      experienceId: 2,
-      company: 'BookMyPro',
-      designation: 'Independent Professional',
-      startDate: '2024-03-01',
-      endDate: '',
-      current: true
+  experiences: any[] = [];
+
+  private dialog = inject(MatDialog);
+  private profileService = inject(ProviderProfileService);
+
+  ngOnInit(): void {
+    this.loadExperiences();
+  }
+
+  loadExperiences(): void {
+    if (this.credentialId) {
+      this.profileService.getExperiences(this.credentialId).subscribe({
+        next: (res: ExperienceResponse[]) => {
+          this.experiences = res.map(e => ({
+            ...e,
+            company: e.companyName,
+            current: e.currentlyWorking
+          }));
+        },
+        error: (err: any) => {
+          console.error('Failed to load experiences list', err);
+        }
+      });
     }
-  ];
-
-  constructor(private dialog: MatDialog) {}
+  }
 
   addExperience(): void {
     const dialogRef = this.dialog.open(ExperienceDialogComponent, {
@@ -37,12 +46,26 @@ export class ExperienceComponent {
       data: null
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-        const nextId = this.experiences.length > 0 ? Math.max(...this.experiences.map(e => e.experienceId)) + 1 : 1;
-        this.experiences.push({
-          experienceId: nextId,
-          ...result
+        const payload = {
+          credentialId: this.credentialId,
+          companyName: result.company,
+          designation: result.designation,
+          startDate: result.startDate,
+          endDate: result.current ? null : result.endDate,
+          currentlyWorking: result.current,
+          description: result.description
+        };
+
+        this.profileService.saveExperience(payload).subscribe({
+          next: () => {
+            this.loadExperiences();
+          },
+          error: (err: any) => {
+            console.error('Failed to add experience record', err);
+            alert('Failed to add experience.');
+          }
         });
       }
     });
@@ -55,23 +78,43 @@ export class ExperienceComponent {
       data: experience
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-        const idx = this.experiences.findIndex(e => e.experienceId === experience.experienceId);
-        if (idx !== -1) {
-          this.experiences[idx] = {
-            ...experience,
-            ...result
-          };
-        }
+        const payload = {
+          experienceId: experience.experienceId,
+          credentialId: this.credentialId,
+          companyName: result.company,
+          designation: result.designation,
+          startDate: result.startDate,
+          endDate: result.current ? null : result.endDate,
+          currentlyWorking: result.current,
+          description: result.description
+        };
+
+        this.profileService.saveExperience(payload).subscribe({
+          next: () => {
+            this.loadExperiences();
+          },
+          error: (err: any) => {
+            console.error('Failed to update experience record', err);
+            alert('Failed to update experience.');
+          }
+        });
       }
     });
   }
 
   deleteExperience(experience: any): void {
-    this.experiences = this.experiences.filter(
-      x => x.experienceId !== experience.experienceId
-    );
+    if (experience.experienceId && confirm('Are you sure you want to delete this experience record?')) {
+      this.profileService.deleteExperience(experience.experienceId).subscribe({
+        next: () => {
+          this.loadExperiences();
+        },
+        error: (err: any) => {
+          console.error('Failed to delete experience record', err);
+          alert('Failed to delete experience.');
+        }
+      });
+    }
   }
 }
-

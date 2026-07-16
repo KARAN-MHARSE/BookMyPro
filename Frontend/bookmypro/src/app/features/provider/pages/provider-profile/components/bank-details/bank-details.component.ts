@@ -1,64 +1,65 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ProviderProfileService } from '../../../../services/provider-profile.service';
+import { BankInfoResponse } from '../../../../model/provider-profile.model';
 
 @Component({
   selector: 'app-bank-details',
   templateUrl: './bank-details.component.html',
   styleUrl: './bank-details.component.css'
 })
-export class BankDetailsComponent {
+export class BankDetailsComponent implements OnInit {
+  @Input()
+  credentialId = '';
 
   form: FormGroup;
 
-  constructor(
-    private fb: FormBuilder
-  ) {
+  private fb = inject(FormBuilder);
+  private profileService = inject(ProviderProfileService);
 
+  constructor() {
     this.form = this.fb.group({
-
-      accountHolderName: [
-        'Karan Mharse',
-        Validators.required
-      ],
-
-      bankName: [
-        'State Bank of India',
-        Validators.required
-      ],
-
-      accountNumber: [
-        '30987654321',
-        Validators.required
-      ],
-
-      confirmAccountNumber: [
-        '30987654321',
-        Validators.required
-      ],
-
-      ifscCode: [
-        'SBIN0001234',
-        [Validators.required, Validators.pattern('^[A-Z]{4}0[A-Z0-9]{6}$')]
-      ],
-
-      branchName: ['Deccan Gymkhana'],
-
-      accountType: [
-        'SAVINGS'
-      ],
-
-      upiId: ['karan@oksbi'],
-
-      panNumber: ['ABCDE1234F'],
-
+      accountHolderName: ['', Validators.required],
+      bankName: ['', Validators.required],
+      accountNumber: ['', Validators.required],
+      confirmAccountNumber: ['', Validators.required],
+      ifscCode: ['', [Validators.required, Validators.pattern('^[A-Z]{4}0[A-Z0-9]{6}$')]],
+      branchName: [''],
+      accountType: ['SAVINGS'],
+      upiId: [''],
+      panNumber: [''],
       gstNumber: [''],
-
       primary: [true]
-
     }, {
       validators: this.accountNumberMatchValidator
     });
+  }
 
+  ngOnInit(): void {
+    if (this.credentialId) {
+      this.profileService.getBankDetails(this.credentialId).subscribe({
+        next: (res: BankInfoResponse) => {
+          if (res && res.bankId) {
+            this.form.patchValue({
+              accountHolderName: res.accountHolderName,
+              bankName: res.bankName,
+              accountNumber: res.accountNumber,
+              confirmAccountNumber: res.accountNumber,
+              ifscCode: res.ifscCode,
+              branchName: res.branchName,
+              accountType: res.accountType || 'SAVINGS',
+              upiId: res.upiId,
+              panNumber: res.panNumber,
+              gstNumber: res.gstNumber,
+              primary: res.isPrimary !== null ? res.isPrimary : true
+            });
+          }
+        },
+        error: (err: any) => {
+          console.error('Failed to load bank details', err);
+        }
+      });
+    }
   }
 
   accountNumberMatchValidator(g: FormGroup) {
@@ -73,7 +74,30 @@ export class BankDetailsComponent {
       return;
     }
 
-    console.log('Saved bank details payload:', this.form.getRawValue());
+    const rawVal = this.form.getRawValue();
+    const payload = {
+      accountHolderName: rawVal.accountHolderName,
+      bankName: rawVal.bankName,
+      accountNumber: rawVal.accountNumber,
+      ifscCode: rawVal.ifscCode,
+      branchName: rawVal.branchName,
+      accountType: rawVal.accountType,
+      upiId: rawVal.upiId,
+      panNumber: rawVal.panNumber,
+      gstNumber: rawVal.gstNumber,
+      isPrimary: rawVal.primary
+    };
+
+    if (this.credentialId) {
+      this.profileService.saveBankDetails(this.credentialId, payload).subscribe({
+        next: (res: BankInfoResponse) => {
+          alert('Bank details saved successfully!');
+        },
+        error: (err: any) => {
+          console.error('Failed to save bank details', err);
+          alert('Failed to save bank details.');
+        }
+      });
+    }
   }
 }
-

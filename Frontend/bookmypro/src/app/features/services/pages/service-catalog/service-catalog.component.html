@@ -1,0 +1,38 @@
+<section class="services-page">
+  <header class="hero">
+    <div class="hero-content">
+      <span class="eyebrow">HOME SERVICES</span>
+      <h1>Find Trusted Professionals</h1>
+      <p>Discover verified professionals for home maintenance, cleaning, beauty, appliance repair and more.</p>
+    </div>
+  </header>
+
+  <section class="toolbar">
+    <app-service-search (search)="onSearch($event)"></app-service-search>
+    <app-category-filter [categories]="store.categories()" (categoryChanged)="onCategoryChanged($event)"></app-category-filter>
+
+    <div class="toolbar-footer">
+      <div class="result-count">
+        {{ store.filteredServices().length }} Services Available
+      </div>
+      <app-sort-dropdown [selected]="store.sort()" (selectionChanged)="onSortChanged($event)"></app-sort-dropdown>
+    </div>
+  </section>
+
+  @if(store.loading()){
+    <div class="loading">Loading Services...</div>
+  }
+  @else if(store.filteredServices().length === 0){
+    <div class="empty">
+      <h2>No Services Found</h2>
+      <p>Try another search keyword or category.</p>
+    </div>
+  }
+  @else{
+    <section class="service-grid">
+      @for(service of store.filteredServices(); track service.id){
+        <app-service-card [service]="service" (viewProviders)="openProviders($event)"></app-service-card>
+      }
+    </section>
+  }
+</section>

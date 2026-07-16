@@ -34,7 +34,7 @@ public class LogoutService {
 
 		Credential credential = refreshToken.getCredential();
 
-		sessionRepository.findByCredentialAndDeviceAndStatus(credential, request.getDeviceId(), "ACTIVE")
+		sessionRepository.findByCredentialIdAndDeviceIdAndStatus(credential.getCredentialId(), request.getDeviceId(), "ACTIVE")
 				.ifPresent(session -> {
 					session.setStatus("INACTIVE");
 					session.setLastAccessed(LocalDateTime.now());
@@ -48,7 +48,7 @@ public class LogoutService {
 				.orElseThrow(()-> new BusinessException(ErrorCode.CREDENTIAL_NOT_FOUND));
 		refreshTokenRepository.revokeAllByCredential(credential);
 
-		sessionRepository.closeAllSessions(credential);
+		sessionRepository.closeAllSessions(credential.getCredentialId());
 	}
 
 }

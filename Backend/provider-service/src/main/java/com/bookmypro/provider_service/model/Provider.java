@@ -3,6 +3,11 @@ package com.bookmypro.provider_service.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.bookmypro.provider_service.enums.ProviderStatus;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -29,11 +34,14 @@ public class Provider {
     @Column(name = "provider_id")
     private UUID providerId;
 
-    @Column(name = "user_id")
-    private UUID userId;
+    @Column(name = "credential_id")
+    private UUID credentialId;
 
     @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "middle_name")
+    private String middleName;
 
     @Column(name = "last_name")
     private String lastName;
@@ -46,11 +54,13 @@ public class Provider {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private com.bookmypro.provider_service.enums.Status status;
+    private ProviderStatus status;
 
     @Column(name = "created_at")
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 }

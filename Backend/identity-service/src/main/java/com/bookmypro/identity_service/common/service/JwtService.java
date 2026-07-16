@@ -1,12 +1,15 @@
 package com.bookmypro.identity_service.common.service;
 
 import java.util.Date;
+import java.util.UUID;
 
 import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import com.bookmypro.identity_service.feature.auth.login.CustomUserDetails;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -29,24 +32,30 @@ public class JwtService {
 		return Keys.hmacShaKeyFor(secret.getBytes());
 	}
 
-	public String generateAccessToken(UserDetails user) {
+	public String generateAccessToken(CustomUserDetails user) {
 
 		return generateToken(user, accessTokenExpiration, "ACCESS");
 	}
 
-	public String generateRefreshToken(UserDetails user) {
+	public String generateRefreshToken(CustomUserDetails user) {
 
 		return generateToken(user, refreshTokenExpiration, "REFRESH");
 	}
 
-	private String generateToken(UserDetails user, long expiration, String type) {
-		return Jwts.builder().subject(user.getUsername()).claim("type", type).issuedAt(new Date())
+	private String generateToken(CustomUserDetails user, long expiration, String type) {
+		return Jwts.builder().subject(user.getUsername())
+				.claim("credentialId", user.getCredentialId())
+				.claim("type", type).issuedAt(new Date())
 				.expiration(new Date(System.currentTimeMillis() + expiration)).signWith(getKey()).compact();
 	}
 
 	public String extractUsername(String token) {
 
 		return getClaims(token).getSubject();
+	}
+	
+	public String extractCredentialId(String token) {
+	    return getClaims(token).get("credentialId", String.class);
 	}
 
 	public String extractTokenType(String token) {
@@ -61,6 +70,14 @@ public class JwtService {
 
 		return extractUsername(token).equals(user.getUsername()) && !isExpired(token);
 	}
+	
+	public boolean validateToken(String token) {
+        try {
+            return !isExpired(token);
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
 	private boolean isExpired(String token) {
 

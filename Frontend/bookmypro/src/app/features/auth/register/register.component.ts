@@ -6,7 +6,7 @@ import {
   Validators
 } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { CustomerOnboardingRequest, VerifyOtpRequest } from '../models/auth.model';
+import { OnboardingRequest, VerifyOtpRequest } from '../models/auth.model';
 
 @Component({
   selector: 'app-register',
@@ -98,7 +98,7 @@ export class RegisterComponent {
       return;
     }
 
-    const request = this.signupForm.value as CustomerOnboardingRequest;
+    const request = this.signupForm.value as OnboardingRequest;
 
     if (!this.isProfessional) {
       this.authService
@@ -106,7 +106,19 @@ export class RegisterComponent {
         .subscribe({
           next: (response) => {
             this.credentialId = response.credentialId;
-            this.customerId = response.customerId;
+            this.customerId = response.customerId || '';
+            this.showOtp = true;
+          },
+          error: (error) => {
+            console.error(error);
+          }
+        });
+    } else {
+      this.authService
+        .registerProvider(request)
+        .subscribe({
+          next: (response) => {
+            this.credentialId = response.credentialId;
             this.showOtp = true;
           },
           error: (error) => {

@@ -9,16 +9,17 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
+  email: string;
   accessToken: string;
-  refreshToken?: string;
-  credentialId?:string
-  tokenType?: string;
+  refreshToken: string;
+  credentialId: string
+  tokenType: string;
   message: string;
-  deviceId:string;
-  roles?:string[];
+  deviceId: string;
+  roles?: string[];
 }
 
-export interface CustomerOnboardingRequest {
+export interface OnboardingRequest {
   firstName: string;
   lastName: string;
   userName: string;
@@ -27,8 +28,9 @@ export interface CustomerOnboardingRequest {
   password: string;
 }
 
-export interface CustomerOnboardingResponse {
-  customerId: string;      // UUID
+export interface OnboardingResponse {
+  customerId?: string;     // UUID (for customers)
+  providerId?: string;     // UUID (for providers)
   credentialId: string;    // UUID
   message: string;
 }
@@ -55,4 +57,12 @@ export interface ForgotPasswordOtpVerifiedRequest {
 
 export interface ForgotPasswordResponse {
   message: string;
+}
+
+export interface authMeResponse {
+  email: string;
+  credentialId: string;
+  roles?: string[];
+  deviceId?: string;
+
 }

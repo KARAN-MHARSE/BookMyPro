@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class SidebarComponent {
   @Input() activeSection = 'personal';
   @Input() completion = 35;
+  @Input() avatarUrl: string | ArrayBuffer | null = null;
   @Output() sectionChange = new EventEmitter<string>();
 
   menuItems = [

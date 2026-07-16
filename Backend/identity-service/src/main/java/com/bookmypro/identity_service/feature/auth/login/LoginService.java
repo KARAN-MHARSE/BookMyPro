@@ -18,6 +18,7 @@ import com.bookmypro.identity_service.common.service.JwtService;
 import com.bookmypro.identity_service.common.service.PasswordService;
 import com.bookmypro.identity_service.exception.BusinessException;
 import com.bookmypro.identity_service.exception.ErrorCode;
+import com.bookmypro.identity_service.feature.auth.delateCredential.DeleteCredentialController;
 import com.bookmypro.identity_service.model.Credential;
 import com.bookmypro.identity_service.model.CredentialRole;
 import com.bookmypro.identity_service.model.LoginHistory;
@@ -38,6 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class LoginService {
+
 	private final RefreshTokenRepository refreshTokenRepository;
 	private final CredentialRepository credentialRepository;
 	private final LoginHistoryRepository loginHistoryRepository;
@@ -53,6 +55,7 @@ public class LoginService {
 	@Autowired
 	@Lazy
 	private LoginService self;
+
 
 	@Transactional
 	public LoginResponse loginUser(LoginRequest request) {
@@ -73,7 +76,7 @@ public class LoginService {
 			throw new BusinessException(ErrorCode.INVALID_PASSWORD);
 		}
 
-		long loginSessionsCount = sessionRepository.countByCredentialAndStatus(credential, "ACTIVE");
+		long loginSessionsCount = sessionRepository.countByCredentialIdAndStatus(credential.getCredentialId(), "ACTIVE");
 		if (loginSessionsCount >= maxLoginSessionsLimit) {
 			throw new BusinessException(ErrorCode.SESSION_LIMIT_EXCEEDED);
 		}
@@ -95,20 +98,21 @@ public class LoginService {
 
 		refreshTokenRepository.save(token);
 
-		String deviceId = createOrUpdateSession(request, credential);
+		UUID deviceId = createOrUpdateSession(request, credential);
 
 //		Get role of user
 		List<String> roles = getCredentialRoles(credential.getCredentialId());
 		response.setRoles(roles);
 
 		LoginHistory loginHistory = LoginHistory.builder().credential(credential).loginTime(now)
-				.device(request.getDeviceId()).browser(request.getBrowser()).ipAddress(request.getIpAddress())
+				.deviceId(request.getDeviceId()).browser(request.getBrowser()).ipAddress(request.getIpAddress())
 				.status("ACTIVE").build();
 
 		loginHistoryRepository.save(loginHistory);
 
 		credential.setFailedLoginAttempts(0);
 
+		response.setEmail(credential.getEmail());
 		response.setCredentialId(credential.getCredentialId().toString());
 		response.setDeviceId(deviceId);
 		response.setMessage("Login successful");
@@ -126,14 +130,14 @@ public class LoginService {
 		return roles.stream().map(Role::getRoleCode).toList();
 	}
 
-	private String createOrUpdateSession(LoginRequest request, Credential credential) {
-		String deviceId = request.getDeviceId();
+	private UUID createOrUpdateSession(LoginRequest request, Credential credential) {
+		UUID deviceId = request.getDeviceId();
 
-		if (deviceId == null || deviceId.equals("null") || deviceId.trim().isEmpty()) {
-			deviceId = UUID.randomUUID().toString();
+		if (deviceId == null || deviceId.equals("null")) {
+			deviceId = UUID.randomUUID();
 		}
 
-		Optional<Session> existingSessionOpt = sessionRepository.findByCredentialAndDeviceAndStatus(credential,
+		Optional<Session> existingSessionOpt = sessionRepository.findByCredentialIdAndDeviceIdAndStatus(credential.getCredentialId(),
 				deviceId, "ACTIVE");
 
 		Session session;
@@ -145,7 +149,7 @@ public class LoginService {
 			session.setBrowser(request.getBrowser());
 			session.setLocation(request.getLocation());
 		} else {
-			session = Session.builder().credential(credential).device(deviceId).browser(request.getBrowser())
+			session = Session.builder().credentialId(credential.getCredentialId()).deviceId(deviceId).browser(request.getBrowser())
 					.location(request.getLocation()).status("ACTIVE").createdAt(now).lastAccessed(now).build();
 		}
 
@@ -157,7 +161,8 @@ public class LoginService {
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void recordFailedAttempt(Credential credential) {
-		credential.setFailedLoginAttempts(credential.getFailedLoginAttempts() + 1);
+		Integer prevCredentialAttempts = credential.getFailedLoginAttempts();
+		credential.setFailedLoginAttempts(prevCredentialAttempts == null ? 1 : prevCredentialAttempts + 1);
 
 		if (credential.getFailedLoginAttempts() >= 5) {
 			credential.setStatus(CredentialStatus.LOCKED);

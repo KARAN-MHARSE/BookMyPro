@@ -3,6 +3,7 @@ package com.bookmypro.identity_service.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -30,15 +31,13 @@ public class Session {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID sessionId;
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "credential_id")
-    private Credential credential;
-
+    @Column(nullable = false)
+    private UUID credentialId;
 
     private String jwtId;
 
-    private String device;
+    @Column(nullable = false)
+    private UUID deviceId;
 
     private String browser;
 

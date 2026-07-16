@@ -7,4 +7,5 @@ import java.util.UUID;
 
 @Repository
 public interface ProviderBankRepository extends JpaRepository<ProviderBank, UUID> {
+    java.util.Optional<ProviderBank> findByProviderId(UUID providerId);
 }

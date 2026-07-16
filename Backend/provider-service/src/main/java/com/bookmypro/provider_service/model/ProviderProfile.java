@@ -1,13 +1,22 @@
 package com.bookmypro.provider_service.model;
 
-import jakarta.persistence.*;
-import lombok.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.bookmypro.provider_service.enums.Gender;
+import com.bookmypro.provider_service.enums.Status;
+
+import jakarta.persistence.*;
+import lombok.*;
+
 @Entity
 @Table(name = "provider_profile")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -18,67 +27,64 @@ public class ProviderProfile {
     @Column(name = "provider_profile_id")
     private UUID providerProfileId;
 
-    @Column(name = "provider_id")
+    @Column(name = "provider_id", nullable=false)
     private UUID providerId;
 
-    @Column(name = "business_name")
-    private String businessName;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender", length = 20)
+    private Gender gender;
 
-    @Column(name = "provider_type_id")
-    private UUID providerTypeId;
+    @Column(name = "dob")
+    private LocalDate dob;
+
+    @Column(name = "profile_photo_url")
+    private String profilePhotoUrl;
+
+    @Column(name = "bio", columnDefinition = "TEXT")
+    private String bio;
 
     @Column(name = "experience_years")
     private Integer experienceYears;
 
-    @Column(name = "business_description", columnDefinition = "TEXT")
-    private String businessDescription;
+    @Column(name = "professional_title")
+    private String professionalTitle;
 
-    @Column(name = "website_url")
-    private String websiteUrl;
+    @Column(name = "provider_type")
+    private String providerType;
 
-    @Column(name = "facebook_url")
-    private String facebookUrl;
-
-    @Column(name = "instagram_url")
-    private String instagramUrl;
-
-    @Column(name = "linkedin_url")
-    private String linkedinUrl;
-
-    @Column(name = "youtube_url")
-    private String youtubeUrl;
-
-    @Column(name = "gst_number")
-    private String gstNumber;
-
-    @Column(name = "pan_number")
-    private String panNumber;
-
-    @Column(name = "rating")
-    private Double rating;
-
-    @Column(name = "total_reviews")
-    private Integer totalReviews;
-
-    @Column(name = "total_completed_jobs")
-    private Integer totalCompletedJobs;
-
-    @Column(name = "profile_completion")
-    private Integer profileCompletion;
+    @Column(name = "professional_summary", columnDefinition = "TEXT")
+    private String professionalSummary;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status")
-    private com.bookmypro.provider_service.enums.Status status;
+    @Column(name = "profile_status")
+    private Status profileStatus;
 
-    @Column(name = "created_at")
+    @Column(name = "service_radius")
+    private Integer serviceRadius;
+
+    @Column(name = "max_bookings")
+    private Integer maxBookings;
+
+    @Column(name = "home_service")
+    private Boolean homeService;
+
+    @Column(name = "emergency_service")
+    private Boolean emergencyService;
+
+    @Column(name = "weekend_available")
+    private Boolean weekendAvailable;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     @Column(name = "created_by")
+    @CreationTimestamp
     private String createdBy;
 
     @Column(name = "updated_by")
+    @UpdateTimestamp
     private String updatedBy;
 }

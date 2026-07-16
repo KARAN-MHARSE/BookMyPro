@@ -1,47 +1,40 @@
 <div class="provider-profile">
 
-  <app-sidebar
-    class="profile-sidebar"
-    [activeSection]="activeSection"
+  <app-sidebar class="profile-sidebar" [activeSection]="activeSection" [avatarUrl]="appStore.profileImage()"
     (sectionChange)="changeSection($event)">
   </app-sidebar>
 
   <div class="profile-content">
 
     <div class="scrollable-sections">
-      <app-personal-information
-        *ngIf="activeSection === 'personal'"
-        [group]="profileForm.controls.personalInfo">
+      <app-personal-information *ngIf="activeSection === 'personal'" [group]="profileForm.controls.personalInfo"
+        [credentialId]="credentialId">
       </app-personal-information>
 
-      <app-professional-information
-        *ngIf="activeSection === 'professional'"
-        [group]="profileForm.controls.professionalInfo">
+      <app-professional-information *ngIf="activeSection === 'professional'"
+        [group]="profileForm.controls.professionalInfo" [credentialId]="credentialId">
       </app-professional-information>
 
-      <app-education *ngIf="activeSection === 'education'"></app-education>
+      <app-education *ngIf="activeSection === 'education'" [credentialId]="credentialId">
+      </app-education>
 
-      <app-experience *ngIf="activeSection === 'experience'"></app-experience>
+      <app-experience *ngIf="activeSection === 'experience'" [credentialId]="credentialId">
+      </app-experience>
 
       <app-documents *ngIf="activeSection === 'documents'"></app-documents>
 
-      <app-services *ngIf="activeSection === 'services'"></app-services>
+      <app-services *ngIf="activeSection === 'services'" [credentialId]="credentialId">
+      </app-services>
 
-      <app-availability
-        *ngIf="activeSection === 'availability'"
-        #availabilitySection>
+      <app-availability *ngIf="activeSection === 'availability'" [credentialId]="credentialId" #availabilitySection>
       </app-availability>
 
-      <app-bank-details
-        *ngIf="activeSection === 'bank'"
-        #bankDetailsSection>
+      <app-bank-details *ngIf="activeSection === 'bank'" [credentialId]="credentialId" #bankDetailsSection>
       </app-bank-details>
     </div>
 
-    <div class="stepper-footer">
-      <app-stepper-card
-        (saveEvent)="saveCurrentSection()"
-        (cancelEvent)="cancel()">
+    <div class="stepper-footer" *ngIf="['personal', 'professional', 'bank', 'availability'].includes(activeSection)">
+      <app-stepper-card (saveEvent)="saveCurrentSection()" (cancelEvent)="cancel()">
       </app-stepper-card>
     </div>
 

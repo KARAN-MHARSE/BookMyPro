@@ -36,7 +36,7 @@ public class LoginHistory {
 
     private LocalDateTime logoutTime;
 
-    private String device;
+    private UUID deviceId;
 
     private String browser;
 

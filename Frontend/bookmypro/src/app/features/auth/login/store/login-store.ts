@@ -1,9 +1,10 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { LoginRequest } from '../../models/auth.model';
+import { authMeResponse, LoginRequest } from '../../models/auth.model';
 import { AuthTokenService } from '../../../../core/services/auth-token.service';
 import { StorageService } from '../../../../core/services/storage.service';
 import { Router } from '@angular/router';
+import { AppStore } from '@app/shared/components/store/app.store';
 
 @Injectable()
 export class LoginStore {
@@ -11,6 +12,7 @@ export class LoginStore {
   private authTokenService = inject(AuthTokenService)
   private router = inject(Router)
   private storageService = inject(StorageService)
+  private appStore = inject(AppStore)
 
   loading = signal(false);
   error = signal('')
@@ -26,20 +28,27 @@ export class LoginStore {
           response.refreshToken ?? ''
         );
 
-        const roles = response.roles;
-        this.storageService.set("roles", JSON.stringify(roles));
-        this.storageService.set("credentialId", response.credentialId ?? '')
         this.storageService.set("deviceId", response.deviceId)
+
+        let authUser: authMeResponse = {
+          email: response.email,
+          credentialId: response.credentialId,
+          roles: response.roles,
+          deviceId: response.deviceId
+        }
+
+        this.appStore.saveAuthUser(authUser, true);
+
         this.loading.set(false);
 
-        if (roles?.includes("CUSTOMER")) {
+        if (response.roles?.includes("CUSTOMER")) {
           this.router.navigate(["/customer"]);
         }
-        //  else if (roles?.includes("PROVIDER")) {
-        //   this.router.navigate(["/provider"]);
-        // } else if (roles?.includes("ADMIN")) {
-        //   this.router.navigate(["/admin"]);
-        // }
+        else if (response.roles?.includes("PROVIDER")) {
+          this.router.navigate(["/provider"]);
+        } else if (response.roles?.includes("ADMIN")) {
+          this.router.navigate(["/admin"]);
+        }
       },
       error: err => {
         this.loading.set(false)

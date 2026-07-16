@@ -1,0 +1,83 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+}
+
+.search-box {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    width: 100%;
+
+    height: 52px;
+
+    background: #fff;
+
+    border: 1px solid #dbe3ea;
+
+    border-radius: 14px;
+
+    padding: 0 16px;
+
+    transition: .25s;
+
+}
+
+.search-box:focus-within {
+
+    border-color: #2563eb;
+
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, .12);
+
+}
+
+.icon {
+
+    font-size: 18px;
+
+    color: #64748b;
+
+}
+
+input {
+
+    flex: 1;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    font-size: 15px;
+
+}
+
+.clear-btn {
+
+    border: none;
+
+    background: none;
+
+    cursor: pointer;
+
+    color: #94a3b8;
+
+    font-size: 18px;
+
+    transition: .2s;
+
+}
+
+.clear-btn:hover {
+
+    color: #ef4444;
+
+}

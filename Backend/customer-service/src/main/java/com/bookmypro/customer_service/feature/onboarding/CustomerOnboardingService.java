@@ -4,15 +4,19 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestClientResponseException;
 
 import com.bookmypro.customer_service.common.request.CreateCredentialRequest;
 import com.bookmypro.customer_service.common.response.CreateCredentialResponse;
 import com.bookmypro.customer_service.common.service.downstream.IdentityDownStreamService;
 import com.bookmypro.customer_service.enums.CustomerStatus;
 import com.bookmypro.customer_service.exception.BusinessException;
+import com.bookmypro.customer_service.exception.DownstreamServiceException;
 import com.bookmypro.customer_service.exception.ErrorCode;
 import com.bookmypro.customer_service.model.Customer;
 import com.bookmypro.customer_service.repository.CustomerRepository;
@@ -68,6 +72,23 @@ public class CustomerOnboardingService {
 			}
 			return UUID.fromString(createCredentialResponse.getCredentialId());
 
+		} catch (RestClientResponseException ex) {
+			log.error("Identity service returned error status={} body={}", ex.getStatusCode(), ex.getResponseBodyAsString(), ex);
+			ProblemDetail detail = null;
+			try {
+				detail = ex.getResponseBodyAs(ProblemDetail.class);
+			} catch (Exception parseEx) {
+				log.warn("Failed to parse identity error as ProblemDetail", parseEx);
+			}
+			String message = (detail != null && detail.getDetail() != null) ? detail.getDetail() : "Identity service error";
+			String code = (detail != null && detail.getProperties() != null && detail.getProperties().get("code") != null)
+					? detail.getProperties().get("code").toString()
+					: null;
+			throw new DownstreamServiceException(
+					HttpStatus.valueOf(ex.getStatusCode().value()),
+					message,
+					code
+			);
 		} catch (BusinessException ex) {
 			log.error("Identity service rejected credential creation: {}", ex.getMessage(), ex);
 			throw ex;

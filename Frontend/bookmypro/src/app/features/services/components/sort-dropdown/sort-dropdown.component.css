@@ -1,0 +1,65 @@
+:host {
+
+    display: block;
+
+}
+
+.sort-dropdown {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+label {
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #475569;
+
+    white-space: nowrap;
+
+}
+
+select {
+
+    min-width: 220px;
+
+    height: 44px;
+
+    border-radius: 12px;
+
+    border: 1px solid #dbe3ea;
+
+    padding: 0 14px;
+
+    background: #fff;
+
+    font-size: 14px;
+
+    outline: none;
+
+    cursor: pointer;
+
+    transition: .25s;
+
+}
+
+select:hover {
+
+    border-color: #2563eb;
+
+}
+
+select:focus {
+
+    border-color: #2563eb;
+
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, .12);
+
+}

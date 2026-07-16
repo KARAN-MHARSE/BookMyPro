@@ -4,3 +4,7 @@
     <router-outlet></router-outlet>
   </main>
 </div>
+
+<div class="loading-overlay" *ngIf="appStore.loading()">
+  <div class="spinner"></div>
+</div>

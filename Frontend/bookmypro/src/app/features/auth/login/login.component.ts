@@ -1,8 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginStore } from './store/login-store';
 import { StorageService } from '../../../core/services/storage.service';
 import { Router } from '@angular/router';
+import { AppStore } from '@app/shared/components/store/app.store';
 
 @Component({
   selector: 'app-login',
@@ -13,15 +14,22 @@ export class LoginComponent implements OnInit {
 
   private fb = inject(FormBuilder);
   private storageService = inject(StorageService)
+  private appStore = inject(AppStore)
 
-  constructor(public store: LoginStore,private router:Router) { }
+  constructor(public store: LoginStore, private router: Router) {
+    effect(() => {
+      const authUser = this.appStore.authUser();
+      if (authUser?.roles) {
+        if (authUser.roles?.includes("CUSTOMER")) {
+          this.router.navigate(["/customer"]);
+        }else if (authUser.roles?.includes("PROVIDER")) {
+          this.router.navigate(["/provider"]);
+        }
+      }
+    })
+  }
 
   ngOnInit(): void {
-    const roles = this.storageService.get("roles");
-    if (roles?.includes("CUSTOMER")) {
-      this.router.navigate(["/customer"]);
-    }
-
   }
 
   form = this.fb.group({

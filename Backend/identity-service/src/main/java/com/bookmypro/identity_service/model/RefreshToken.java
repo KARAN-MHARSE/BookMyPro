@@ -42,7 +42,7 @@ public class RefreshToken {
 
     private Boolean revoked;
 
-    private String deviceId;
+    private UUID deviceId;
 
     private String deviceName;
 

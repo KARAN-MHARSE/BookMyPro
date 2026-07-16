@@ -1,101 +1,97 @@
-<h2 mat-dialog-title>
+<h2 mat-dialog-title>{{data ? 'Edit Service' : 'Add Service'}}</h2>
 
-  {{data ? 'Edit Service' : 'Add Service'}}
+<div mat-dialog-content [formGroup]="form">
+  <div class="grid grid-2 gap-4">
+    <div class="field">
+      <label>Category</label>
+      <select class="select" formControlName="category">
+        <option value="" disabled>-- Select Category --</option>
+        <option *ngFor="let category of categories" [value]="category.id">
+          {{category.name}}
+        </option>
+      </select>
+    </div>
 
-</h2>
-
-<div
-  mat-dialog-content
-  [formGroup]="form">
-
-  <div class="field">
-
-    <label>Service Name</label>
-
-    <input
-      class="input"
-      formControlName="serviceName">
-
-  </div>
-
-  <div class="field">
-
-    <label>Category</label>
-
-    <select
-      class="select"
-      formControlName="category">
-
-      <option
-        *ngFor="let category of categories"
-        [value]="category">
-
-        {{category}}
-
-      </option>
-
-    </select>
-
+    <div class="field">
+      <label>Service Name</label>
+      <select class="select" formControlName="serviceName">
+        <option value="" disabled *ngIf="availableServices.length === 0">Please select category first</option>
+        <option value="" disabled *ngIf="availableServices.length > 0">-- Select Service --</option>
+        <option *ngFor="let service of availableServices" [value]="service.id">
+          {{service.name}}
+        </option>
+      </select>
+    </div>
   </div>
 
   <div class="grid grid-2 gap-4">
-
     <div class="field">
-
-      <label>Price</label>
-
-      <input
-        class="input"
-        type="number"
-        formControlName="price">
-
+      <label>Price Type</label>
+      <select class="select" formControlName="priceType">
+        <option value="HOURLY">Hourly Price</option>
+        <option value="FIXED">Fixed Price</option>
+        <option value="VISIT">Per Visit Price</option>
+      </select>
     </div>
 
     <div class="field">
-
-      <label>Duration (mins)</label>
-
-      <input
-        class="input"
-        type="number"
-        formControlName="duration">
-
+      <label>Experience (Years)</label>
+      <input class="input" type="number" formControlName="experienceYears" placeholder="e.g. 5">
     </div>
-
   </div>
 
-  <label class="check">
+  <div class="grid grid-2 gap-4">
+    <div class="field">
+      <label>Duration (mins)</label>
+      <input class="input" type="number" formControlName="duration">
+    </div>
 
-    <input
-      type="checkbox"
-      formControlName="active">
+    <div class="field">
+      <label>Base Price</label>
+      <input class="input" type="number" formControlName="price">
+    </div>
+  </div>
 
-    Active
+  <div class="grid grid-2 gap-4">
+    <div class="field">
+      <label>Minimum Price</label>
+      <input class="input" type="number" formControlName="minimumPrice">
+    </div>
 
-  </label>
+    <div class="field">
+      <label>Maximum Price</label>
+      <input class="input" type="number" formControlName="maximumPrice">
+    </div>
+  </div>
 
+  <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
+    <div class="grid grid-2 gap-4">
+      <label class="check">
+        <input type="checkbox" formControlName="homeService">
+        Home Service Available
+      </label>
+
+      <label class="check">
+        <input type="checkbox" formControlName="emergencyService">
+        Emergency Service Available
+      </label>
+    </div>
+
+    <div class="grid grid-2 gap-4">
+      <label class="check">
+        <input type="checkbox" formControlName="weekendAvailable">
+        Weekend Available
+      </label>
+
+      <label class="check">
+        <input type="checkbox" formControlName="active">
+        Active
+      </label>
+    </div>
+  </div>
 </div>
 
-<div
-  mat-dialog-actions
-  align="end">
-
-  <button
-    class="btn btn-outline"
-    type="button"
-    (click)="close()">
-
-    Cancel
-
-  </button>
-
-  <button
-    class="btn btn-primary"
-    type="button"
-    (click)="save()">
-
-    Save
-
-  </button>
-
+<div mat-dialog-actions align="end" style="margin-top: 20px;">
+  <button class="btn btn-outline" type="button" (click)="close()">Cancel</button>
+  <button class="btn btn-primary" type="button" (click)="save()">Save</button>
 </div>

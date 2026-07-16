@@ -1,5 +1,7 @@
 package com.bookmypro.identity_service.feature.auth.login;
 
+import java.util.UUID;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -21,7 +23,7 @@ public class LoginRequest {
 
     private String browser;
 
-	private String deviceId;
+	private UUID deviceId;
 	
     private String location;
 

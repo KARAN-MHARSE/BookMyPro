@@ -43,6 +43,10 @@ public class ProviderExperience {
     @Column(name = "display_order")
     private Integer displayOrder;
 
+    @Column(name = "is_deleted")
+    @Builder.Default
+    private Boolean isDeleted = false;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 

@@ -29,6 +29,17 @@ public class GlobalExceptionHandler {
 		return problemDetail;
 	}
 
+	@ExceptionHandler(DownstreamServiceException.class)
+	public ProblemDetail handleDownstreamServiceException(DownstreamServiceException ex) {
+		ProblemDetail problemDetail = ProblemDetail.forStatus(ex.getStatus());
+		problemDetail.setTitle("Downstream Service Exception");
+		problemDetail.setDetail(ex.getMessage());
+		if (ex.getCode() != null) {
+			problemDetail.setProperty("code", ex.getCode());
+		}
+		return problemDetail;
+	}
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ProblemDetail handleValidationException(MethodArgumentNotValidException ex, HttpServletRequest request) {
 

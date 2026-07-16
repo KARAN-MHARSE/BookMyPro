@@ -7,4 +7,5 @@ import java.util.UUID;
 
 @Repository
 public interface ProviderExperienceRepository extends JpaRepository<ProviderExperience, UUID> {
+    java.util.List<ProviderExperience> findByProviderIdAndIsDeletedFalse(UUID providerId);
 }

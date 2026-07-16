@@ -63,6 +63,10 @@ public class ProviderService {
     @Column(name = "status")
     private com.bookmypro.provider_service.enums.Status status;
 
+    @Column(name = "is_deleted")
+    @Builder.Default
+    private Boolean isDeleted = false;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 

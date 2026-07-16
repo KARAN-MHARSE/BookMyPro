@@ -1,0 +1,22 @@
+<article class="service-card">
+  <div class="thumbnail">
+    <img [src]="service.thumbnailUrl" [alt]="service.name">
+    <span class="category">{{ service.categoryName }}</span>
+    <span class="providers">{{ service.providerCount }}+ Professionals</span>
+  </div>
+  <div class="content">
+    <h3>{{ service.name }}</h3>
+    <div class="rating">
+      ⭐ <span>{{ service.averageRating }}</span>
+      <small>({{ service.totalReviews }})</small>
+    </div>
+    <div class="meta">
+      <span>⏱ {{ service.estimatedDuration }} mins</span>
+    </div>
+    <div class="price">
+      <small>Starting From</small>
+      <h2>₹{{ service.startingPrice }}</h2>
+    </div>
+    <button class="btn-primary" (click)="onViewProviders()">View Providers →</button>
+  </div>
+</article>

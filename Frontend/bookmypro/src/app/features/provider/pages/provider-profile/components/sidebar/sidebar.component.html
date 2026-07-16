@@ -1,29 +1,14 @@
 <div class="sidebar-card">
 
   <div class="profile-header">
-    <div class="avatar">KP</div>
+    <!-- <div class="avatar">KP</div> -->
     <h4>Provider Profile</h4>
     <p>Complete your profile to start receiving bookings.</p>
   </div>
 
-  <div class="completion">
-    <div class="completion-top">
-      <span>Profile Completion</span>
-      <strong>{{ completion }}%</strong>
-    </div>
-
-    <div class="progress">
-      <div class="progress-fill" [style.width.%]="completion"></div>
-    </div>
-  </div>
-
   <div class="side-nav">
-    <button
-      type="button"
-      class="side-nav-item"
-      *ngFor="let item of menuItems"
-      [class.active]="activeSection === item.id"
-      (click)="selectSection(item.id)">
+    <button type="button" class="side-nav-item" *ngFor="let item of menuItems"
+      [class.active]="activeSection === item.id" (click)="selectSection(item.id)">
       <span class="ico">{{ item.icon }}</span>
       <span>{{ item.title }}</span>
     </button>

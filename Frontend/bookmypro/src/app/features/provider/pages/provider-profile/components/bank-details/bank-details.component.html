@@ -76,7 +76,7 @@
 
         </label>
 
-        <input class="input" type="password" formControlName="accountNumber"
+        <input class="input" type="text" formControlName="accountNumber"
           [class.has-error]="form.get('accountNumber')?.invalid && form.get('accountNumber')?.touched">
 
         <span class="error" *ngIf="form.get('accountNumber')?.invalid && form.get('accountNumber')?.touched">

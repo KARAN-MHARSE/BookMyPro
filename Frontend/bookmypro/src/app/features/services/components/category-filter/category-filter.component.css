@@ -1,0 +1,83 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+}
+
+.category-filter {
+
+    display: flex;
+
+    gap: 12px;
+
+    overflow-x: auto;
+
+    padding-bottom: 8px;
+
+    scrollbar-width: none;
+
+}
+
+.category-filter::-webkit-scrollbar {
+
+    display: none;
+
+}
+
+.chip {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    flex-shrink: 0;
+
+    padding: 10px 18px;
+
+    border-radius: 999px;
+
+    border: 1px solid #dbe3ea;
+
+    background: #fff;
+
+    cursor: pointer;
+
+    transition: .25s;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+}
+
+.chip:hover {
+
+    border-color: #2563eb;
+
+    color: #2563eb;
+
+}
+
+.chip.active {
+
+    background: #2563eb;
+
+    color: #fff;
+
+    border-color: #2563eb;
+
+}
+
+.chip img {
+
+    width: 20px;
+
+    height: 20px;
+
+    object-fit: contain;
+
+}

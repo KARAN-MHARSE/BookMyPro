@@ -82,7 +82,11 @@ public enum ErrorCode {
 			 "AUTH_013",
 	            HttpStatus.BAD_REQUEST,
 	            "Password already exist."
-			);
+			),
+	NOT_AUTHORIZED("AUTH_014",
+    HttpStatus.UNAUTHORIZED,
+    "Password unauthorised."
+);
 
 
     private final String code;
