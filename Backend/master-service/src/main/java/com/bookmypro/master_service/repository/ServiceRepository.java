@@ -15,4 +15,6 @@ public interface ServiceRepository extends JpaRepository<Service, UUID> {
 	
 	public List<Service> findByServiceCategoryIdAndStatusTrue(UUID serviecCategoryId);
 
+	public List<Service> findAllByStatusTrue();
+
 }

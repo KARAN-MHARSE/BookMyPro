@@ -5,7 +5,7 @@ import { StorageService } from './core/services/storage.service';
 import { AuthTokenService } from './core/services/auth-token.service';
 import { AuthService } from './features/auth/services/auth.service';
 import { authMeResponse } from './features/auth/models/auth.model';
-import { AppStore } from './shared/components/store/app.store';
+import { AppStore } from './core/store/app.store';
 
 @Component({
   selector: 'app-root',

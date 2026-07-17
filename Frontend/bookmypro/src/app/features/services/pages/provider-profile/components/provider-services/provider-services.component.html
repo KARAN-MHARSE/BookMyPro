@@ -1,0 +1,17 @@
+<div class="card">
+  <div class="card-body stack-4">
+    <h4>Services offered</h4>
+    <div *ngFor="let svc of services; let first = first" class="svc-offer">
+      <div>
+        <div class="font-semibold">{{ svc.title }}</div>
+        <small class="text-muted">
+          {{ svc.duration }}<ng-container *ngIf="svc.includesSupplies"> · Includes supplies</ng-container>
+        </small>
+      </div>
+      <div class="row gap-3">
+        <span class="price">₹{{ svc.price }}</span>
+        <a [class]="first ? 'btn btn-primary btn-sm' : 'btn btn-outline btn-sm'" routerLink="/services/choose-slot">Book</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-package com.bookmypro.master_service.feature.getLookUps;
+package com.bookmypro.master_service.feature.getlookups;
 
 import java.util.UUID;
 
@@ -14,9 +14,8 @@ import lombok.NoArgsConstructor;
 public class LookupDto {
 
 	private UUID id;
-
 	private String code;
-
 	private String name;
+	private UUID parentValue;
 
 }

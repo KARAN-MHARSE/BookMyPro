@@ -1,0 +1,21 @@
+<div class="card">
+  <div class="card-body stack-4">
+    <h4>Recent reviews</h4>
+    <ng-container *ngFor="let rev of reviews; let last = last">
+      <article class="stack-3">
+        <div class="row gap-3">
+          <div class="avatar-sm" [style.background]="rev.avatarBg || ''">{{ rev.avatar }}</div>
+          <div>
+            <div class="font-semibold text-sm">{{ rev.author }}</div>
+            <small class="text-muted">{{ rev.date }}</small>
+          </div>
+          <div class="stars" style="margin-left:auto">
+            {{ getStars(rev.rating) }}
+          </div>
+        </div>
+        <p style="color:var(--color-text)">{{ rev.content }}</p>
+      </article>
+      <hr *ngIf="!last" class="divider"/>
+    </ng-container>
+  </div>
+</div>

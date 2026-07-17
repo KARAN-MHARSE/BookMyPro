@@ -1,6 +1,5 @@
 package com.bookmypro.provider_service.feature.profile.services;
 
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
@@ -17,12 +16,12 @@ public class ProviderServicesController {
     private final ProviderServicesService service;
 
     @GetMapping("/{credentialId}")
-    public ResponseEntity<List<ServiceResponse>> getServices(@PathVariable UUID credentialId) {
+    public ResponseEntity<ServiceResponse> getServices(@PathVariable UUID credentialId) {
         return ResponseEntity.ok(service.getServicesByCredentialId(credentialId));
     }
 
     @PostMapping
-    public ResponseEntity<ServiceResponse> saveOrUpdateService(@Valid @RequestBody ServiceRequest request) {
+    public ResponseEntity<ServiceDto> saveOrUpdateService(@Valid @RequestBody ServiceRequest request) {
         return ResponseEntity.ok(service.saveOrUpdate(request));
     }
 

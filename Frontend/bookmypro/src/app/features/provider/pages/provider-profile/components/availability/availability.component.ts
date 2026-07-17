@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ProviderProfileService } from '../../../../services/provider-profile.service';
-import { AvailabilityResponse } from '../../../../model/provider-profile.model';
+import { AvailabilityResponse } from '../../../../models/provider-profile.model';
 
 @Component({
   selector: 'app-availability',

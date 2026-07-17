@@ -14,9 +14,8 @@ import lombok.NoArgsConstructor;
 public class LookupDto {
 
 	private UUID id;
-
 	private String code;
-
 	private String name;
+	private UUID parentValue;
 
 }

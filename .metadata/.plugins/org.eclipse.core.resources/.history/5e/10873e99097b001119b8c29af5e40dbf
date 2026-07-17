@@ -1,7 +1,0 @@
-package com.bookmypro.identity_service.feature.auth.service.impl;
-
-import com.bookmypro.identity_service.feature.auth.service.CreateCredentialService;
-
-public class CreateCredentialServiceImpl implements CreateCredentialService {
-
-}

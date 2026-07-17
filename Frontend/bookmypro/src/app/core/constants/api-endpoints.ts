@@ -11,9 +11,9 @@ export const API_ENDPOINTS = {
     CUSTOMER_REGISTER: "/customer/onboard",
     PROVIDER_REGISTER: "/provider/onboard",
   },
-  CUSTOMER:{
+  CUSTOMER: {
     CUSTOMER_PROFILE: "/customer/profile",
-    CUSTOMER_ADDRESS:"/customer/address"
+    CUSTOMER_ADDRESS: "/customer/address"
   },
   PROVIDER: {
     PERSONAL_PROFILE: "/provider/profile/personal",
@@ -22,7 +22,12 @@ export const API_ENDPOINTS = {
     EXPERIENCE: "/provider/profile/experience",
     BANK: "/provider/profile/bank",
     SERVICES: "/provider/profile/services",
-    AVAILABILITY: "/provider/profile/availability"
+    AVAILABILITY: "/provider/profile/availability",
+    DETAILS: "/provider/details"
+  },
+  SERVICES: {
+    SUMMARY_GRID: "/services/summary",
+    DETAILS: "/service/details"
   }
 
 } as const;

@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.bookmypro.master_service.enums.LookupType;
-import com.bookmypro.master_service.feature.getLookUps.LookupCriteria;
-import com.bookmypro.master_service.feature.getLookUps.LookupDto;
+import com.bookmypro.master_service.feature.getlookups.LookupCriteria;
+import com.bookmypro.master_service.feature.getlookups.LookupDto;
 import com.bookmypro.master_service.repository.LanguageRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,14 @@ public class LanguageProvider implements LookupProvider {
 	@Override
 	public List<LookupDto> getLookups(LookupCriteria criteria) {
 		return repository.findByStatusTrue().stream()
-				.map(lang -> new LookupDto(lang.getId(), lang.getCode(), lang.getName()))
+				.map(lang -> new LookupDto(lang.getId(), lang.getCode(), lang.getName(),null))
+				.toList();
+	}
+
+	@Override
+	public List<com.bookmypro.master_service.feature.genericdetails.MasterDetailsDto> getDetailsByIds(List<java.util.UUID> ids) {
+		return repository.findAllById(ids).stream()
+				.map(lang -> new com.bookmypro.master_service.feature.genericdetails.MasterDetailsDto(lang.getId(), lang.getName()))
 				.toList();
 	}
 }

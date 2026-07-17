@@ -1,0 +1,35 @@
+<div class="card" style="overflow:hidden;padding:0">
+  <div style="height:180px;background:linear-gradient(135deg,#DBEAFE,#EDE9FE 60%,#FCE7F3)"></div>
+  <div class="card-body" style="padding:var(--space-6)">
+    <div class="row-between wrap gap-4" style="margin-top:-60px">
+      <div class="row gap-4">
+        <div class="avatar-sm" style="width:96px;height:96px;font-size:32px;border:4px solid #fff;box-shadow:var(--shadow-md)">
+          {{ provider.initials }}
+        </div>
+        <div style="margin-top:var(--space-8)">
+          <div class="row gap-2 wrap">
+            <h2 style="margin:0">{{ provider.name }}</h2>
+            <span *ngIf="provider.isVerified" class="badge badge-success badge-dot">Verified pro</span>
+            <span *ngIf="provider.isTopRated" class="badge badge-primary">Top rated</span>
+          </div>
+          <p class="text-muted mt-2">
+            {{ provider.specialty }} · {{ provider.location }} · {{ provider.experienceYears }} years experience
+          </p>
+          <div class="row gap-4 mt-3 wrap">
+            <div class="row gap-2">
+              <div class="stars">★★★★★</div>
+              <strong>{{ provider.rating }}</strong>
+              <span class="text-muted text-sm">({{ provider.reviewCount }} reviews)</span>
+            </div>
+            <span class="text-muted text-sm">· {{ provider.completedJobs | number }} jobs completed</span>
+            <span class="text-muted text-sm">· Responds in {{ provider.responseTime }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="row gap-2" style="margin-top:var(--space-8)">
+        <a class="btn btn-outline">Message</a>
+        <a class="btn btn-primary btn-lg" routerLink="/services/choose-slot">Book Appointment →</a>
+      </div>
+    </div>
+  </div>
+</div>

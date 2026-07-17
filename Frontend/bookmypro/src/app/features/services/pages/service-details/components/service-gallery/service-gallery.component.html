@@ -1,0 +1,25 @@
+<section class="gallery-section">
+
+    <div class="section-header">
+
+        <h2>Gallery</h2>
+
+        <p>See some of our recent work.</p>
+
+    </div>
+
+    <div class="gallery-grid">
+
+        <div
+            class="gallery-card"
+            *ngFor="let image of images">
+
+            <img
+                [src]="image.imageUrl"
+                alt="Service Image">
+
+        </div>
+
+    </div>
+
+</section>

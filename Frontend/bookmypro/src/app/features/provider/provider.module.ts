@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ProviderRoutingModule } from './provider-routing.module';
-import { ProviderProfilePage } from './pages/provider-profile/provider-profile.page';
+import { ProviderProfileComponent } from './pages/provider-profile/provider-profile.component';
 import { SidebarComponent } from './pages/provider-profile/components/sidebar/sidebar.component';
 import { ProfileSummaryComponent } from './pages/provider-profile/components/profile-summary/profile-summary.component';
 import { PersonalInformationComponent } from './pages/provider-profile/components/personal-information/personal-information.component';
@@ -25,7 +25,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
-    ProviderProfilePage,
+    ProviderProfileComponent,
     SidebarComponent,
     ProfileSummaryComponent,
     PersonalInformationComponent,

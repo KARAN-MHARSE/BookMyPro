@@ -2,26 +2,8 @@ import { Component, Input, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ServiceDialogComponent } from './service-dialog/service-dialog.component';
 import { ProviderProfileService } from '../../../../services/provider-profile.service';
-import { ServiceResponse } from '../../../../model/provider-profile.model';
-
-interface ProviderService {
-  providerServiceId?: string;
-  serviceId: string;
-  serviceName: string;
-  category: string;
-  duration: number;
-  price: number;
-  active: boolean;
-  serviceRealName?: string;
-  categoryName?: string;
-  experienceYears?: number;
-  priceType?: string;
-  homeService?: boolean;
-  emergencyService?: boolean;
-  weekendAvailable?: boolean;
-  minimumPrice?: number;
-  maximumPrice?: number;
-}
+import { LookupOption, LookupResponse } from '@shared/models/lookup.model';
+import { ServiceResponse, ServiceResponseWithLookups, ProviderService } from '../../../../models/provider-profile.model';
 
 @Component({
   selector: 'app-services',
@@ -33,6 +15,7 @@ export class ServicesComponent implements OnInit {
   credentialId = '';
 
   services: ProviderService[] = [];
+  lookups: LookupResponse = {};
 
   private dialog = inject(MatDialog);
   private profileService = inject(ProviderProfileService);
@@ -44,25 +27,35 @@ export class ServicesComponent implements OnInit {
   loadServices(): void {
     if (this.credentialId) {
       this.profileService.getProviderServices(this.credentialId).subscribe({
-        next: (res: ServiceResponse[]) => {
-          this.services = res.map(s => ({
-            providerServiceId: s.providerServiceId,
-            serviceId: s.serviceId,
-            serviceName: s.serviceId,
-            category: s.categoryId,
-            duration: s.estimatedDuration,
-            price: s.basePrice ? Number(s.basePrice) : 0,
-            active: s.active ?? false,
-            serviceRealName: s.serviceRealName,
-            categoryName: s.categoryName,
-            experienceYears: s.experienceYears,
-            priceType: s.priceType,
-            homeService: s.homeService,
-            emergencyService: s.emergencyService,
-            weekendAvailable: s.weekendAvailable,
-            minimumPrice: s.minimumPrice ? Number(s.minimumPrice) : undefined,
-            maximumPrice: s.maximumPrice ? Number(s.maximumPrice) : undefined
-          }));
+        next: (res: ServiceResponseWithLookups) => {
+          this.lookups = res.lookups ?? {};
+
+          const serviceLookups = this.lookups['SERVICE'] ?? [];
+          const categoryLookups = this.lookups['SERVICE_CATEGORY'] ?? [];
+
+          this.services = res.services.map((service) => {
+            const serviceName = this.getLookupName(serviceLookups, service.serviceId);
+            const categoryName = this.getLookupName(categoryLookups, service.categoryId);
+
+            return {
+              providerServiceId: service.providerServiceId,
+              serviceId: service.serviceId,
+              serviceName,
+              category: service.categoryId,
+              duration: service.estimatedDuration,
+              price: service.basePrice ? Number(service.basePrice) : 0,
+              active: service.active ?? false,
+              serviceRealName: serviceName,
+              categoryName,
+              experienceYears: service.experienceYears,
+              priceType: service.priceType,
+              homeService: service.homeService,
+              emergencyService: service.emergencyService,
+              weekendAvailable: service.weekendAvailable,
+              minimumPrice: service.minimumPrice ? Number(service.minimumPrice) : undefined,
+              maximumPrice: service.maximumPrice ? Number(service.maximumPrice) : undefined
+            };
+          });
         },
         error: (err: any) => {
           console.error('Failed to load provider services list', err);
@@ -71,11 +64,22 @@ export class ServicesComponent implements OnInit {
     }
   }
 
+  private getLookupName(options: LookupOption[], id?: string): string {
+    if (!id) {
+      return '';
+    }
+
+    return options.find((option) => option.id === id)?.name ?? id;
+  }
+
   addService(): void {
     const dialogRef = this.dialog.open(ServiceDialogComponent, {
       width: '700px',
       disableClose: true,
-      data: null
+      data: {
+        service: null,
+        lookups: this.lookups
+      }
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -98,7 +102,7 @@ export class ServicesComponent implements OnInit {
 
         this.profileService.saveProviderService(payload).subscribe({
           next: () => {
-             this.loadServices();
+            this.loadServices();
           },
           error: (err: any) => {
             console.error('Failed to add provider service', err);
@@ -114,18 +118,21 @@ export class ServicesComponent implements OnInit {
       width: '700px',
       disableClose: true,
       data: {
-        category: service.category,
-        serviceName: service.serviceId,
-        price: service.price,
-        duration: service.duration,
-        active: service.active,
-        experienceYears: service.experienceYears,
-        priceType: service.priceType,
-        homeService: service.homeService,
-        emergencyService: service.emergencyService,
-        weekendAvailable: service.weekendAvailable,
-        minimumPrice: service.minimumPrice,
-        maximumPrice: service.maximumPrice
+        service: {
+          category: service.category,
+          serviceName: service.serviceId,
+          price: service.price,
+          duration: service.duration,
+          active: service.active,
+          experienceYears: service.experienceYears,
+          priceType: service.priceType,
+          homeService: service.homeService,
+          emergencyService: service.emergencyService,
+          weekendAvailable: service.weekendAvailable,
+          minimumPrice: service.minimumPrice,
+          maximumPrice: service.maximumPrice
+        },
+        lookups: this.lookups
       }
     });
 

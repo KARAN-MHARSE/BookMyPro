@@ -1,0 +1,128 @@
+<div class="hero-container">
+
+    <div class="banner">
+
+        <img
+            [src]="service?.bannerUrl || service?.thumbnailUrl"
+            [alt]="service?.serviceName">
+
+    </div>
+
+    <div class="content">
+
+        <div class="badges">
+
+            <span class="badge category">
+                {{ service?.categoryName }}
+            </span>
+
+            <span class="badge bestseller">
+                Bestseller
+            </span>
+
+        </div>
+
+        <h1>
+            {{ service?.serviceName }}
+        </h1>
+
+        <div class="rating-row">
+
+            <div class="stars">
+
+                ★★★★★
+
+            </div>
+
+            <span class="rating">
+
+                {{ service?.averageRating }}
+
+            </span>
+
+            <span class="reviews">
+
+                ({{ service?.totalReviews }} Reviews)
+
+            </span>
+
+            <span class="divider"></span>
+
+            <span class="providers">
+
+                {{ service?.providerCount }} Professionals
+
+            </span>
+
+        </div>
+
+        <div class="facts">
+
+            <div class="fact-card">
+
+                <small>Starting From</small>
+
+                <h3>
+
+                    ₹{{ service?.startingPrice }}
+
+                </h3>
+
+            </div>
+
+            <div class="fact-card">
+
+                <small>Duration</small>
+
+                <h3>
+
+                    {{ service?.estimatedDuration }} mins
+
+                </h3>
+
+            </div>
+
+            <div class="fact-card">
+
+                <small>Professionals</small>
+
+                <h3>
+
+                    {{ service?.providerCount }}
+
+                </h3>
+
+            </div>
+
+            <div class="fact-card">
+
+                <small>Rating</small>
+
+                <h3>
+
+                    {{ service?.averageRating }} ★
+
+                </h3>
+
+            </div>
+
+        </div>
+
+        <button
+            mat-flat-button
+            color="primary"
+            class="book-btn">
+
+            See Available Professionals
+
+        </button>
+
+        <p class="note">
+
+            Free cancellation up to 12 hours before booking.
+
+        </p>
+
+    </div>
+
+</div>

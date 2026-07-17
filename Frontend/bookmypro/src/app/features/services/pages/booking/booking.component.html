@@ -1,1 +1,124 @@
-<p>booking works!</p>
+<ng-container *ngIf="!bookingConfirmed; else successTemplate">
+  <section class="section-sm">
+    <div class="container">
+      <div class="row-between wrap gap-4 mb-6">
+        <nav class="crumbs">
+          <a routerLink="/services">Services</a>
+          <span class="sep">/</span>
+          <a routerLink="/services/details/deep-home-cleaning">Deep Home Cleaning</a>
+          <span class="sep">/</span>
+          <a routerLink="/services/provider/RS101">Rahul Sharma</a>
+          <span class="sep">/</span>
+          <a routerLink="/services/choose-slot">Slot</a>
+          <span class="sep">/</span>
+          <span class="current">Confirm Booking</span>
+        </nav>
+        
+        <!-- Progress Wizard Tracker -->
+        <div class="row gap-4 text-sm text-muted wizard-tracker">
+          <span><span class="badge badge-success">✓</span> Service</span>
+          <span><span class="badge badge-success">✓</span> Provider</span>
+          <span><span class="badge badge-success">✓</span> Slot</span>
+          <span><span class="badge badge-primary">4</span> Booking</span>
+        </div>
+      </div>
+
+      <h1>Confirm your booking</h1>
+      <p class="lead mt-2">Review the details with your chosen professional and pay securely.</p>
+
+      <div class="checkout-grid mt-8">
+        <div class="stack-6">
+          <!-- Refactored Address Selection -->
+          <app-checkout-address 
+            [addresses]="addresses" 
+            [selectedAddressId]="selectedAddressId"
+            (addressSelected)="selectAddress($event)">
+          </app-checkout-address>
+
+          <!-- Refactored Booking Details Form -->
+          <app-checkout-booking-details
+            [(bookingDate)]="bookingDate"
+            [(bookingTime)]="bookingTime"
+            [(homeSize)]="homeSize"
+            [(bookingFrequency)]="bookingFrequency"
+            [(notes)]="notes"
+            [timeOptions]="timeOptions"
+            [homeSizeOptions]="homeSizeOptions"
+            [frequencyOptions]="frequencyOptions">
+          </app-checkout-booking-details>
+
+          <!-- Refactored Payment Methods Selection -->
+          <app-checkout-payment
+            [payments]="payments"
+            [selectedPaymentId]="selectedPaymentId"
+            (paymentSelected)="selectPayment($event)">
+          </app-checkout-payment>
+        </div>
+
+        <!-- Refactored Sidebar Summary -->
+        <app-checkout-summary
+          [homeSize]="homeSize"
+          [bookingDate]="bookingDate"
+          [bookingTime]="bookingTime"
+          [(couponCode)]="couponCode"
+          [couponApplied]="couponApplied"
+          [servicePrice]="servicePrice"
+          [visitCharge]="visitCharge"
+          [discount]="discount"
+          [taxes]="taxes"
+          [total]="total"
+          (couponApply)="applyCoupon()"
+          (couponRemove)="removeCoupon()"
+          (confirm)="confirmBooking()">
+        </app-checkout-summary>
+      </div>
+    </div>
+  </section>
+</ng-container>
+
+<!-- Booking Successful Confirmation Page -->
+<ng-template #successTemplate>
+  <section class="section-sm success-section animated fadeIn">
+    <div class="container text-center max-w-sm stack-6">
+      <div class="success-icon-wrapper">
+        <div class="success-icon">✓</div>
+      </div>
+      <div>
+        <h1>Booking Requested!</h1>
+        <p class="lead mt-2">Your request has been sent to Rahul Sharma. You'll receive a notification as soon as he accepts.</p>
+      </div>
+
+      <div class="card text-left">
+        <div class="card-body stack-4">
+          <h4 class="mb-2">Booking Summary</h4>
+          <div class="row-between text-sm">
+            <span class="text-muted">Booking ID</span>
+            <strong class="text-primary font-mono">BMP-984210</strong>
+          </div>
+          <div class="row-between text-sm">
+            <span class="text-muted">Professional</span>
+            <strong>Rahul Sharma</strong>
+          </div>
+          <div class="row-between text-sm">
+            <span class="text-muted">Schedule</span>
+            <strong>{{ bookingDate }} at {{ bookingTime }}</strong>
+          </div>
+          <div class="row-between text-sm">
+            <span class="text-muted">Address</span>
+            <strong class="text-right-aligned">{{ selectedAddressId === 'home' ? 'Home (Fillmore St)' : 'Office (Market St)' }}</strong>
+          </div>
+          <hr class="divider"/>
+          <div class="row-between">
+            <strong>Amount Paid</strong>
+            <strong class="text-secondary">₹{{ total }}</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="row gap-3 justify-center">
+        <a class="btn btn-outline" routerLink="/services">Explore Services</a>
+        <a class="btn btn-primary" routerLink="/customer">View My Bookings</a>
+      </div>
+    </div>
+  </section>
+</ng-template>

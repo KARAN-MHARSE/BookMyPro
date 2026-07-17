@@ -9,6 +9,7 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 import com.bookmypro.MarketplaceService.common.services.downstream.IdentityDownStreamService;
 import com.bookmypro.MarketplaceService.common.services.downstream.MasterDownStreamService;
+import com.bookmypro.MarketplaceService.common.services.downstream.ProviderDownStreamService;
 
 
 @Configuration
@@ -45,5 +46,24 @@ public class HttpClientConfig {
 		return factory.createClient(MasterDownStreamService.class);
 		
 	}
+	
+	@Bean 
+	ProviderDownStreamService providerDownStreamService(
+			RestClient.Builder builder,
+			@Value("${provider_base_url}") String baseUrl
+			) {
+		RestClient restClient = builder
+				.baseUrl(baseUrl)
+				.build();
+		
+		HttpServiceProxyFactory factory = HttpServiceProxyFactory
+				.builderFor(RestClientAdapter.create(restClient))
+				.build();
+		
+		return factory.createClient(ProviderDownStreamService.class);
+		
+	}
+	
+	
 
 }

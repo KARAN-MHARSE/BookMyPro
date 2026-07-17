@@ -30,7 +30,7 @@
   }
   @else{
     <section class="service-grid">
-      @for(service of store.filteredServices(); track service.id){
+      @for(service of store.filteredServices(); track service.serviceId){
         <app-service-card [service]="service" (viewProviders)="openProviders($event)"></app-service-card>
       }
     </section>

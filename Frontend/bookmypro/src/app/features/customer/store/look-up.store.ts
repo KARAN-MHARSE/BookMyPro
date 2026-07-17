@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { LookupResponse } from '@features/customer/models/customer.model';
+import { LookupResponse } from '@shared/models/lookup.model';
 
 @Injectable()
 export class LookUpStore {

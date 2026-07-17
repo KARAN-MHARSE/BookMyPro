@@ -1,6 +1,6 @@
 import { Component, effect, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppStore } from '../components/store/app.store';
+import { AppStore } from '../../core/store/app.store';
 import { ProviderProfileService } from '../../features/provider/services/provider-profile.service';
 import { CustomerProfileService } from '../../features/customer/services/customer.profile.service';
 import { AuthTokenService } from '@core/services/auth-token.service';

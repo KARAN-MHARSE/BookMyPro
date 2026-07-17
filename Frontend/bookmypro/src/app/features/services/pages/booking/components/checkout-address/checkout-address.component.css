@@ -1,0 +1,34 @@
+.address-label-card {
+  display: block;
+  padding: var(--space-4);
+  cursor: pointer;
+  transition: all var(--dur, 0.2s);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-3);
+}
+
+.address-label-card:hover {
+  border-color: var(--color-primary-300, #A5B4FC);
+  background: var(--color-primary-25, #F8FAFC);
+}
+
+.selected-card {
+  border-color: var(--color-primary) !important;
+  background: var(--color-primary-50) !important;
+}
+
+.radio-input {
+  cursor: pointer;
+  accent-color: var(--color-primary);
+  margin-top: 3px;
+}
+
+.default-badge {
+  margin-left: 6px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}

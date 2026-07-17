@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProviderProfileService } from '../../../../services/provider-profile.service';
-import { BankInfoResponse } from '../../../../model/provider-profile.model';
+import { BankInfoResponse } from '../../../../models/provider-profile.model';
 
 @Component({
   selector: 'app-bank-details',

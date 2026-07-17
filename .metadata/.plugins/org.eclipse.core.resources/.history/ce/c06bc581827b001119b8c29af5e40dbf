@@ -1,9 +1,0 @@
-package com.bookmypro.identity_service.repositories;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.bookmypro.identity_service.model.Session;
-
-public interface SessionRepository extends JpaRepository<Session, UUID>{
-
-}

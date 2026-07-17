@@ -1,10 +1,12 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 import { ServiceSummary, MarketplaceCategory } from '../models/service.model';
+import { MarketplaceService } from '../services/marketplace.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MarketplaceStore {
+  private readonly marketplaceService = inject(MarketplaceService);
   private readonly _loading = signal(false);
   private readonly _categories = signal<MarketplaceCategory[]>([]);
   private readonly _services = signal<ServiceSummary[]>([]);
@@ -26,15 +28,15 @@ export class MarketplaceStore {
     if (categoryId !== null) {
       const cat = this._categories().find(c => c.id === categoryId);
       if (cat) {
-        list = list.filter(s => s.categoryName.toLowerCase() === cat.name.toLowerCase());
+        list = list.filter(s => s.serviceCategoryName.toLowerCase() === cat.name.toLowerCase());
       }
     }
 
     // Filter by Search Keyword
     if (keyword) {
       list = list.filter(s =>
-        s.name.toLowerCase().includes(keyword) ||
-        s.categoryName.toLowerCase().includes(keyword)
+        s.serviceName.toLowerCase().includes(keyword) ||
+        s.serviceCategoryName.toLowerCase().includes(keyword)
       );
     }
 
@@ -66,60 +68,15 @@ export class MarketplaceStore {
 
   loadServices(): void {
     this._loading.set(true);
-    // Mocking async delay
-    setTimeout(() => {
-      this._services.set([
-        {
-          id: 1,
-          name: 'Deep Home Cleaning',
-          slug: 'deep-home-cleaning',
-          categoryName: 'Cleaning',
-          thumbnailUrl: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=400&q=80',
-          averageRating: 4.8,
-          totalReviews: 2100,
-          providerCount: 1200,
-          startingPrice: 599,
-          estimatedDuration: 60
-        },
-        {
-          id: 2,
-          name: 'Bathroom Deep Clean',
-          slug: 'bathroom-deep-clean',
-          categoryName: 'Cleaning',
-          thumbnailUrl: 'https://images.unsplash.com/photo-1584824486509-112e4181ff6b?auto=format&fit=crop&w=400&q=80',
-          averageRating: 4.8,
-          totalReviews: 1300,
-          providerCount: 640,
-          startingPrice: 349,
-          estimatedDuration: 45
-        },
-        {
-          id: 3,
-          name: 'Faucet & Plumbing Repair',
-          slug: 'faucet-repair',
-          categoryName: 'Repairs',
-          thumbnailUrl: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=400&q=80',
-          averageRating: 4.7,
-          totalReviews: 860,
-          providerCount: 820,
-          startingPrice: 249,
-          estimatedDuration: 30
-        },
-        {
-          id: 4,
-          name: 'Salon at Home',
-          slug: 'salon-at-home',
-          categoryName: 'Beauty & Wellness',
-          thumbnailUrl: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=400&q=80',
-          averageRating: 4.9,
-          totalReviews: 540,
-          providerCount: 410,
-          startingPrice: 299,
-          estimatedDuration: 45
-        }
-      ]);
-      this._loading.set(false);
-    }, 150);
+    this.marketplaceService.getServicesGridList().subscribe({
+      next: (services) => {
+        this._services.set(services);
+        this._loading.set(false);
+      },
+      error: () => {
+        this._loading.set(false);
+      }
+    });
   }
 
   search(keyword: string): void {

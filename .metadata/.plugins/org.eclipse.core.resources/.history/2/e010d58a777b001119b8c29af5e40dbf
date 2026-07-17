@@ -1,9 +1,0 @@
-package com.bookmypro.identity_service.feature.auth.verifyotp;
-
-import lombok.Data;
-
-@Data
-public class VerifyOtpResponse {
-    private String message;
-
-}

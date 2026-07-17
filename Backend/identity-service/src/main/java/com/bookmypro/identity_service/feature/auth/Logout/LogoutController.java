@@ -1,4 +1,4 @@
-package com.bookmypro.identity_service.feature.auth.Logout;
+package com.bookmypro.identity_service.feature.auth.logout;
 
 import java.util.Map;
 import java.util.UUID;

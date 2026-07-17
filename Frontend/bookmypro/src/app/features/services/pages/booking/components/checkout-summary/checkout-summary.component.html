@@ -1,0 +1,72 @@
+<aside class="stack-4">
+  <div class="card">
+    <div class="card-body stack-4">
+      <div class="row gap-3">
+        <div class="checkout-icon-badge">🧼</div>
+        <div>
+          <div class="font-semibold">Deep Home Cleaning</div>
+          <small class="text-muted">{{ homeSize }} · 60 mins</small>
+        </div>
+      </div>
+      <hr class="divider"/>
+      <div class="row gap-3">
+        <div class="avatar-sm">RS</div>
+        <div>
+          <div class="font-semibold text-sm">Rahul Sharma</div>
+          <small class="text-muted">4.9 ★ · 8 yrs exp · 2 km away</small>
+        </div>
+      </div>
+      <hr class="divider"/>
+      <div class="stack-2">
+        <div class="row-between text-sm">
+          <span class="text-muted">Date</span>
+          <strong>{{ bookingDate }}</strong>
+        </div>
+        <div class="row-between text-sm">
+          <span class="text-muted">Time</span>
+          <strong>{{ bookingTime }}</strong>
+        </div>
+      </div>
+      <hr class="divider"/>
+      
+      <!-- Coupon Component -->
+      <div class="coupon" *ngIf="couponApplied">
+        <div>
+          <div class="text-xs text-muted">Applied</div>
+          <div class="code mt-2">{{ couponCode }}</div>
+        </div>
+        <button class="btn btn-ghost btn-sm" (click)="onCouponRemove()">Remove</button>
+      </div>
+      
+      <div class="coupon-apply-row" *ngIf="!couponApplied">
+        <input class="input input-sm coupon-input" placeholder="Promo code" [value]="couponCode" (input)="onCouponCodeInput($event)" />
+        <button class="btn btn-outline btn-sm" (click)="onCouponApply()">Apply</button>
+      </div>
+
+      <div class="row-between text-sm">
+        <span class="text-muted">Service price</span>
+        <span>₹{{ servicePrice }}</span>
+      </div>
+      <div class="row-between text-sm">
+        <span class="text-muted">Visit charge</span>
+        <span>₹{{ visitCharge }}</span>
+      </div>
+      <div class="row-between text-sm" *ngIf="couponApplied">
+        <span class="text-muted">Coupon ({{ couponCode }})</span>
+        <span class="text-accent">− ₹{{ discount }}</span>
+      </div>
+      <div class="row-between text-sm">
+        <span class="text-muted">Taxes (GST 18%)</span>
+        <span>₹{{ taxes }}</span>
+      </div>
+      <hr class="divider"/>
+      <div class="row-between">
+        <strong>Total</strong>
+        <strong style="font-size:var(--fs-xl)">₹{{ total }}</strong>
+      </div>
+      <button class="btn btn-primary btn-lg btn-block" (click)="onConfirm()">Confirm Booking</button>
+      <small class="text-muted text-center">You won't be charged until Rahul accepts.</small>
+    </div>
+  </div>
+  <div class="alert alert-success">Free cancellation until Feb 7, 10:00 PM.</div>
+</aside>

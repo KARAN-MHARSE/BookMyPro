@@ -1,0 +1,35 @@
+<section class="faq-section">
+
+    <div class="section-header">
+
+        <h2>Frequently Asked Questions</h2>
+
+        <p>
+            Everything you need to know before booking.
+        </p>
+
+    </div>
+
+    <div class="faq-list">
+
+        <details
+            *ngFor="let faq of faqs"
+            class="faq-card">
+
+            <summary>
+
+                {{ faq.question }}
+
+            </summary>
+
+            <p>
+
+                {{ faq.answer }}
+
+            </p>
+
+        </details>
+
+    </div>
+
+</section>

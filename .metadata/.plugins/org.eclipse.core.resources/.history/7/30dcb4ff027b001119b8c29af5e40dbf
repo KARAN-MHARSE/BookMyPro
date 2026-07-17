@@ -1,5 +1,0 @@
-package com.bookmypro.identity_service.entity;
-
-public class RolePermission {
-
-}

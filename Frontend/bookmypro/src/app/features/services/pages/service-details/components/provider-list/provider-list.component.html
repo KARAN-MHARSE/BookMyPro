@@ -1,0 +1,135 @@
+<section class="provider-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>Available Professionals</h2>
+
+            <p>{{ providers.length }} professionals available</p>
+
+        </div>
+
+        <select [(ngModel)]="sortBy">
+
+            <option value="recommended">
+                Recommended
+            </option>
+
+            <option value="rating">
+                Highest Rating
+            </option>
+
+            <option value="price">
+                Lowest Price
+            </option>
+
+            <option value="experience">
+                Most Experienced
+            </option>
+
+        </select>
+
+    </div>
+
+    <div class="provider-list">
+
+        <div
+            class="provider-card"
+            *ngFor="let provider of providers; trackBy: trackByProvider">
+
+            <div class="avatar">
+
+                <img
+                    *ngIf="provider.profileImage"
+                    [src]="provider.profileImage">
+
+                <span *ngIf="!provider.profileImage">
+
+                    {{ provider.fullName.charAt(0) }}
+
+                </span>
+
+            </div>
+
+            <div class="provider-info">
+
+                <div class="title-row">
+
+                    <h3>{{ provider.fullName }}</h3>
+
+                    <span
+                        *ngIf="provider.verified"
+                        class="verified">
+
+                        Verified
+
+                    </span>
+
+                </div>
+
+                <div class="rating">
+
+                    ⭐ {{ provider.averageRating }}
+
+                    ({{ provider.totalReviews }})
+
+                </div>
+
+                <div class="meta">
+
+                    <span>
+
+                        {{ provider.experienceYears }} Years Experience
+
+                    </span>
+
+                    <span>
+
+                        {{ provider.completedJobs }} Jobs
+
+                    </span>
+
+                    <span *ngIf="provider.distance != null">
+
+                        {{ provider.distance }} km Away
+
+                    </span>
+
+                </div>
+
+                <div class="slot">
+
+                    Next Slot:
+
+                    <strong>
+
+                        {{ provider.nextAvailableSlot }}
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <div class="price-section">
+
+                <div class="price">
+
+                    ₹{{ provider.minimumPrice }}
+
+                </div>
+
+                <button [routerLink]="['/services/provider', provider.providerId]">
+
+                    View Profile
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

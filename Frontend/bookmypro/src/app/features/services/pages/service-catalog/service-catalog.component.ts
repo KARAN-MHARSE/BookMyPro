@@ -32,10 +32,7 @@ export class ServiceCatalogComponent implements OnInit {
     this.store.changeSort(sort);
   }
 
-  openProviders(serviceId: number): void {
-    this.router.navigate([
-      '/marketplace/services',
-      serviceId
-    ]);
+  openProviders(serviceId: string): void {
+    this.router.navigate(['/services/details', serviceId]);
   }
 }

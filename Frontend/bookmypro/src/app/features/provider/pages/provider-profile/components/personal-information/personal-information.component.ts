@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ProviderProfileService } from '../../../../services/provider-profile.service';
-import { PersonalInfoResponse } from '../../../../model/provider-profile.model';
-import { AppStore } from '@shared/components/store/app.store';
+import { PersonalInfoResponse } from '../../../../models/provider-profile.model';
+import { AppStore } from '@core/store/app.store';
 
 @Component({
   selector: 'app-personal-information',

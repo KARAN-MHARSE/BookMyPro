@@ -1,0 +1,141 @@
+.slot-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.cal {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--space-2);
+}
+
+.cal .dow {
+  text-align: center;
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  font-weight: 600;
+  padding: var(--space-2) 0;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.cal .day {
+  aspect-ratio: 1;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--dur);
+  background: var(--color-surface);
+  font-weight: 600;
+  color: var(--color-secondary);
+  position: relative;
+}
+
+.cal .day.mute {
+  color: var(--color-text-subtle);
+  background: #F8FAFC;
+  cursor: not-allowed;
+}
+
+.cal .day.avail:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-50);
+}
+
+.cal .day.selected {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.cal .day .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  margin-top: 2px;
+}
+
+.cal .day.selected .dot {
+  background: #fff;
+}
+
+.slots {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+
+.slot {
+  padding: var(--space-3);
+  text-align: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  cursor: pointer;
+  transition: all var(--dur);
+}
+
+.slot:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-50);
+}
+
+.slot.selected {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.slot.taken {
+  color: var(--color-text-subtle);
+  background: #F8FAFC;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.avail-indicator-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--color-accent);
+  border-radius: 50%;
+}
+
+.selected-indicator-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--color-primary);
+  border-radius: 50%;
+}
+
+.uppercase-label {
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-weight: 600;
+}
+
+.wizard-tracker {
+  align-items: center;
+}
+
+@media(max-width: 900px) {
+  .slot-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .slots {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

@@ -1,1 +1,171 @@
-<p>choose-slot works!</p>
+<section class="section-sm">
+  <div class="container">
+    <div class="row-between wrap gap-4 mb-6">
+      <nav class="crumbs">
+        <a routerLink="/services">Services</a>
+        <span class="sep">/</span>
+        <a routerLink="/services/details/deep-home-cleaning">Deep Home Cleaning</a>
+        <span class="sep">/</span>
+        <a routerLink="/services/provider/RS101">Rahul Sharma</a>
+        <span class="sep">/</span>
+        <span class="current">Choose slot</span>
+      </nav>
+
+      <!-- Premium Wizard Progress Tracker -->
+      <div class="row gap-4 text-sm text-muted wizard-tracker">
+        <span><span class="badge badge-success">✓</span> Service</span>
+        <span><span class="badge badge-success">✓</span> Provider</span>
+        <span><span class="badge badge-primary">3</span> Slot</span>
+        <span><span class="badge badge-neutral">4</span> Booking</span>
+      </div>
+    </div>
+
+    <h1>Pick a date & time</h1>
+    <p class="lead mt-2">Choose when Rahul should arrive at your place.</p>
+
+    <div class="slot-grid mt-8">
+      <div class="stack-6">
+        <div class="card">
+          <div class="card-body stack-4">
+            <div class="row-between">
+              <h4 style="margin:0">{{ currentMonthName }}</h4>
+              <div class="row gap-2">
+                <button class="btn btn-outline btn-sm">‹</button>
+                <button class="btn btn-outline btn-sm">›</button>
+              </div>
+            </div>
+            
+            <div class="cal">
+              <div *ngFor="let dow of daysOfWeek" class="dow">{{ dow }}</div>
+              
+              <div *ngFor="let day of calendarDays" 
+                   [class.mute]="day.isMuted"
+                   [class.avail]="day.isAvailable"
+                   [class.selected]="day.isSelected"
+                   class="day"
+                   (click)="selectDay(day)">
+                {{ day.dayNumber }}
+                <div *ngIf="day.hasDot" class="dot"></div>
+              </div>
+            </div>
+            
+            <div class="row gap-4 text-xs text-muted">
+              <span class="row gap-2 align-center">
+                <span class="avail-indicator-dot"></span>
+                Available
+              </span>
+              <span class="row gap-2 align-center">
+                <span class="selected-indicator-dot"></span>
+                Selected
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body stack-4">
+            <h4 style="margin:0">Available slots · {{ getSelectedDateShortFormatted() }}</h4>
+            
+            <div>
+              <div class="text-xs text-muted mb-3 uppercase-label">Morning</div>
+              <div class="slots">
+                <div *ngFor="let slot of getSlotsByPeriod('Morning')" 
+                     [class.selected]="slot.status === 'selected'"
+                     [class.taken]="slot.status === 'taken'"
+                     class="slot"
+                     (click)="selectSlot(slot)">
+                  {{ slot.time }}
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <div class="text-xs text-muted mb-3 uppercase-label">Afternoon</div>
+              <div class="slots">
+                <div *ngFor="let slot of getSlotsByPeriod('Afternoon')" 
+                     [class.selected]="slot.status === 'selected'"
+                     [class.taken]="slot.status === 'taken'"
+                     class="slot"
+                     (click)="selectSlot(slot)">
+                  {{ slot.time }}
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <div class="text-xs text-muted mb-3 uppercase-label">Evening</div>
+              <div class="slots">
+                <div *ngFor="let slot of getSlotsByPeriod('Evening')" 
+                     [class.selected]="slot.status === 'selected'"
+                     [class.taken]="slot.status === 'taken'"
+                     class="slot"
+                     (click)="selectSlot(slot)">
+                  {{ slot.time }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="stack-4" style="position:sticky;top:calc(var(--header-h, 70px) + 16px)">
+        <div class="card">
+          <div class="card-body stack-4">
+            <div class="row gap-3">
+              <div style="width:56px;aspect-ratio:1;background:linear-gradient(135deg,#DBEAFE,#EDE9FE);border-radius:var(--radius-md);display:grid;place-items:center;font-size:24px">🧼</div>
+              <div>
+                <div class="font-semibold">Deep Home Cleaning</div>
+                <small class="text-muted">60 mins</small>
+              </div>
+            </div>
+            <hr class="divider"/>
+            <div class="row gap-3">
+              <div class="avatar-sm">RS</div>
+              <div>
+                <div class="font-semibold text-sm">Rahul Sharma</div>
+                <small class="text-muted">4.9 ★ · 2 km away</small>
+              </div>
+            </div>
+            <hr class="divider"/>
+            <div class="stack-2">
+              <div class="row-between text-sm">
+                <span class="text-muted">Date</span>
+                <strong>{{ getSelectedDateFormatted() }}</strong>
+              </div>
+              <div class="row-between text-sm">
+                <span class="text-muted">Time</span>
+                <strong>{{ selectedTimeSlot }}</strong>
+              </div>
+              <div class="row-between text-sm">
+                <span class="text-muted">Duration</span>
+                <strong>60 mins</strong>
+              </div>
+            </div>
+            <hr class="divider"/>
+            <div class="stack-2">
+              <div class="row-between text-sm">
+                <span class="text-muted">Service price</span>
+                <span>₹{{ servicePrice }}</span>
+              </div>
+              <div class="row-between text-sm">
+                <span class="text-muted">Visit charge</span>
+                <span>₹{{ visitCharge }}</span>
+              </div>
+              <div class="row-between text-sm">
+                <span class="text-muted">Taxes (est.)</span>
+                <span>₹{{ taxes }}</span>
+              </div>
+            </div>
+            <hr class="divider"/>
+            <div class="row-between">
+              <strong>Total</strong>
+              <strong style="font-size:var(--fs-xl)">₹{{ total }}</strong>
+            </div>
+            <a class="btn btn-primary btn-lg btn-block" routerLink="/services/booking">Continue to booking →</a>
+            <small class="text-muted text-center">Free cancellation up to 12 hrs before</small>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>

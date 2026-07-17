@@ -1,7 +1,8 @@
+import { LookupResponse } from '@shared/models/lookup.model';
+
 export type Gender = 'Male' | 'Female' | 'Other';
 
 export type Language = 'English' | 'Hindi' | 'Spanish';
-
 export interface CustomerProfile{
   firstName: string;
   middleName: string;
@@ -40,16 +41,6 @@ export interface CustomerAddressRequest{
 export interface CustomerProfileResponse{
   personalInfo:CustomerProfile,
   defaultAddress:Address,
-  lookups:LookupResponse
-}
-
-export interface LookupResponse {
-  [key: string]: LookupOption[];
-}
-
-export interface LookupOption {
-  id: string;
-  code: string;
-  name: string;
+  lookups: LookupResponse
 }
 

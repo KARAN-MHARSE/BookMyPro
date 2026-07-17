@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { API_ENDPOINTS } from '../../../core/constants/api-endpoints';
-import { PersonalInfoResponse, ProfessionalInfoResponse, EducationResponse, ExperienceResponse, BankInfoResponse, ServiceResponse, AvailabilityResponse } from '../model/provider-profile.model';
+import { PersonalInfoResponse, ProfessionalInfoResponse, EducationResponse, ExperienceResponse, BankInfoResponse, ServiceResponse, AvailabilityResponse, ServiceResponseWithLookups } from '../models/provider-profile.model';
 
 @Injectable({
   providedIn: 'root'
@@ -88,8 +88,8 @@ export class ProviderProfileService {
     );
   }
 
-  getProviderServices(credentialId: string): Observable<ServiceResponse[]> {
-    return this.http.get<ServiceResponse[]>(
+  getProviderServices(credentialId: string): Observable<ServiceResponseWithLookups> {
+    return this.http.get<ServiceResponseWithLookups>(
       `${environment.providerServiceBaseUrl}${API_ENDPOINTS.PROVIDER.SERVICES}/${credentialId}`
     );
   }

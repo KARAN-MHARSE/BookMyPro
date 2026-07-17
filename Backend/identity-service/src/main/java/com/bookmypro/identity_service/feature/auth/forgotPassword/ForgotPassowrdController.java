@@ -1,4 +1,4 @@
-package com.bookmypro.identity_service.feature.auth.forgotPassword;
+package com.bookmypro.identity_service.feature.auth.forgotpassword;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

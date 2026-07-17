@@ -1,0 +1,26 @@
+<div class="card">
+  <div class="card-header">
+    <h4>Address</h4>
+    <a class="text-primary text-sm font-semibold cursor-pointer">+ Add new</a>
+  </div>
+  <div class="card-body stack-3">
+    <label *ngFor="let addr of addresses" 
+           [class.selected-card]="selectedAddressId === addr.id"
+           class="card address-label-card"
+           (click)="onAddressSelect(addr.id)">
+      <div class="row-between">
+        <div class="row gap-3">
+          <input type="radio" name="a" [checked]="selectedAddressId === addr.id" class="radio-input"/>
+          <div>
+            <div class="font-semibold">
+              {{ addr.name }}
+              <span *ngIf="addr.isDefault" class="badge badge-primary default-badge">Default</span>
+            </div>
+            <small class="text-muted">{{ addr.details }}</small>
+          </div>
+        </div>
+        <button class="btn btn-ghost btn-sm">Edit</button>
+      </div>
+    </label>
+  </div>
+</div>

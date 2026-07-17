@@ -1,0 +1,19 @@
+.svc-offer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.svc-offer + .svc-offer {
+  margin-top: var(--space-3);
+}
+
+.svc-offer .price {
+  font-weight: 800;
+  color: var(--color-secondary);
+  font-size: var(--fs-lg);
+}

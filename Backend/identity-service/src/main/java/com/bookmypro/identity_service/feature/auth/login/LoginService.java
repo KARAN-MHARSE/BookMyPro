@@ -18,7 +18,7 @@ import com.bookmypro.identity_service.common.service.JwtService;
 import com.bookmypro.identity_service.common.service.PasswordService;
 import com.bookmypro.identity_service.exception.BusinessException;
 import com.bookmypro.identity_service.exception.ErrorCode;
-import com.bookmypro.identity_service.feature.auth.delateCredential.DeleteCredentialController;
+import com.bookmypro.identity_service.feature.auth.deletecredential.DeleteCredentialController;
 import com.bookmypro.identity_service.model.Credential;
 import com.bookmypro.identity_service.model.CredentialRole;
 import com.bookmypro.identity_service.model.LoginHistory;

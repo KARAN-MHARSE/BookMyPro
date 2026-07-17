@@ -1,4 +1,4 @@
-package com.bookmypro.provider_service.feature.providerOnboarding;
+package com.bookmypro.provider_service.feature.provideronboarding;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

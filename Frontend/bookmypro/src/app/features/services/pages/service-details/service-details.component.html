@@ -1,1 +1,37 @@
-<p>service-details works!</p>
+<section class="service-details-page">
+  <div *ngIf="loading()" class="page-state">Loading service details...</div>
+
+  <div *ngIf="!loading() && error()" class="page-state page-state--error">
+    {{ error() }}
+  </div>
+
+  <ng-container *ngIf="!loading() && !error() && service() as details">
+    <div class="details-container">
+      <div class="details-block details-block--hero">
+        <app-service-hero [service]="details.service"></app-service-hero>
+      </div>
+      <div class="details-block" *ngIf="details.service.description">
+        <app-service-description [service]="details.service"></app-service-description>
+      </div>
+      <div class="details-block details-block--alt" *ngIf="details.service.includedItems.length">
+        <app-service-includes [items]="details.service.includedItems"></app-service-includes>
+      </div>
+      <div class="details-block" *ngIf="details.gallery.length">
+        <app-service-gallery [images]="details.gallery"></app-service-gallery>
+      </div>
+      <div class="details-block details-block--alt" *ngIf="details.faqs.length">
+        <app-service-faq [faqs]="details.faqs"></app-service-faq>
+      </div>
+      <div class="details-block" *ngIf="details.reviews.length">
+        <app-service-reviews
+          [reviews]="details.reviews"
+          [averageRating]="details.service.averageRating"
+          [totalReviews]="details.service.totalReviews">
+        </app-service-reviews>
+      </div>
+      <div class="details-block details-block--alt details-block--last" *ngIf="details.providers.length">
+        <app-provider-list [providers]="details.providers"></app-provider-list>
+      </div>
+    </div>
+  </ng-container>
+</section>

@@ -1,0 +1,23 @@
+<div class="card">
+  <div class="card-header">
+    <h4>Payment method</h4>
+    <a class="text-primary text-sm font-semibold cursor-pointer">+ Add card</a>
+  </div>
+  <div class="card-body stack-3">
+    <label *ngFor="let pay of payments" 
+           [class.selected-card]="selectedPaymentId === pay.id"
+           class="card payment-label-card"
+           (click)="onPaymentSelect(pay.id)">
+      <div class="row-between">
+        <div class="row gap-3">
+          <input type="radio" name="p" [checked]="selectedPaymentId === pay.id" class="radio-input"/>
+          <div>
+            <div class="font-semibold">{{ pay.name }}</div>
+            <small class="text-muted">{{ pay.details }}</small>
+          </div>
+        </div>
+        <span *ngIf="pay.isDefault" class="badge badge-neutral">Default</span>
+      </div>
+    </label>
+  </div>
+</div>

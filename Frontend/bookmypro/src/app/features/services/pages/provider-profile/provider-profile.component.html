@@ -1,1 +1,99 @@
-<p>provider-profile works!</p>
+<section class="section-sm">
+  <div class="container">
+    <nav class="crumbs mb-4">
+      <a routerLink="/">Home</a>
+      <span class="sep">/</span>
+      <a routerLink="/services">Services</a>
+      <span class="sep">/</span>
+      <a routerLink="/services/details/deep-home-cleaning">Deep Home Cleaning</a>
+      <span class="sep">/</span>
+      <span class="current">{{ provider.name }}</span>
+    </nav>
+
+    <!-- Refactored Header Component -->
+    <app-provider-header [provider]="provider"></app-provider-header>
+
+    <div class="grid" style="grid-template-columns:1fr 340px;gap:var(--space-6);margin-top:var(--space-6)">
+      <div class="stack-6">
+        <div class="card">
+          <div class="card-body stack-3">
+            <h4>About</h4>
+            <p style="color:var(--color-text)">{{ provider.about }}</p>
+            <div class="row gap-2 wrap mt-2">
+              <span *ngFor="let skill of provider.skills" class="chip">{{ skill }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Refactored Services Component -->
+        <app-provider-services [services]="provider.servicesOffered"></app-provider-services>
+
+        <div class="card">
+          <div class="card-body stack-4">
+            <h4>Certifications</h4>
+            <div class="row gap-2 wrap">
+              <span *ngFor="let cert of provider.certifications; let i = index" 
+                    [class]="i < 3 ? 'badge badge-primary' : 'badge'">
+                {{ cert }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body stack-4">
+            <div class="row-between">
+              <h4>Portfolio</h4>
+              <a class="text-primary text-sm font-semibold cursor-pointer">View all →</a>
+            </div>
+            <div class="grid grid-4">
+              <div *ngFor="let grad of provider.portfolioGradients" 
+                   [style.background]="grad" 
+                   style="aspect-ratio:1;border-radius:var(--radius-md)">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Refactored Reviews Component -->
+        <app-provider-reviews [reviews]="provider.reviews"></app-provider-reviews>
+      </div>
+
+      <aside class="stack-4">
+        <div class="card">
+          <div class="card-body stack-4">
+            <div class="text-xs text-muted" style="text-transform:uppercase;letter-spacing:.08em;font-weight:600">Starting from</div>
+            <div style="font-size:var(--fs-3xl);font-weight:800;color:var(--color-secondary);letter-spacing:-0.02em">
+              ₹{{ provider.startingPrice }}
+            </div>
+            <hr class="divider"/>
+            <h4 style="margin:0">Availability</h4>
+            <div class="row gap-2 wrap">
+              <div *ngFor="let day of provider.availability" 
+                   [class]="day.active ? 'chip active' : 'chip'">
+                {{ day.name }}
+              </div>
+            </div>
+            <small class="text-muted">Working hours: {{ provider.workingHours }}</small>
+            <a class="btn btn-primary btn-lg btn-block" routerLink="/services/choose-slot">Book Appointment</a>
+            <small class="text-muted text-center">You'll pick a slot next</small>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body stack-3">
+            <h4>Verified</h4>
+            <div class="row gap-2">
+              <span class="badge badge-success badge-dot">ID verified</span>
+              <span class="badge badge-success badge-dot">Background check</span>
+            </div>
+            <div class="row gap-2">
+              <span class="badge badge-primary">Insured</span>
+              <span class="badge badge-neutral">Business license</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>

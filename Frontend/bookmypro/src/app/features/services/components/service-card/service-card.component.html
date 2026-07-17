@@ -1,11 +1,11 @@
 <article class="service-card">
   <div class="thumbnail">
-    <img [src]="service.thumbnailUrl" [alt]="service.name">
-    <span class="category">{{ service.categoryName }}</span>
+    <img [src]="thumbnailUrl" [alt]="service.serviceName" (error)="onThumbnailError($event)">
+    <span class="category">{{ service.serviceCategoryName }}</span>
     <span class="providers">{{ service.providerCount }}+ Professionals</span>
   </div>
   <div class="content">
-    <h3>{{ service.name }}</h3>
+    <h3>{{ service.serviceName }}</h3>
     <div class="rating">
       ⭐ <span>{{ service.averageRating }}</span>
       <small>({{ service.totalReviews }})</small>

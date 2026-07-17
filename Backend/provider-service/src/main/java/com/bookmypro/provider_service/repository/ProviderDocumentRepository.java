@@ -7,4 +7,6 @@ import java.util.UUID;
 
 @Repository
 public interface ProviderDocumentRepository extends JpaRepository<ProviderDocument, UUID> {
+
+    java.util.List<ProviderDocument> findByProviderIdIn(java.util.List<UUID> providerIds);
 }

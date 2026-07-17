@@ -1,4 +1,4 @@
-package com.bookmypro.identity_service.feature.auth.forgotPassword;
+package com.bookmypro.identity_service.feature.auth.forgotpassword;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

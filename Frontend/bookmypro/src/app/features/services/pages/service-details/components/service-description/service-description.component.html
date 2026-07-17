@@ -1,0 +1,57 @@
+<div class="service-description">
+
+    <!-- Description -->
+
+    <section class="card">
+
+        <div class="card-header">
+            <h2>About this Service</h2>
+        </div>
+
+        <div class="card-body">
+
+            <p>
+                {{ service.description }}
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- Included -->
+
+    <section class="card">
+
+        <div class="card-header">
+            <h2>What's Included</h2>
+        </div>
+
+        <div class="card-body">
+
+            <div class="include-grid">
+
+                <div
+                    class="include-item"
+                    *ngFor="let item of service.includedItems">
+
+                    <div class="check">
+
+                        ✓
+
+                    </div>
+
+                    <span>
+
+                        {{ item }}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>

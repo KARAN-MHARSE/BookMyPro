@@ -1,27 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './pages/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RegisterComponent } from './register/register.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   {
-    path:"",
-    redirectTo:"login",
-    pathMatch:'full'
+    path: "",
+    redirectTo: "login",
+    pathMatch: 'full'
   },
   {
-    path:"login",
-    component:LoginComponent,
+    path: "login",
+    component: LoginComponent,
   },
   {
-    path:"register",
-    component:RegisterComponent
+    path: "register",
+    component: RegisterComponent
   },
   {
-    path:"forgot-password",
-    component:ForgotPasswordComponent
+    path: "forgot-password",
+    component: ForgotPasswordComponent
   }
 ];
 

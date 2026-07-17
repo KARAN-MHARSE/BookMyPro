@@ -2,7 +2,7 @@ import { Component, Input, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EducationDialogComponent } from './education-dialog/education-dialog.component';
 import { ProviderProfileService } from '../../../../services/provider-profile.service';
-import { EducationResponse } from '../../../../model/provider-profile.model';
+import { EducationResponse } from '../../../../models/provider-profile.model';
 
 @Component({
   selector: 'app-education',

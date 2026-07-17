@@ -1,16 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DocumentUploadDialogComponent } from './document-upload-dialog/document-upload-dialog.component';
-
-interface ProviderDocument {
-  documentId: number;
-  documentType: string;
-  documentNumber: string;
-  status: string;
-  uploadDate: string;
-  issueDate?: string;
-  expiryDate?: string;
-}
+import { ProviderDocument } from '../../../../models/provider-profile.model';
 
 @Component({
   selector: 'app-documents',
@@ -36,7 +27,7 @@ export class DocumentsComponent {
     }
   ];
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) { }
 
   uploadDocument(): void {
     const dialogRef = this.dialog.open(DocumentUploadDialogComponent, {

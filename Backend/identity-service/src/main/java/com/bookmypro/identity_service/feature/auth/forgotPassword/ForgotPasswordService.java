@@ -1,4 +1,4 @@
-package com.bookmypro.identity_service.feature.auth.forgotPassword;
+package com.bookmypro.identity_service.feature.auth.forgotpassword;
 
 import java.time.LocalDateTime;
 import java.util.List;

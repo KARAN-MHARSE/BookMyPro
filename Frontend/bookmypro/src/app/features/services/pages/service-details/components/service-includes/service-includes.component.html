@@ -1,0 +1,39 @@
+<section class="includes-section">
+
+    <div class="section-header">
+
+        <h2>What's Included</h2>
+
+        <p>
+            Every booking includes these professional services.
+        </p>
+
+    </div>
+
+    <div class="includes-grid">
+
+        <div
+            class="include-card"
+            *ngFor="let item of items">
+
+            <div class="icon">
+
+                ✓
+
+            </div>
+
+            <div class="content">
+
+                <h4>{{ item }}</h4>
+
+                <p>
+                    Performed by trained professionals using quality equipment.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

@@ -1,4 +1,4 @@
-package com.bookmypro.master_service.feature.getLookUps;
+package com.bookmypro.master_service.feature.getlookups;
 
 import java.util.UUID;
 

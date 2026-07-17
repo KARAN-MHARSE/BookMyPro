@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DynamicUiModule } from '@app/dynamic-ui/dynamic-ui.module';
 import { CardComponent } from './components/card/card.component';
 import { ProviderCardComponent } from './components/provider-card/provider-card.component';
 import { ServiceCardComponent } from './components/service-card/service-card.component';
@@ -18,19 +17,18 @@ import { ProfileStepperComponent } from './components/profile-stepper/profile-st
 import { StepperCardComponent } from './components/stepper-card/stepper-card.component';
 
 @NgModule({
-  imports: [CommonModule, DynamicUiModule,RouterModule],
+  imports: [CommonModule, RouterModule],
   exports: [
-  CommonModule,
-  DynamicUiModule,
-  CategoryCardComponent,
-  ServiceCardComponent,
-  CardComponent,
-  ProviderCardComponent,
-  StatCardComponent,
-  NavbarComponent,
-  CustomerRatingCardComponent,
-  StepperCardComponent
-],
+    CommonModule,
+    CategoryCardComponent,
+    ServiceCardComponent,
+    CardComponent,
+    ProviderCardComponent,
+    StatCardComponent,
+    NavbarComponent,
+    CustomerRatingCardComponent,
+    StepperCardComponent
+  ],
   declarations: [
     CardComponent,
     ProviderCardComponent,
@@ -48,4 +46,4 @@ import { StepperCardComponent } from './components/stepper-card/stepper-card.com
     StepperCardComponent,
   ],
 })
-export class SharedModule {}
+export class SharedModule { }

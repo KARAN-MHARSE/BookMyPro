@@ -69,6 +69,21 @@ public enum ErrorCode {
             "PRO_002",
             HttpStatus.NOT_FOUND,
             "Provider profile not found."
+    ),
+    INVALID_PAGE_NUMBER(
+            "PRO_003",
+            HttpStatus.BAD_REQUEST,
+            "Page number must be zero or greater."
+    ),
+    INVALID_PAGE_SIZE(
+            "PRO_004",
+            HttpStatus.BAD_REQUEST,
+            "Page size must be between 1 and 50."
+    ),
+    INVALID_REVIEW_FILTER(
+            "PRO_005",
+            HttpStatus.BAD_REQUEST,
+            "At least one of serviceID or providerID is required."
     );
 
     private final String code;

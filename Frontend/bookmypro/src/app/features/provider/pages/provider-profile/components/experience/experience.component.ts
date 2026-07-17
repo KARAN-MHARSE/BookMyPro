@@ -2,7 +2,7 @@ import { Component, Input, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ExperienceDialogComponent } from './experience-dialog/experience-dialog.component';
 import { ProviderProfileService } from '../../../../services/provider-profile.service';
-import { ExperienceResponse } from '../../../../model/provider-profile.model';
+import { ExperienceResponse } from '../../../../models/provider-profile.model';
 
 @Component({
   selector: 'app-experience',

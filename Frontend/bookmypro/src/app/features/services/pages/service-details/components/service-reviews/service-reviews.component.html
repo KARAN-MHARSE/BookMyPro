@@ -1,0 +1,89 @@
+<section class="reviews-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>Customer Reviews</h2>
+
+            <p>Verified customer feedback</p>
+
+        </div>
+
+        <div class="rating-summary">
+
+            <div class="rating">
+
+                {{ averageRating }}
+
+            </div>
+
+            <div>
+
+                <div class="stars">
+
+                    ★★★★★
+
+                </div>
+
+                <small>
+
+                    {{ totalReviews }} Reviews
+
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="review-list">
+
+        <div
+            class="review-card"
+            *ngFor="let review of reviews">
+
+            <div class="review-header">
+
+                <div class="avatar">
+
+                    {{ review.customerName.charAt(0) }}
+
+                </div>
+
+                <div class="customer">
+
+                    <h4>
+
+                        {{ review.customerName }}
+
+                    </h4>
+
+                    <small>
+
+                        {{ review.reviewDate }}
+
+                    </small>
+
+                </div>
+
+                <div class="review-rating">
+
+                    ⭐ {{ review.rating }}
+
+                </div>
+
+            </div>
+
+            <p>
+
+                {{ review.review }}
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>

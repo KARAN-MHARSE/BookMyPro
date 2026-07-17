@@ -6,7 +6,7 @@ import { ProfileFormFactory } from '@features/customer/form-factories/profile.fo
 import { CustomerProfileService } from '@features/customer/services/customer.profile.service';
 import { LookUpStore } from '@features/customer/store/look-up.store';
 import { StorageService } from '@core/services/storage.service';
-import { AppStore } from '@app/shared/components/store/app.store';
+import { AppStore } from '@core/store/app.store';
 
 @Component({
   selector: 'app-customer-profile',

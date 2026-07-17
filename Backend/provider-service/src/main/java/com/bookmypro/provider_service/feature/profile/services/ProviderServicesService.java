@@ -1,13 +1,22 @@
 package com.bookmypro.provider_service.feature.profile.services;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bookmypro.provider_service.common.dto.LookupCriteria;
+import com.bookmypro.provider_service.common.dto.LookupDto;
+import com.bookmypro.provider_service.common.request.LookupRequest;
+import com.bookmypro.provider_service.common.service.downstream.MasterDownStreamService;
+import com.bookmypro.provider_service.enums.LookupType;
 import com.bookmypro.provider_service.enums.PriceType;
 import com.bookmypro.provider_service.enums.Status;
 import com.bookmypro.provider_service.exception.BusinessException;
@@ -27,22 +36,39 @@ public class ProviderServicesService {
 
     private final ProviderRepository providerRepository;
     private final ProviderServiceRepository providerServiceRepository;
+    private final MasterDownStreamService masterDownStreamService;
 
-    public List<ServiceResponse> getServicesByCredentialId(UUID credentialId) {
+    public ServiceResponse getServicesByCredentialId(UUID credentialId) {
         log.info("Fetching service offerings for credentialId={}", credentialId);
 
         Provider provider = providerRepository.findByCredentialId(credentialId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.PROVIDER_NOT_FOUND));
 
         List<ProviderService> servicesList = providerServiceRepository.findByProviderIdAndIsDeletedFalse(provider.getProviderId());
+        
+        LookupRequest request = new LookupRequest();
+        LookupCriteria criteria1 = new LookupCriteria(LookupType.SERVICE,null);
+        LookupCriteria criteria2 = new LookupCriteria(LookupType.SERVICE_CATEGORY,null);
+        request.setLookups(List.of(criteria1,criteria2));
+        ResponseEntity<Map<String, List<LookupDto>>> lookupRes =masterDownStreamService.getLookups(request);
+        
+        Map<String, List<LookupDto>> looukups = Optional.ofNullable(lookupRes.getBody())
+        		.orElse(new HashMap<>());
+        
+        ServiceResponse response= new ServiceResponse();
+        response.setLookups(looukups);
 
-        return servicesList.stream()
+        List<ServiceDto> services = servicesList.stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
+        
+        response.setServices(services);
+        return response;
+        
     }
 
     @Transactional
-    public ServiceResponse saveOrUpdate(ServiceRequest request) {
+    public ServiceDto saveOrUpdate(ServiceRequest request) {
         log.info("Saving or updating service offering, id={}", request.getProviderServiceId());
 
         Provider provider = providerRepository.findByCredentialId(request.getCredentialId())
@@ -101,8 +127,8 @@ public class ProviderServicesService {
         providerServiceRepository.save(serviceEntry);
     }
 
-    private ServiceResponse mapToResponse(ProviderService s) {
-        return ServiceResponse.builder()
+    private ServiceDto mapToResponse(ProviderService s) {
+        return ServiceDto.builder()
                 .providerServiceId(s.getProviderServiceId())
                 .providerId(s.getProviderId())
                 .serviceId(s.getServiceId())

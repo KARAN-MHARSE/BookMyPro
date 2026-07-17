@@ -1,4 +1,4 @@
-package com.bookmypro.identity_service.feature.auth.forgotPassword;
+package com.bookmypro.identity_service.feature.auth.forgotpassword;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="card-header"><h4>Booking details</h4></div>
+  <div class="card-body grid grid-2 gap-4">
+    <div class="field">
+      <label class="label">Date</label>
+      <input class="input" [value]="bookingDate" (input)="onDateInput($event)"/>
+    </div>
+    <div class="field">
+      <label class="label">Time</label>
+      <select class="select" [value]="bookingTime" (change)="onTimeSelect($event)">
+        <option *ngFor="let opt of timeOptions" [value]="opt">{{ opt }}</option>
+      </select>
+    </div>
+    <div class="field">
+      <label class="label">Home size</label>
+      <select class="select" [value]="homeSize" (change)="onHomeSizeSelect($event)">
+        <option *ngFor="let opt of homeSizeOptions" [value]="opt">{{ opt }}</option>
+      </select>
+    </div>
+    <div class="field">
+      <label class="label">Frequency</label>
+      <select class="select" [value]="bookingFrequency" (change)="onFrequencySelect($event)">
+        <option *ngFor="let opt of frequencyOptions" [value]="opt">{{ opt }}</option>
+      </select>
+    </div>
+    <div class="field" style="grid-column:1/-1">
+      <label class="label">Notes for pro (optional)</label>
+      <textarea class="textarea" placeholder="Codes, pets, focus areas, etc." [value]="notes" (input)="onNotesInput($event)"></textarea>
+    </div>
+  </div>
+</div>

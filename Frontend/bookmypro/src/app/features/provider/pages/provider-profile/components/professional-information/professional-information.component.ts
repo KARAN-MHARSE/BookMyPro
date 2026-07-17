@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ProviderProfileService } from '../../../../services/provider-profile.service';
-import { ProfessionalInfoResponse } from '../../../../model/provider-profile.model';
+import { ProfessionalInfoResponse } from '../../../../models/provider-profile.model';
 
 @Component({
   selector: 'app-professional-information',
